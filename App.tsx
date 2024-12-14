@@ -1,27 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { theme } from './src/style/Themes';
 import "react-native-url-polyfill/auto";
 import { SafeAreaView, StatusBar, useColorScheme, View, StyleSheet, Text } from 'react-native';
-import { get } from 'ytmusic_api_unofficial';
-import { EmberText } from './src/elements/EmberText';
+import { EmberText } from './src/elements/FredokaText';
+import SideBar from './src/components/SideBar';
+import { page } from './src/style/Styles';
+
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const [data, setData] = useState<string>('');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await get('dQw4w9WgXcQ');
-        setData(JSON.stringify(result, null, 2));
-      } catch (error) {
-        setData('Error fetching data: ' + error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const currentTheme = isDarkMode ? theme.dark : theme.light;
 
   const backgroundStyle = {
@@ -34,22 +21,16 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={currentTheme.primary}
       />
-      <View style={[styles.container, { backgroundColor: currentTheme.secondary }]}>
-        <EmberText variant='semiBold' style={[styles.text, { color: currentTheme.text }]}>
-          EmberTune {data}
-        </EmberText>
+      <View style={[page.container, { backgroundColor: currentTheme.primary }]}>
+        <SideBar isDarkMode={isDarkMode} theme={theme} />
+        <View style={[page.content, { backgroundColor: currentTheme.primary }]}>
+          <EmberText variant='regular' style={[page.text, { color: currentTheme.text }]}>
+            EmberTune
+          </EmberText>
+        </View>
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  text: {
-    padding: 10,
-  },
-});
 
 export default App;
