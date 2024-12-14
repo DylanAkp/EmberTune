@@ -5,4 +5,5 @@ module.exports = {
         windows: {},
         macos: {},
     },
+    assets: ['./assets/fonts/'],
 };

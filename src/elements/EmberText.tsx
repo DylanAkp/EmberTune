@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextProps, StyleSheet } from 'react-native';
+import { Text, TextProps, StyleSheet, Platform } from 'react-native';
 
 interface EmberTextProps extends TextProps {
   variant?: 'regular' | 'medium' | 'semiBold' | 'bold';
@@ -24,19 +24,27 @@ export const EmberText: React.FC<EmberTextProps> = ({
 
 const styles = StyleSheet.create({
     regular: {
-      fontFamily: 'Fredoka',
-      fontWeight: 'normal',
+      fontFamily: Platform.select({
+        windows: 'Assets/Fredoka-Regular.ttf#Fredoka',
+        default: 'Fredoka-Regular',
+      }),
     },
     medium: {
-      fontFamily: 'Fredoka',
-      fontWeight: '500',
+      fontFamily: Platform.select({
+        windows: 'Assets/Fredoka-Medium.ttf#Fredoka',
+        default: 'Fredoka-Medium',
+      }),
     },
     semiBold: {
-      fontFamily: 'Fredoka',
-      fontWeight: '600',
+      fontFamily: Platform.select({
+        windows: 'Assets/Fredoka-SemiBold.ttf#Fredoka',
+        default: 'Fredoka-SemiBold',
+      }),
     },
     bold: {
-      fontFamily: 'Fredoka',
-      fontWeight: '700',
+      fontFamily: Platform.select({
+        windows: 'Assets/Fredoka-Bold.ttf#Fredoka',
+        default: 'Fredoka-Bold',
+      }),
     },
   });

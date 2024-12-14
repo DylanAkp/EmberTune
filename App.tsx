@@ -35,8 +35,8 @@ function App(): React.JSX.Element {
         backgroundColor={currentTheme.primary}
       />
       <View style={[styles.container, { backgroundColor: currentTheme.secondary }]}>
-        <EmberText variant='regular' style={[styles.text, { color: currentTheme.text }]}>
-          {data}
+        <EmberText variant='semiBold' style={[styles.text, { color: currentTheme.text }]}>
+          EmberTune {data}
         </EmberText>
       </View>
     </SafeAreaView>

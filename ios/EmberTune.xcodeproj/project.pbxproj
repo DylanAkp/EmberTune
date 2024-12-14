@@ -14,6 +14,11 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-EmberTune-EmberTuneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-EmberTune-EmberTuneTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		7CE453608E934506876226CD /* Fredoka-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F02BC6152A4B4DC98B992722 /* Fredoka-Bold.ttf */; };
+		6C8C68190E1A4C19829FFFB9 /* Fredoka-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEF4CF0895CB477F9A7F0F4E /* Fredoka-Light.ttf */; };
+		06614D78C1EB49EBA1171FB4 /* Fredoka-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4ADC7F5E19F412D86B305ED /* Fredoka-Medium.ttf */; };
+		45238CB92CEF405FAE23DA3E /* Fredoka-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13A3DC59E56B4F51B53A7675 /* Fredoka-Regular.ttf */; };
+		62EE2694EE074261A91CC0BF /* Fredoka-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62255594889B4622BB8397BC /* Fredoka-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +50,11 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = EmberTune/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-EmberTune-EmberTuneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmberTune-EmberTuneTests.release.xcconfig"; path = "Target Support Files/Pods-EmberTune-EmberTuneTests/Pods-EmberTune-EmberTuneTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F02BC6152A4B4DC98B992722 /* Fredoka-Bold.ttf */ = {isa = PBXFileReference; name = "Fredoka-Bold.ttf"; path = "../assets/fonts/Fredoka-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AEF4CF0895CB477F9A7F0F4E /* Fredoka-Light.ttf */ = {isa = PBXFileReference; name = "Fredoka-Light.ttf"; path = "../assets/fonts/Fredoka-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C4ADC7F5E19F412D86B305ED /* Fredoka-Medium.ttf */ = {isa = PBXFileReference; name = "Fredoka-Medium.ttf"; path = "../assets/fonts/Fredoka-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		13A3DC59E56B4F51B53A7675 /* Fredoka-Regular.ttf */ = {isa = PBXFileReference; name = "Fredoka-Regular.ttf"; path = "../assets/fonts/Fredoka-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		62255594889B4622BB8397BC /* Fredoka-SemiBold.ttf */ = {isa = PBXFileReference; name = "Fredoka-SemiBold.ttf"; path = "../assets/fonts/Fredoka-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +164,11 @@
 		BEF62105811143CD93E0FC7A /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
+				F02BC6152A4B4DC98B992722 /* Fredoka-Bold.ttf */,
+				AEF4CF0895CB477F9A7F0F4E /* Fredoka-Light.ttf */,
+				C4ADC7F5E19F412D86B305ED /* Fredoka-Medium.ttf */,
+				13A3DC59E56B4F51B53A7675 /* Fredoka-Regular.ttf */,
+				62255594889B4622BB8397BC /* Fredoka-SemiBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -254,6 +269,11 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				7CE453608E934506876226CD /* Fredoka-Bold.ttf in Resources */,
+				6C8C68190E1A4C19829FFFB9 /* Fredoka-Light.ttf in Resources */,
+				06614D78C1EB49EBA1171FB4 /* Fredoka-Medium.ttf in Resources */,
+				45238CB92CEF405FAE23DA3E /* Fredoka-Regular.ttf in Resources */,
+				62EE2694EE074261A91CC0BF /* Fredoka-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
