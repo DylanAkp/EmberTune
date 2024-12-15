@@ -18,7 +18,7 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-windows": "0.76.0",
-    "ytmusic_api_unofficial": "^2.0.8"
+    "ytmusic_api_unofficial": "DylanAkp/yt_music_api"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

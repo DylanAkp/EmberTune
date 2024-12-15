@@ -3,6 +3,7 @@ import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from '../../ThemeContext';
 import { searchBar } from '../style/Styles';
+import InnerSearch from '../utils/innertube/Search';
 
 const SearchBar: React.FC = () => {
   const { theme } = useTheme();
@@ -15,7 +16,7 @@ const SearchBar: React.FC = () => {
     setIsLoading(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await InnerSearch(query);
     } catch {
       setIsLoading(false);
     } finally {
