@@ -1,10 +1,10 @@
 import React from 'react';
-import { theme } from './src/style/Themes';
-import "react-native-url-polyfill/auto";
-import { SafeAreaView, StatusBar, useColorScheme, View, StyleSheet, Text } from 'react-native';
-import { EmberText } from './src/elements/FredokaText';
 import SideBar from './src/components/SideBar';
+import { theme } from './src/style/Themes';
+import { SafeAreaView, StatusBar, useColorScheme, View } from 'react-native';
+import { EmberText } from './src/elements/FredokaText';
 import { page } from './src/style/Styles';
+import "react-native-url-polyfill/auto";
 
 
 function App(): React.JSX.Element {
