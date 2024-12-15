@@ -4,6 +4,7 @@ import { ThemeProvider, useTheme } from './ThemeContext';
 import AppContent from './src/AppContent';
 import SideBar from './src/components/SideBar';
 import TopBar from './src/components/TopBar';
+import "react-native-url-polyfill/auto";
 
 const App: React.FC = () => {
   return (
