@@ -27,12 +27,6 @@ const sidebar = StyleSheet.create({
 });
 
 const page = StyleSheet.create({
-    container: {
-        display: 'flex',
-        height: '100%',
-        width: '100%',
-        flexDirection: 'row',
-    },
     content: {
         flex: 1,
         padding: 20,
