@@ -11,7 +11,7 @@ const TopBar: React.FC = () => {
   return (
     <View style={styles.topBar}>
       <SearchBar />
-      <TouchableOpacity style={[searchBar.searchIcon, { backgroundColor: theme.third }]}>
+      <TouchableOpacity style={[searchBar.searchIcon, { backgroundColor: theme.secondary }]}>
           <Icon name="cog" size={20} color={theme.text} />
       </TouchableOpacity>
     </View>

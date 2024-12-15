@@ -37,16 +37,21 @@ const page = StyleSheet.create({
 });
 
 const searchBar = StyleSheet.create({
+    searchContainer: {
+        flex: 1,
+        alignItems: 'center',
+    },
     searchBar: {
       flexDirection: 'row',
       alignItems: 'center',
       borderRadius: 30,
       padding: 5,
-      flex: 1,
       justifyContent: 'center',
+      maxWidth: 500,
     },
     searchInput: {
       flex: 1,
+      maxWidth: 500,
       height: 50,
       borderRadius: 25,
       paddingLeft: 10,

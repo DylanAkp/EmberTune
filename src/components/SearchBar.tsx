@@ -24,22 +24,24 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <View style={[searchBar.searchBar, { backgroundColor: theme.secondary }]}>
-      <TextInput
-        style={[searchBar.searchInput, { backgroundColor: theme.third }]}
-        placeholder="Search"
-        value={query}
-        onChangeText={setQuery}
-        onSubmitEditing={searchMusic}
-        editable={!isLoading}
-      />
-      <TouchableOpacity style={[searchBar.searchIcon, { backgroundColor: theme.third }]} onPress={searchMusic} disabled={isLoading}>
-        {isLoading ? (
-          <Icon name="hourglass" size={20} color={theme.text} />
-        ) : (
-          <Icon name="search" size={20} color={theme.text} />
-        )}
-      </TouchableOpacity>
+    <View style={searchBar.searchContainer}>
+      <View style={[searchBar.searchBar, { backgroundColor: theme.secondary }]}>
+        <TextInput
+          style={[searchBar.searchInput, { backgroundColor: theme.third }]}
+          placeholder="Search"
+          value={query}
+          onChangeText={setQuery}
+          onSubmitEditing={searchMusic}
+          editable={!isLoading}
+        />
+        <TouchableOpacity style={[searchBar.searchIcon, { backgroundColor: theme.third }]} onPress={searchMusic} disabled={isLoading}>
+          {isLoading ? (
+            <Icon name="hourglass" size={20} color={theme.text} />
+          ) : (
+            <Icon name="search" size={20} color={theme.text} />
+          )}
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
