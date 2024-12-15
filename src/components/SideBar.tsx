@@ -1,17 +1,23 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { theme } from '../style/Themes';
+import { Image, View } from 'react-native';
+import { useTheme } from '../../ThemeContext';
 import { EmberText } from '../elements/FredokaText';
 import { sidebar } from '../style/Styles';
 
-const SideBar: React.FC<{ isDarkMode: boolean; theme: any }> = ({ isDarkMode }) => {
-  const currentTheme = isDarkMode ? theme.dark : theme.light;
+const SideBar: React.FC = () => {
+  const { theme } = useTheme();
 
   return (
-    <View style={[sidebar.sidebar, { backgroundColor: currentTheme.secondary }]}>
-      <EmberText variant="medium" style={[sidebar.title, { color: currentTheme.text }]}>
-        EmberTune
-      </EmberText>
+    <View style={[sidebar.sidebar, { backgroundColor: theme.secondary }]}>
+      <View style={sidebar.header}>
+        <Image
+          source={require('../assets/embertune_logo.png')}
+          style={{ width: 60, height: 60 }}
+        />
+        <EmberText variant="medium" style={[sidebar.title, { color: theme.text }]}>
+          EmberTune
+        </EmberText>
+      </View>
     </View>
   );
 };

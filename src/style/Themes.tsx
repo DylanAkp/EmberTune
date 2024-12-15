@@ -10,7 +10,8 @@ export const theme = {
       secondary: '#e3e2e9',
       third: '#dcdde4',
       text: '#1b1a21',
-    }
+    },
+    accent: '#f5a747'
 }
 
 export type ThemeType = typeof theme.light;
