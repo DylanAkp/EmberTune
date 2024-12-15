@@ -36,4 +36,33 @@ const page = StyleSheet.create({
     },
 });
 
-export { sidebar, page };
+const searchBar = StyleSheet.create({
+    searchBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 30,
+      padding: 5,
+      flex: 1,
+      justifyContent: 'center',
+    },
+    searchInput: {
+      flex: 1,
+      height: 50,
+      borderRadius: 25,
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingTop: 12,
+      fontSize: 16,
+    },
+    searchIcon: {
+      width: 50,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 25,
+      marginLeft: 10,
+      cursor: 'pointer',
+    },
+  });
+
+export { sidebar, page, searchBar };

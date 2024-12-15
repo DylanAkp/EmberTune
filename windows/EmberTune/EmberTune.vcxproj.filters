@@ -79,5 +79,17 @@
     <Font Include="Assets\Fredoka-SemiBold.ttf">
       <Filter>Assets</Filter>
     </Font>
+    <Font Include="Assets\FontAwesome6_Brands.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+    <Font Include="Assets\FontAwesome6_Regular.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+    <Font Include="Assets\FontAwesome6_Solid.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+    <Font Include="Assets\FontAwesome.ttf">
+      <Filter>Assets</Filter>
+    </Font>
   </ItemGroup>
 </Project>
