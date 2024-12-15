@@ -2,11 +2,9 @@ import { StyleSheet } from 'react-native';
 
 const sidebar = StyleSheet.create({
     sidebar: {
-        position: 'absolute',
-        left: 0,
-        top: 10,
-        bottom: 10,
-        width: 400,
+        height: "100%",
+        width: "50%",
+        maxWidth: 400,
         padding: 16,
         borderTopRightRadius: 15,
         borderBottomRightRadius: 15,
@@ -19,12 +17,14 @@ const sidebar = StyleSheet.create({
 
 const page = StyleSheet.create({
     container: {
-        flex: 1,
+        display: 'flex',
+        height: '100%',
+        width: '100%',
+        flexDirection: 'row',
     },
     content: {
         flex: 1,
-        marginLeft: 400,
-        padding: 16,
+        padding: 20,
     },
     text: {
         fontSize: 20,
