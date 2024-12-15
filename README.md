@@ -43,6 +43,7 @@ platform can be : `windows`, `android`, `ios` or `macos`
 
 # 📜 Licenses
 
+- **FontAwesome**: [SIL OFL 1.1](https://openfontlicense.org/)
 - **Fedoka Font**: [SIL OFL 1.1](https://openfontlicense.org/)
 - **EmberTune**: [MIT License](https://opensource.org/license/mit)
 
