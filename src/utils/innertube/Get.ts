@@ -3,7 +3,6 @@ import { get } from 'ytmusic_api_unofficial';
 async function InnerGet(musicId: string) {
   try {
     const results = await get(musicId);
-    console.log(results);
     return results;
   } catch (error) {
     console.error('Error getting music:', error);
