@@ -9,9 +9,6 @@ const AppContent: React.FC = () => {
 
   return (
     <SafeAreaView style={[{ backgroundColor: theme.primary }, page.content]}>
-        <EmberText variant="regular" style={[page.text, { color: theme.text }]}>
-            EmberTune
-        </EmberText>
     </SafeAreaView>
   );
 };
