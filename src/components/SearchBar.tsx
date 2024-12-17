@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from '../../ThemeContext';
 import { searchBar } from '../style/Styles';
@@ -16,7 +16,8 @@ const SearchBar: React.FC = () => {
     setIsLoading(true);
     
     try {
-      await InnerSearch(query);
+      await InnerSearch(query)
+      console.log(storage.get('searchResults'));
     } catch {
       setIsLoading(false);
     } finally {
