@@ -16,8 +16,7 @@ const SearchBar: React.FC = () => {
     setIsLoading(true);
     
     try {
-      await InnerSearch(query)
-      console.log(storage.get('searchResults'));
+      await InnerSearch(query);
     } catch {
       setIsLoading(false);
     } finally {
