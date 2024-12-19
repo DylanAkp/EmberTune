@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ThemeProvider, useTheme } from './ThemeContext';
-import AppContent from './src/AppContent';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './src/screens/HomeScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 import SideBar from './src/components/SideBar';
 import TopBar from './src/components/TopBar';
 import "react-native-url-polyfill/auto";
+
+const Stack = createStackNavigator();
 
 const App: React.FC = () => {
   return (
@@ -18,13 +23,18 @@ const ThemedApp: React.FC = () => {
   const { theme } = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.primary }]}>
-      <SideBar />
-      <View style={{ flex: 1 }}>
-        <TopBar />
-        <AppContent />
+    <NavigationContainer>
+      <View style={[styles.container, { backgroundColor: theme.primary }]}>
+        <SideBar />
+        <View style={{ flex: 1 }}>
+          <TopBar />
+          <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+          </Stack.Navigator>
+        </View>
       </View>
-    </View>
+    </NavigationContainer>
   );
 };
 

@@ -5,13 +5,28 @@ import { TouchableOpacity } from 'react-native';
 import { searchBar } from '../style/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from '../../ThemeContext';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 
 const TopBar: React.FC = () => {
   const { theme } = useTheme();
+  const navigation = useNavigation();
+  const routesLength = useNavigationState(state => state?.routes?.length);
+
   return (
     <View style={styles.topBar}>
+      {routesLength && routesLength > 1 && (
+        <TouchableOpacity
+          style={[searchBar.searchIcon,{ backgroundColor: theme.secondary }]}
+          onPress={() => navigation.goBack()}
+        >
+          <Icon name="arrow-left" size={20} color={theme.text} />
+        </TouchableOpacity>
+      )}
       <SearchBar />
-      <TouchableOpacity style={[searchBar.searchIcon, { backgroundColor: theme.secondary }]}>
+      <TouchableOpacity 
+        style={[searchBar.searchIcon, { backgroundColor: theme.secondary }]}
+        onPress={() => navigation.navigate('Settings')}
+      >
           <Icon name="cog" size={20} color={theme.text} />
       </TouchableOpacity>
     </View>

@@ -66,6 +66,13 @@
           "Folly": "[1.0.0, )",
           "boost": "[1.83.0, )"
         }
+      },
+      "rnscreens": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.ReactNative": "[1.0.0, )",
+          "Microsoft.UI.Xaml": "[2.8.0, )"
+        }
       }
     },
     "native,Version=v0.0/win10-arm": {
