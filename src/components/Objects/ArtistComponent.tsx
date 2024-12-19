@@ -48,14 +48,15 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 15,
+        borderRadius: 90,
         padding: 10,
+        paddingRight: 20,
         width: 'auto',
         gap: 10,
     },
     thumbnail: {
-        width: 100,
-        height: 100,
+        width: 90,
+        height: 90,
         borderRadius: 100,
     },
     name: {
