@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 const sidebar = StyleSheet.create({
     sidebar: {
@@ -58,6 +58,10 @@ const searchBar = StyleSheet.create({
       paddingRight: 10,
       paddingTop: 12,
       fontSize: 16,
+      fontFamily: Platform.select({
+        windows: 'Assets/Fredoka-Regular.ttf#Fredoka',
+        default: 'Fredoka-Regular',
+      }),
     },
     searchIcon: {
       width: 50,
