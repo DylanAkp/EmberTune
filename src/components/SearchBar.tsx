@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, TextInput, TouchableOpacity, Animated, Easing } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from '../../ThemeContext';
 import { searchBar } from '../style/Styles';
@@ -11,12 +11,29 @@ const SearchBar: React.FC = () => {
   const { theme } = useTheme();
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (isLoading) {
+      Animated.loop(
+        Animated.timing(rotateAnim, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        })
+      ).start();
+    } else {
+      rotateAnim.stopAnimation();
+      rotateAnim.setValue(0);
+    }
+  }, [isLoading, rotateAnim]);
 
   const searchMusic = async () => {
     if (!query) return;
 
     setIsLoading(true);
-    
+
     try {
       await InnerSearch(query).then(() => {
         navigation.navigate('Search');
@@ -27,6 +44,11 @@ const SearchBar: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+  const rotate = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
 
   return (
     <View style={searchBar.searchContainer}>
@@ -41,7 +63,9 @@ const SearchBar: React.FC = () => {
         />
         <TouchableOpacity style={[searchBar.searchIcon, { backgroundColor: theme.third }]} onPress={searchMusic} disabled={isLoading}>
           {isLoading ? (
-            <Icon name="reload" size={25} color={theme.text} />
+            <Animated.View style={{ transform: [{ rotate }] }}>
+              <Icon name="loading" size={25} color={theme.text} />
+            </Animated.View>
           ) : (
             <Icon name="magnify" size={25} color={theme.text} />
           )}
