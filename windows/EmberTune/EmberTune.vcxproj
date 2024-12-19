@@ -163,15 +163,13 @@
     <ResourceCompile Include="EmberTune.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Assets\FontAwesome.ttf" />
-    <Font Include="Assets\FontAwesome6_Brands.ttf" />
-    <Font Include="Assets\FontAwesome6_Regular.ttf" />
-    <Font Include="Assets\FontAwesome6_Solid.ttf" />
     <Font Include="Assets\Fredoka-Bold.ttf" />
     <Font Include="Assets\Fredoka-Light.ttf" />
     <Font Include="Assets\Fredoka-Medium.ttf" />
     <Font Include="Assets\Fredoka-Regular.ttf" />
     <Font Include="Assets\Fredoka-SemiBold.ttf" />
+    <Font Include="Assets\MaterialCommunityIcons.ttf" />
+    <Font Include="Assets\MaterialIcons.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ReactNativeWindowsTargets">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from '../../ThemeContext';
 import { searchBar } from '../style/Styles';
 import InnerSearch from '../utils/innertube/Search';
@@ -41,9 +41,9 @@ const SearchBar: React.FC = () => {
         />
         <TouchableOpacity style={[searchBar.searchIcon, { backgroundColor: theme.third }]} onPress={searchMusic} disabled={isLoading}>
           {isLoading ? (
-            <Icon name="hourglass" size={20} color={theme.text} />
+            <Icon name="reload" size={25} color={theme.text} />
           ) : (
-            <Icon name="search" size={20} color={theme.text} />
+            <Icon name="magnify" size={25} color={theme.text} />
           )}
         </TouchableOpacity>
       </View>

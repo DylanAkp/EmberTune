@@ -37,13 +37,13 @@ platform can be : `windows`, `android`, `ios` or `macos`
 # 🙌 Credits
 
 - [Alexis06030631](https://github.com/Alexis06030631/) for his [YouTube Music API](https://github.com/Alexis06030631/yt_music_api)
-- [FontAwesome](http://fontawesome.io) by Dave Gandy
+- [MaterialDesignIcons](https://pictogrammers.com/library/mdi/)
 
 ---
 
 # 📜 Licenses
 
-- **FontAwesome**: [SIL OFL 1.1](https://openfontlicense.org/)
+- **MaterialDesignIcons**: [MIT License/Apache 2.0](https://pictogrammers.com/docs/general/license/)
 - **Fedoka Font**: [SIL OFL 1.1](https://openfontlicense.org/)
 - **EmberTune**: [MIT License](https://opensource.org/license/mit)
 

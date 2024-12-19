@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import SearchBar from './SearchBar';
 import { TouchableOpacity } from 'react-native';
 import { searchBar } from '../style/Styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from '../../ThemeContext';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 
@@ -19,7 +19,7 @@ const TopBar: React.FC = () => {
           style={[searchBar.searchIcon,{ backgroundColor: theme.secondary }]}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-left" size={20} color={theme.text} />
+          <Icon name="chevron-left" size={25} color={theme.text} />
         </TouchableOpacity>
       )}
       <SearchBar />
@@ -27,7 +27,7 @@ const TopBar: React.FC = () => {
         style={[searchBar.searchIcon, { backgroundColor: theme.secondary }]}
         onPress={() => navigation.navigate('Settings')}
       >
-          <Icon name="cog" size={20} color={theme.text} />
+          <Icon name="cog" size={25} color={theme.text} />
       </TouchableOpacity>
     </View>
   );

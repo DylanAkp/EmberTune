@@ -79,16 +79,10 @@
     <Font Include="Assets\Fredoka-SemiBold.ttf">
       <Filter>Assets</Filter>
     </Font>
-    <Font Include="Assets\FontAwesome6_Brands.ttf">
+    <Font Include="Assets\MaterialCommunityIcons.ttf">
       <Filter>Assets</Filter>
     </Font>
-    <Font Include="Assets\FontAwesome6_Regular.ttf">
-      <Filter>Assets</Filter>
-    </Font>
-    <Font Include="Assets\FontAwesome6_Solid.ttf">
-      <Filter>Assets</Filter>
-    </Font>
-    <Font Include="Assets\FontAwesome.ttf">
+    <Font Include="Assets\MaterialIcons.ttf">
       <Filter>Assets</Filter>
     </Font>
   </ItemGroup>
