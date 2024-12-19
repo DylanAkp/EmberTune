@@ -56,7 +56,7 @@ const searchBar = StyleSheet.create({
       borderRadius: 25,
       paddingLeft: 10,
       paddingRight: 10,
-      paddingTop: 12,
+      paddingTop: 14,
       fontSize: 16,
       fontFamily: Platform.select({
         windows: 'Assets/Fredoka-Regular.ttf#Fredoka',
