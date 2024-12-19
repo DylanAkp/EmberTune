@@ -13,8 +13,12 @@ async function InnerSearch(query: string) {
     const albums = await search(query, 'ALBUM', false);
     const songs = await search(query, 'SONG', false);
 
+    const filteredSongs = songs.content.filter((song: any) => song.resultType === 'song');
+    const filteredAlbums = albums.content.filter((album: any) => album.resultType === 'album');
+    const filteredArtists = artists.content.filter((artist: any) => artist.name && artist.thumbnails && artist.followers);
+
     const state = useSearchResults.getState() as SearchResultsState;
-    state.setResults(artists.content, albums.content, songs.content);
+    state.setResults(filteredArtists, filteredAlbums, filteredSongs);
 
     return true;
   } catch (error) {
