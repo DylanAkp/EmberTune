@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     thumbnail: {
-        width: 140,
-        height: 140,
+        width: 100,
+        height: 100,
         borderRadius: 100,
     },
     name: {
