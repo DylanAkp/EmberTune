@@ -3,11 +3,16 @@ import { View, StyleSheet } from 'react-native';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src/screens/HomeScreen';
-import SettingsScreen from './src/screens/SettingsScreen';
+import "react-native-url-polyfill/auto";
+//Components
 import SideBar from './src/components/SideBar';
 import TopBar from './src/components/TopBar';
-import "react-native-url-polyfill/auto";
+//Screens
+import HomeScreen from './src/screens/HomeScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
+import SearchScreen from './src/screens/SearchScreen';
+
+
 
 const Stack = createStackNavigator();
 
@@ -31,6 +36,7 @@ const ThemedApp: React.FC = () => {
           <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="Search" component={SearchScreen} />
           </Stack.Navigator>
         </View>
       </View>

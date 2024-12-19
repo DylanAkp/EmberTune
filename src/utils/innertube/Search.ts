@@ -14,7 +14,7 @@ async function InnerSearch(query: string) {
     const songs = await search(query, 'SONG', false);
 
     const state = useSearchResults.getState() as SearchResultsState;
-    state.setResults(artists, albums, songs);
+    state.setResults(artists.content, albums.content, songs.content);
 
     return true;
   } catch (error) {

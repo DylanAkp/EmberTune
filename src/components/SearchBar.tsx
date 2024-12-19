@@ -4,8 +4,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from '../../ThemeContext';
 import { searchBar } from '../style/Styles';
 import InnerSearch from '../utils/innertube/Search';
+import { useNavigation } from '@react-navigation/native';
 
 const SearchBar: React.FC = () => {
+  const navigation = useNavigation();
   const { theme } = useTheme();
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +18,9 @@ const SearchBar: React.FC = () => {
     setIsLoading(true);
     
     try {
-      await InnerSearch(query);
+      await InnerSearch(query).then(() => {
+        navigation.navigate('Search');
+      });
     } catch {
       setIsLoading(false);
     } finally {
