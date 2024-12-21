@@ -6,5 +6,9 @@
     <ProjectReference Include="$(ProjectDir)..\..\node_modules\react-native-screens\windows\RNScreens\RNScreens.vcxproj">
       <Project>{d638f49e-29d2-4699-ac52-facd82fa7138}</Project>
     </ProjectReference>
+    <!-- Projects from react-native-track-player -->
+    <ProjectReference Include="$(ProjectDir)..\..\node_modules\react-native-track-player\windows\RNTrackPlayer\RNTrackPlayer.vcxproj">
+      <Project>{CC51D49E-7FAB-42D2-825D-5E93AC57262C}</Project>
+    </ProjectReference>
   </ItemGroup>
 </Project>

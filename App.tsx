@@ -1,4 +1,5 @@
 import React from 'react';
+import TrackPlayer from 'react-native-track-player';
 import { View, StyleSheet } from 'react-native';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,6 +18,7 @@ import SearchScreen from './src/screens/SearchScreen';
 
 
 const Stack = createStackNavigator();
+TrackPlayer.setupPlayer();
 
 const App: React.FC = () => {
   return (

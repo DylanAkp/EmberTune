@@ -20,6 +20,7 @@
     "react-native-gesture-handler": "^2.21.2",
     "react-native-safe-area-context": "^5.0.0",
     "react-native-screens": "^4.3.0",
+    "react-native-track-player": "JaneaSystems/react-native-track-player#windows_cpp2",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-windows": "0.76.0",
