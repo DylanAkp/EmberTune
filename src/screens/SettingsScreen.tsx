@@ -24,7 +24,7 @@ const SettingsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={[{ backgroundColor: theme.primary }, page.content]}>
-      <FredokaText style={page.text}>{t('settings')}</FredokaText>
+      <FredokaText variant='semiBold' style={page.text}>{t('settings')}</FredokaText>
       <View style={styles.pickerContainer}>
         <FredokaText size={16} style={page.text}>{t('language')}</FredokaText>
         <Picker
