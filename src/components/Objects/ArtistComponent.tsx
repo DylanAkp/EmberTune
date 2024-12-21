@@ -32,7 +32,7 @@ const ArtistComponent: React.FC<ArtistComponentProps> = ({ artist }) => {
         <View style={[styles.artist, { backgroundColor: theme.secondary }]}>
             <Image source={{ uri: artist.thumbnails[artist.thumbnails.length - 1].url }} style={styles.thumbnail} />
             <View>
-                <FredokaText style={styles.name} numberOfLines={1} ellipsizeMode="tail">
+                <FredokaText size={16} style={styles.name} numberOfLines={1} ellipsizeMode="tail">
                     {artist.name}
                 </FredokaText>
                 <FredokaText size={14} color="grey" style={styles.followers} numberOfLines={1} ellipsizeMode="tail">
@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 90,
-        padding: 10,
+        padding: 7,
         paddingRight: 20,
         width: 'auto',
         gap: 10,
     },
     thumbnail: {
-        width: 90,
-        height: 90,
+        width: 70,
+        height: 70,
         borderRadius: 100,
     },
     name: {
