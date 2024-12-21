@@ -5,11 +5,13 @@ import { FredokaText } from '../elements/FredokaText';
 import { page } from '../style/Styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRoute } from '@react-navigation/native';
+import { useTranslation } from "react-i18next";
 
 const LyricsScreen: React.FC = () => {
   const { theme } = useTheme();
   const route = useRoute();
   const { lyrics, song } = route.params;
+  const { t } = useTranslation();
 
   return (
     <SafeAreaView style={[{ backgroundColor: theme.primary }, page.content]}>
@@ -25,6 +27,7 @@ const LyricsScreen: React.FC = () => {
           </View>
         ) : (
           <View style={[{ backgroundColor: theme.secondary, alignItems: 'center', justifyContent: 'center', height: '100%' }, styles.lyrics]}>
+            <FredokaText style={page.text}>{t('noLyrics')}</FredokaText>
             <Icon name="microphone-variant-off" size={50} color={theme.text} />
           </View>
         )}

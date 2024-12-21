@@ -5,10 +5,12 @@ import { useTheme } from '../../ThemeContext';
 import { searchBar } from '../style/Styles';
 import InnerSearch from '../utils/innertube/Search';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const SearchBar: React.FC = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -55,7 +57,7 @@ const SearchBar: React.FC = () => {
       <View style={[searchBar.searchBar, { backgroundColor: theme.secondary }]}>
         <TextInput
           style={[searchBar.searchInput, { backgroundColor: theme.third }]}
-          placeholder="Search"
+          placeholder={t('search')}
           value={query}
           onChangeText={setQuery}
           onSubmitEditing={searchMusic}
