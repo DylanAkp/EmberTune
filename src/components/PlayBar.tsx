@@ -4,6 +4,8 @@ import { useTheme } from '../../ThemeContext';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { usePlayer } from '../utils/store/Player';
+import InnerLyrics from '../utils/innertube/Lyrics';
+import { useNavigation } from '@react-navigation/native';
 
 const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
@@ -51,16 +53,24 @@ const SongInfo: React.FC<SongInfoProps> = ({ song }) => {
     );
 }
 
-const SongTools: React.FC = () => {
+const SongTools: React.FC<SongInfoProps> = ({ song }) => {
+    const navigation = useNavigation();
+    const handleLyrics = async () => {
+      await InnerLyrics(song.id).then((lyrics) => {
+        navigation.navigate('Lyrics', { lyrics, song });
+      });
+    };
+  
     return (
-        <View style={styles.tools}>
-            <Icon name="microphone-variant" size={20} color="white" />
-            <Icon name="heart" size={20} color="white" />
-            <Icon name="download" size={20} color="white" />
-            <Icon name="playlist-plus" size={20} color="white" />
-        </View>
+      <View style={styles.tools}>
+        <TouchableOpacity onPress={handleLyrics}>
+          <Icon name="microphone-variant" size={20} color="white" />
+        </TouchableOpacity>
+        <Icon name="heart" size={20} color="white" />
+        <Icon name="playlist-plus" size={20} color="white" />
+      </View>
     );
-}
+  };
 
 const PlayBar: React.FC = () => {
     const { theme } = useTheme();
@@ -74,7 +84,7 @@ const PlayBar: React.FC = () => {
         <View style={[styles.playbar, { backgroundColor: theme.secondary }]}>
             <SongInfo song={song} />
             <PlayerControls />
-            <SongTools />
+            <SongTools song={song} />
         </View>
     );
 }

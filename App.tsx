@@ -14,6 +14,7 @@ import PlayBar from './src/components/PlayBar';
 import HomeScreen from './src/screens/HomeScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import SearchScreen from './src/screens/SearchScreen';
+import LyricsScreen from './src/screens/LyricsScreen';
 
 const Stack = createStackNavigator();
 TrackPlayer.setupPlayer();
@@ -39,6 +40,7 @@ const ThemedApp: React.FC = () => {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="Search" component={SearchScreen} />
+            <Stack.Screen name="Lyrics" component={LyricsScreen} />
           </Stack.Navigator>
           <PlayBar />
         </View>

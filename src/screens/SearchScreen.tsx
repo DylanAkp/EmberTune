@@ -1,7 +1,6 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { useTheme } from '../../ThemeContext';
-import { FredokaText } from '../elements/FredokaText';
 import { page } from '../style/Styles';
 import { useSearchResults } from '../utils/store/SearchResults';
 import SongComponent from '../components/Objects/SongComponent';
