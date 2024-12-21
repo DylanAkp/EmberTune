@@ -29,8 +29,6 @@ const App: React.FC = () => {
 const ThemedApp: React.FC = () => {
   const { theme } = useTheme();
 
-  console.log(isDesktop);
-
   return (
     <NavigationContainer>
       <View style={[styles.container, { backgroundColor: theme.primary }]}>
