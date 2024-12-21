@@ -3,6 +3,7 @@ import { SafeAreaView, View, ScrollView } from 'react-native';
 import { useTheme } from '../../ThemeContext';
 import { FredokaText } from '../elements/FredokaText';
 import { page } from '../style/Styles';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRoute } from '@react-navigation/native';
 
 const LyricsScreen: React.FC = () => {
@@ -17,10 +18,16 @@ const LyricsScreen: React.FC = () => {
           <FredokaText variant="semiBold" style={page.text}>{song.title}</FredokaText>
           <FredokaText size={16} style={page.text}>{song.artists[0]?.name}</FredokaText>
         </View>
-        <View style={[{ backgroundColor: theme.secondary }, styles.lyrics]}>
+        {lyrics.lyrics ? (
+          <View style={[{ backgroundColor: theme.secondary }, styles.lyrics]}>
             <FredokaText style={page.text}>{lyrics.lyrics}</FredokaText>
             <FredokaText variant="medium" style={page.text}>{lyrics.source}</FredokaText>
-        </View>
+          </View>
+        ) : (
+          <View style={[{ backgroundColor: theme.secondary, alignItems: 'center', justifyContent: 'center', height: '100%' }, styles.lyrics]}>
+            <Icon name="microphone-variant-off" size={50} color={theme.text} />
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
