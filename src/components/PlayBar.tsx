@@ -14,8 +14,7 @@ const truncateText = (text: string, maxLength: number) => {
     return text;
 };
 
-const PlayerControls: React.FC = () => {
-    const { theme } = useTheme();
+const PlayerControls: React.FC<SongInfoProps> = ({ theme }) => {
     const { song, isPlaying, playSong, pauseSong } = usePlayer();
 
     const handlePlayPause = () => {
@@ -28,20 +27,21 @@ const PlayerControls: React.FC = () => {
 
     return (
         <View style={[styles.controls, { backgroundColor: theme.secondary }]}>
-            <Icon name="skip-previous" size={30} color="white" />
+            <Icon name="skip-previous" size={30} color={theme.text} />
             <TouchableOpacity onPress={handlePlayPause}>
-                <Icon name={isPlaying ? "pause" : "play"} size={30} color="white" />
+                <Icon name={isPlaying ? "pause" : "play"} size={30} color={theme.text} />
             </TouchableOpacity>
-            <Icon name="skip-next" size={30} color="white" />
+            <Icon name="skip-next" size={30} color={theme.text} />
         </View>
     );
 };
 
 interface SongInfoProps {
     song: any;
+    theme: any;
 }
 
-const SongInfo: React.FC<SongInfoProps> = ({ song }) => {
+const SongInfo: React.FC<SongInfoProps> = ({ song, theme }) => {
     return (
         <View style={styles.songinfo}>
             <Image style={styles.image} source={{ uri: song.thumbnails[0]?.url || 'https://via.placeholder.com/60' }} />
@@ -53,8 +53,9 @@ const SongInfo: React.FC<SongInfoProps> = ({ song }) => {
     );
 }
 
-const SongTools: React.FC<SongInfoProps> = ({ song }) => {
+const SongTools: React.FC<SongInfoProps> = ({ song, theme }) => {
     const navigation = useNavigation();
+
     const handleLyrics = async () => {
       await InnerLyrics(song.id).then((lyrics) => {
         navigation.navigate('Lyrics', { lyrics, song });
@@ -64,10 +65,10 @@ const SongTools: React.FC<SongInfoProps> = ({ song }) => {
     return (
       <View style={styles.tools}>
         <TouchableOpacity onPress={handleLyrics}>
-          <Icon name="microphone-variant" size={20} color="white" />
+          <Icon name="microphone-variant" size={20} color={theme.text} />
         </TouchableOpacity>
-        <Icon name="heart" size={20} color="white" />
-        <Icon name="playlist-plus" size={20} color="white" />
+        <Icon name="heart" size={20} color={theme.text} />
+        <Icon name="playlist-plus" size={20} color={theme.text} />
       </View>
     );
   };
@@ -82,9 +83,9 @@ const PlayBar: React.FC = () => {
 
     return (
         <View style={[styles.playbar, { backgroundColor: theme.secondary }]}>
-            <SongInfo song={song} />
-            <PlayerControls />
-            <SongTools song={song} />
+            <SongInfo song={song} theme={theme} />
+            <PlayerControls theme={theme}/>
+            <SongTools song={song} theme={theme}/>
         </View>
     );
 }
