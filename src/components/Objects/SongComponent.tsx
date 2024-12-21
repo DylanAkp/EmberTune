@@ -3,6 +3,7 @@ import { FredokaText } from '../../elements/FredokaText';
 import { useTheme } from '../../../ThemeContext';
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSong } from '../../utils/storage/Player';
 
 interface SongComponentProps {
   song: {
@@ -28,12 +29,13 @@ interface SongComponentProps {
 const SongComponent: React.FC<SongComponentProps> = ({ song }) => {
   const { theme } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  const { setSong } = useSong();
 
   return (
     <View style={[styles.song, { backgroundColor: theme.secondary }]}>
       <TouchableOpacity
         style={styles.thumbnailContainer}
-        onPress={() => {}}
+        onPress={() => setSong(song)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
