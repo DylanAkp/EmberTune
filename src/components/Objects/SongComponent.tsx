@@ -1,44 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FredokaText } from '../../elements/FredokaText';
 import { useTheme } from '../../../ThemeContext';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface SongComponentProps {
-    song: {
-        title: string;
-        id: string;
-        thumbnails: {
-            url: string;
-            width: number;
-            height: number;
-        }[];
-        artists: {
-            name: string;
-            id: string;
-            thumbnails: {
-                url: string;
-                width: number;
-                height: number;
-            }[];
-        }[];
-    };
+  song: {
+    title: string;
+    id: string;
+    thumbnails: {
+      url: string;
+      width: number;
+      height: number;
+    }[];
+    artists: {
+      name: string;
+      id: string;
+      thumbnails: {
+        url: string;
+        width: number;
+        height: number;
+      }[];
+    }[];
+  };
 }
 
 const SongComponent: React.FC<SongComponentProps> = ({ song }) => {
-    const { theme } = useTheme();
-    return (
-        <View style={[styles.song, {backgroundColor: theme.secondary}]}>
-            <Image source={{ uri: song.thumbnails[song.thumbnails.length-1].url }} style={styles.thumbnail} />
-            <FredokaText style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-              {song.title}
-            </FredokaText>
-            {song.artists[0]?.name && (
-              <FredokaText size={14} color="grey" style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-                {song.artists[0].name || 'Unknown artist'}
-              </FredokaText>
-            )}
-        </View>
-    );
+  const { theme } = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <View style={[styles.song, { backgroundColor: theme.secondary }]}>
+      <TouchableOpacity
+        style={styles.thumbnailContainer}
+        onPress={() => {}}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Image source={{ uri: song.thumbnails[song.thumbnails.length - 1].url }} style={styles.thumbnail} />
+        {isHovered && (
+          <>
+            <View style={styles.overlay} />
+            <View style={styles.playIconContainer}>
+              <Icon name="play" size={50} color="white" />
+            </View>
+          </>
+        )}
+      </TouchableOpacity>
+      <FredokaText size={16} style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+        {song.title}
+      </FredokaText>
+      {song.artists[0]?.name && (
+        <FredokaText size={14} color="grey" style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+          {song.artists[0].name || 'Unknown artist'}
+        </FredokaText>
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -48,16 +66,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
     padding: 10,
-    width: 160,
-    height: 220,
+    width: 140,
+    height: 'auto',
+  },
+  thumbnailContainer: {
+    position: 'relative',
   },
   thumbnail: {
-    width: 140,
-    height: 140,
+    width: 120,
+    height: 120,
+    borderRadius: 5,
+  },
+  playIconContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: [{ translateX: -25 }, { translateY: -25 }],
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 5,
   },
   title: {
-    marginTop: 10,
+    marginTop: 5,
     width: '100%',
     textAlign: 'center',
   },
