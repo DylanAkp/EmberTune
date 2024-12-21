@@ -18,8 +18,8 @@ const LyricsScreen: React.FC = () => {
           <FredokaText size={16} style={page.text}>{song.artists[0]?.name}</FredokaText>
         </View>
         <View style={[{ backgroundColor: theme.secondary }, styles.lyrics]}>
-            <FredokaText variant="medium" style={page.text}>{lyrics.source}</FredokaText>
             <FredokaText style={page.text}>{lyrics.lyrics}</FredokaText>
+            <FredokaText variant="medium" style={page.text}>{lyrics.source}</FredokaText>
         </View>
       </ScrollView>
     </SafeAreaView>
