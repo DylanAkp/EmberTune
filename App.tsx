@@ -7,6 +7,7 @@ import "react-native-url-polyfill/auto";
 //Components
 import SideBar from './src/components/SideBar';
 import TopBar from './src/components/TopBar';
+import PlayBar from './src/components/PlayBar';
 //Screens
 import HomeScreen from './src/screens/HomeScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
@@ -38,6 +39,7 @@ const ThemedApp: React.FC = () => {
             <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="Search" component={SearchScreen} />
           </Stack.Navigator>
+          <PlayBar />
         </View>
       </View>
     </NavigationContainer>
