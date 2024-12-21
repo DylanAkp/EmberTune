@@ -56,7 +56,7 @@ const SearchBar: React.FC = () => {
     <View style={searchBar.searchContainer}>
       <View style={[searchBar.searchBar, { backgroundColor: theme.secondary }]}>
         <TextInput
-          style={[searchBar.searchInput, { backgroundColor: theme.third }]}
+          style={[searchBar.searchInput, { backgroundColor: theme.third, borderColor: theme.third }]}
           placeholder={t('search')}
           value={query}
           onChangeText={setQuery}
