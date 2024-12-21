@@ -3,7 +3,7 @@ import { FredokaText } from '../../elements/FredokaText';
 import { useTheme } from '../../../ThemeContext';
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useSong } from '../../utils/storage/Player';
+import { usePlayer } from '../../utils/store/Player';
 
 interface SongComponentProps {
   song: {
@@ -29,7 +29,7 @@ interface SongComponentProps {
 const SongComponent: React.FC<SongComponentProps> = ({ song }) => {
   const { theme } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
-  const { setSong } = useSong();
+  const { setSong } = usePlayer();
 
   return (
     <View style={[styles.song, { backgroundColor: theme.secondary }]}>

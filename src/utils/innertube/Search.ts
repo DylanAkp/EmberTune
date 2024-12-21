@@ -1,5 +1,5 @@
 import { search } from 'ytmusic_api_unofficial';
-import { useSearchResults } from '../storage/SearchResults';
+import { useSearchResults } from '../store/SearchResults';
 
 type SearchResultsState = {
   setResults: (artists: any, albums: any, songs: any) => void;

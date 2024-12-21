@@ -3,7 +3,7 @@ import { FredokaText } from '../elements/FredokaText';
 import { useTheme } from '../../ThemeContext';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useSong } from '../utils/storage/Player';
+import { usePlayer } from '../utils/store/Player';
 
 const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
@@ -14,7 +14,7 @@ const truncateText = (text: string, maxLength: number) => {
 
 const PlayerControls: React.FC = () => {
     const { theme } = useTheme();
-    const { song, isPlaying, playSong, pauseSong } = useSong();
+    const { song, isPlaying, playSong, pauseSong } = usePlayer();
 
     const handlePlayPause = () => {
         if (isPlaying) {
@@ -64,7 +64,7 @@ const SongTools: React.FC = () => {
 
 const PlayBar: React.FC = () => {
     const { theme } = useTheme();
-    const { song } = useSong();
+    const { song } = usePlayer();
 
     if (!song || song.id === '') {
         return null;
