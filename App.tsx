@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { isDesktop } from './src/utils/platform/Platform';
 import "react-native-url-polyfill/auto";
 //Components
 import SideBar from './src/components/SideBar';
@@ -28,10 +29,12 @@ const App: React.FC = () => {
 const ThemedApp: React.FC = () => {
   const { theme } = useTheme();
 
+  console.log(isDesktop);
+
   return (
     <NavigationContainer>
       <View style={[styles.container, { backgroundColor: theme.primary }]}>
-        <SideBar />
+        {isDesktop() && <SideBar />}
         <View style={{ flex: 1 }}>
           <TopBar />
           <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
