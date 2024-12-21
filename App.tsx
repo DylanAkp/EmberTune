@@ -15,8 +15,6 @@ import HomeScreen from './src/screens/HomeScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import SearchScreen from './src/screens/SearchScreen';
 
-
-
 const Stack = createStackNavigator();
 TrackPlayer.setupPlayer();
 

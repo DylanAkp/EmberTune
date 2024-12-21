@@ -1,4 +1,6 @@
 import { create } from 'zustand';
+import TrackPlayer from 'react-native-track-player';
+import InnerDownload from '../innertube/Download';
 
 interface Thumbnail {
   url: string;
@@ -21,7 +23,10 @@ interface Song {
 
 interface SongStore {
   song: Song;
+  isPlaying: boolean;
   setSong: (newSong: Song) => void;
+  playSong: () => void;
+  pauseSong: () => void;
 }
 
 export const useSong = create<SongStore>((set) => ({
@@ -31,5 +36,26 @@ export const useSong = create<SongStore>((set) => ({
     thumbnails: [],
     artists: []
   },
-  setSong: (newSong) => set({ song: newSong })
+  isPlaying: false,
+  setSong: async (newSong) => {
+    await TrackPlayer.reset();
+    await TrackPlayer.add({
+      id: newSong.id,
+      url: await InnerDownload(newSong.id),
+      title: newSong.title,
+      artist: newSong.artists.map(artist => artist.name).join(' & '),
+      artwork: newSong.thumbnails[0]?.url
+    });
+    set({ song: newSong });
+    await TrackPlayer.play();
+    set({ isPlaying: true });
+  },
+  playSong: async () => {
+    await TrackPlayer.play();
+    set({ isPlaying: true });
+  },
+  pauseSong: async () => {
+    await TrackPlayer.pause();
+    set({ isPlaying: false });
+  }
 }));

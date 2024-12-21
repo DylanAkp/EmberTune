@@ -1,7 +1,7 @@
 import React from 'react';
 import { FredokaText } from '../elements/FredokaText';
 import { useTheme } from '../../ThemeContext';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSong } from '../utils/storage/Player';
 
@@ -14,15 +14,26 @@ const truncateText = (text: string, maxLength: number) => {
 
 const PlayerControls: React.FC = () => {
     const { theme } = useTheme();
+    const { song, isPlaying, playSong, pauseSong } = useSong();
+
+    const handlePlayPause = () => {
+        if (isPlaying) {
+            pauseSong();
+        } else {
+            playSong();
+        }
+    };
 
     return (
         <View style={[styles.controls, { backgroundColor: theme.secondary }]}>
             <Icon name="skip-previous" size={30} color="white" />
-            <Icon name="play" size={30} color="white" />
+            <TouchableOpacity onPress={handlePlayPause}>
+                <Icon name={isPlaying ? "pause" : "play"} size={30} color="white" />
+            </TouchableOpacity>
             <Icon name="skip-next" size={30} color="white" />
         </View>
     );
-}
+};
 
 interface SongInfoProps {
     song: any;
