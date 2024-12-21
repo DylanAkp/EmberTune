@@ -2,6 +2,7 @@ import React from 'react';
 import { FredokaText } from '../../elements/FredokaText';
 import { useTheme } from '../../../ThemeContext';
 import { Image, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 interface ArtistComponentProps {
     artist: {
@@ -27,6 +28,7 @@ const formatFollowers = (num: number) => {
 };
 
 const ArtistComponent: React.FC<ArtistComponentProps> = ({ artist }) => {
+    const { t } = useTranslation();
     const { theme } = useTheme();
     return (
         <View style={[styles.artist, { backgroundColor: theme.secondary }]}>
@@ -36,7 +38,7 @@ const ArtistComponent: React.FC<ArtistComponentProps> = ({ artist }) => {
                     {artist.name}
                 </FredokaText>
                 <FredokaText size={14} color="grey" style={styles.followers} numberOfLines={1} ellipsizeMode="tail">
-                    {formatFollowers(artist.followers)} followers
+                    {formatFollowers(artist.followers)} {t('followers')}
                 </FredokaText>
             </View>
         </View>
@@ -60,12 +62,10 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     name: {
-        marginTop: 10,
         width: '100%',
         textAlign: 'center',
     },
     followers: {
-        marginTop: 5,
         width: '100%',
         textAlign: 'center',
     },
