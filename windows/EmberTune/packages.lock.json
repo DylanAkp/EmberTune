@@ -45,8 +45,8 @@
       "folly": {
         "type": "Project",
         "dependencies": {
-          "boost": "[1.83.0, )",
-          "fmt": "[1.0.0, )"
+          "Fmt": "[1.0.0, )",
+          "boost": "[1.83.0, )"
         }
       },
       "microsoft.reactnative": {
@@ -65,6 +65,13 @@
         "dependencies": {
           "Folly": "[1.0.0, )",
           "boost": "[1.83.0, )"
+        }
+      },
+      "reactnativeasyncstorage": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.ReactNative": "[1.0.0, )",
+          "Microsoft.UI.Xaml": "[2.8.0, )"
         }
       },
       "rnscreens": {
