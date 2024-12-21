@@ -9,9 +9,9 @@ async function InnerSearch(query: string) {
   try {
     // We do 3 searches to get artists, albums and songs
     // This avoid being limited in the number of results
-    const artists = await search(query, 'ARTIST', false);
-    const albums = await search(query, 'ALBUM', false);
-    const songs = await search(query, 'SONG', false);
+    const artists = await search(query, 'ARTIST');
+    const albums = await search(query, 'ALBUM');
+    const songs = await search(query, 'SONG');
 
     const filteredSongs = songs.content.filter((song: any) => song.resultType === 'song');
     const filteredAlbums = albums.content.filter((album: any) => album.resultType === 'album');
