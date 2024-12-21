@@ -8192,10 +8192,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-ytmusic_api_unofficial@^2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/ytmusic_api_unofficial/-/ytmusic_api_unofficial-2.0.9.tgz#6aeb2ed374891ea6f76896743a18f845221fdc41"
-  integrity sha512-cMp+ika+D/6uPLTfhCV9l06YtlMtLgsDjna1xjGoOqxnFLpX+LMcn0CRhwjC0WQVtJo4xhDFiITN4oKEfoOqAg==
+ytmusic_api_unofficial@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/ytmusic_api_unofficial/-/ytmusic_api_unofficial-2.0.10.tgz#725ef1029fd158e3a7ef256ae0e7bdcfc744fbfc"
+  integrity sha512-RSqi6+8LQfibaj7V86W+4n+NgnD58EzrzvMuRxFvX/1Cs7Fg1kUy12tzrzf2nzfxyAGkAgA766+MOvUCkVF2Bg==
   dependencies:
     axios "^1.7.2"
     cookie "^1.0.1"
