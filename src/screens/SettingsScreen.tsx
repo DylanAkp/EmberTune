@@ -44,9 +44,9 @@ const SettingsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   pickerContainer: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     marginTop: 20,
+    gap: 10,
     alignItems: 'center',
   },
 });
