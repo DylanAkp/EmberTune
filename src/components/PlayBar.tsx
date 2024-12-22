@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { usePlayer } from '../utils/store/Player';
 import InnerLyrics from '../utils/innertube/Lyrics';
 import { useNavigation } from '@react-navigation/native';
+import { useNavigationState } from '@react-navigation/native';
 
 const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
@@ -14,7 +15,7 @@ const truncateText = (text: string, maxLength: number) => {
     return text;
 };
 
-const PlayerControls: React.FC<SongInfoProps> = ({ theme }) => {
+const PlayerControls: React.FC<any> = ({ theme }) => {
     const { song, isPlaying, playSong, pauseSong } = usePlayer();
 
     const handlePlayPause = () => {
@@ -55,17 +56,20 @@ const SongInfo: React.FC<SongInfoProps> = ({ song, theme }) => {
 
 const SongTools: React.FC<SongInfoProps> = ({ song, theme }) => {
     const navigation = useNavigation();
+    const route = useNavigationState(state => state.routes[state.index]);
+
+    console.log(route.name, route.name === 'Lyrics');
 
     const handleLyrics = async () => {
       await InnerLyrics(song.id).then((lyrics) => {
-        navigation.navigate('Lyrics', { lyrics, song });
+        route.name === 'Lyrics' ? navigation.goBack() : navigation.navigate('Lyrics', { lyrics, song });
       });
     };
   
     return (
       <View style={styles.tools}>
         <TouchableOpacity onPress={handleLyrics}>
-          <Icon name="microphone-variant" size={20} color={theme.text} />
+          <Icon name="microphone-variant" size={20} color={route.name === 'Lyrics' ? theme.accent : theme.text} />
         </TouchableOpacity>
         <Icon name="heart" size={20} color={theme.text} />
         <Icon name="playlist-plus" size={20} color={theme.text} />
