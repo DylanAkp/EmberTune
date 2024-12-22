@@ -6,6 +6,9 @@
 // Includes from @react-native-async-storage/async-storage
 #include <winrt/ReactNativeAsyncStorage.h>
 
+// Includes from @react-native-clipboard/clipboard
+#include <winrt/NativeClipboard.h>
+
 // Includes from @react-native-picker/picker
 #include <winrt/ReactNativePicker.h>
 
@@ -22,6 +25,8 @@ void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collecti
 { 
     // IReactPackageProviders from @react-native-async-storage/async-storage
     packageProviders.Append(winrt::ReactNativeAsyncStorage::ReactPackageProvider());
+    // IReactPackageProviders from @react-native-clipboard/clipboard
+    packageProviders.Append(winrt::NativeClipboard::ReactPackageProvider());
     // IReactPackageProviders from @react-native-picker/picker
     packageProviders.Append(winrt::ReactNativePicker::ReactPackageProvider());
     // IReactPackageProviders from react-native-screens

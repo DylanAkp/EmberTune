@@ -19,7 +19,6 @@ import SearchScreen from './src/screens/SearchScreen';
 import LyricsScreen from './src/screens/LyricsScreen';
 
 const Stack = createStackNavigator();
-TrackPlayer.setupPlayer();
 
 const App: React.FC = () => {
   return (

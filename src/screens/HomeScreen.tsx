@@ -9,7 +9,6 @@ const HomeScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={[{ backgroundColor: theme.primary }, page.content]}>
-      <FredokaText style={page.text}>Home</FredokaText>
     </SafeAreaView>
   );
 };

@@ -6,6 +6,10 @@
     <ProjectReference Include="$(ProjectDir)..\..\node_modules\@react-native-async-storage\async-storage\windows\ReactNativeAsyncStorage\ReactNativeAsyncStorage.vcxproj">
       <Project>{4855D892-E16C-404D-8286-0089E0F7F9C4}</Project>
     </ProjectReference>
+    <!-- Projects from @react-native-clipboard/clipboard -->
+    <ProjectReference Include="$(ProjectDir)..\..\node_modules\@react-native-clipboard\clipboard\windows\Clipboard\Clipboard.vcxproj">
+      <Project>{99a938fa-9ff3-47a0-9256-195a06e7fdd1}</Project>
+    </ProjectReference>
     <!-- Projects from @react-native-picker/picker -->
     <ProjectReference Include="$(ProjectDir)..\..\node_modules\@react-native-picker\picker\windows\ReactNativePicker\ReactNativePicker.vcxproj">
       <Project>{bedcc600-4541-41f2-aa46-9e058202b6ad}</Project>
