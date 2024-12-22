@@ -7,7 +7,6 @@ async function InnerLyrics(musicId: string) {
     return lyrics;
   } catch (error) {
     if (error.code === 2003) {
-      console.warn('Lyrics not available for the music:', musicId);
       return { lyrics: "", source: "" };
     } else {
       console.error('Error downloading music:', error);
