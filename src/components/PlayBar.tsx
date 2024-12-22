@@ -4,7 +4,6 @@ import { useTheme } from '../../ThemeContext';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { usePlayer } from '../utils/store/Player';
-import InnerLyrics from '../utils/innertube/Lyrics';
 import { useNavigation } from '@react-navigation/native';
 import { useNavigationState } from '@react-navigation/native';
 
@@ -16,7 +15,14 @@ const truncateText = (text: string, maxLength: number) => {
 };
 
 const PlayerControls: React.FC<any> = ({ theme }) => {
-    const { song, isPlaying, playSong, pauseSong } = usePlayer();
+    const {
+        isPlaying,
+        playNext,
+        playPrevious,
+        playSong,
+        pauseSong
+
+    } = usePlayer();
 
     const handlePlayPause = () => {
         if (isPlaying) {
@@ -26,13 +32,25 @@ const PlayerControls: React.FC<any> = ({ theme }) => {
         }
     };
 
+    const handlePrevious = () => {
+        playPrevious();
+    };
+
+    const handleNext = () => {
+        playNext();
+    };
+
     return (
         <View style={[styles.controls, { backgroundColor: theme.secondary }]}>
-            <Icon name="skip-previous" size={30} color={theme.text} />
+            <TouchableOpacity onPress={handlePrevious}>
+                <Icon name="skip-previous" size={30} color={theme.text} />
+            </TouchableOpacity>
             <TouchableOpacity onPress={handlePlayPause}>
                 <Icon name={isPlaying ? "pause" : "play"} size={30} color={theme.text} />
             </TouchableOpacity>
-            <Icon name="skip-next" size={30} color={theme.text} />
+            <TouchableOpacity onPress={handleNext}>
+                <Icon name="skip-next" size={30} color={theme.text} />
+            </TouchableOpacity>
         </View>
     );
 };

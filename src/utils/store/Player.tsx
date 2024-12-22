@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import InnerLyrics from '../innertube/Lyrics';
+import InnerRadio from '../innertube/Radio';
 import TrackPlayer from 'react-native-track-player';
 
 interface Thumbnail {
@@ -29,21 +30,27 @@ interface Lyrics {
 
 interface PlayerStore {
   song: Song;
+  radio: Song[];
   isPlaying: boolean;
   lyrics: Lyrics;
   setSong: (newSong: Song) => void;
   playSong: () => void;
   pauseSong: () => void;
   checkIfPlaying: () => void;
+  playNext: () => void;
+  playPrevious: () => void;
+  setLyrics: (newLyrics: Lyrics) => void;
+  setSongWithoutReset: (song: Song) => void;
 }
 
-export const usePlayer = create<PlayerStore>((set) => ({
+export const usePlayer = create<PlayerStore>((set, get) => ({
   song: {
     title: '',
     id: '',
     thumbnails: [],
     artists: []
   },
+  radio: [],
   lyrics: {
     lyrics: '',
     source: '',
@@ -65,9 +72,19 @@ export const usePlayer = create<PlayerStore>((set) => ({
       artwork: newSong.thumbnails[0]?.url
     });
     set({ song: newSong });
+    const filtered = (await InnerRadio(newSong.id)).filter((song: any) => song.resultType === 'song');
     await TrackPlayer.play();
-    set({ isPlaying: true });
-    set({ lyrics: await InnerLyrics(newSong.id), song: newSong });
+    set({ isPlaying: true, lyrics: await InnerLyrics(newSong.id), radio: filtered });
+  },
+  setSongWithoutReset: async (song) => {
+    await TrackPlayer.add({
+      id: song.id,
+      url: song.thumbnails[0]?.url,
+      title: song.title,
+      artist: song.artists.map(artist => artist.name).join(' & '),
+      artwork: song.thumbnails[0]?.url
+    });
+    set({ song: song, lyrics: await InnerLyrics(song.id) });
   },
   setLyrics: async (newLyrics: Lyrics) => {
     set({ lyrics: newLyrics });
@@ -82,10 +99,28 @@ export const usePlayer = create<PlayerStore>((set) => ({
   },
   checkIfPlaying: async () => {
     const currentState = await TrackPlayer.getState();
-    if (currentState === TrackPlayer.STATE_PLAYING) {
+    set({ isPlaying: currentState === TrackPlayer.STATE_PLAYING });
+  },
+  playNext: async () => {
+    const { radio, song } = get();
+    const currentIndex = radio.findIndex((s: any) => s.id === song.id) || 0;
+    if (currentIndex >= 0 && currentIndex < radio.length - 1) {
+      const nextSong = radio[currentIndex + 1];
+      await get().setSongWithoutReset(nextSong);
+      await TrackPlayer.skipToNext();
+      await TrackPlayer.play();
       set({ isPlaying: true });
-    } else {
-      set({ isPlaying: false });
+    }
+  },
+  playPrevious: async () => {
+    const { radio, song } = get();
+    const currentIndex = radio.findIndex((s: any) => s.id === song.id) || 0;
+    if (currentIndex > 0) {
+      const previousSong = radio[currentIndex - 1];
+      await get().setSongWithoutReset(previousSong);
+      await TrackPlayer.skipToPrevious();
+      await TrackPlayer.play();
+      set({ isPlaying: true });
     }
   }
 }));
