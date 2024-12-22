@@ -8,8 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "windows": "npx @react-native-community/cli run-windows",
-    "postinstall": "node scripts/fix-vcxproj.js"
+    "windows": "npx @react-native-community/cli run-windows"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.0",
@@ -25,7 +24,7 @@
     "react-native-gesture-handler": "^2.21.2",
     "react-native-safe-area-context": "^5.0.0",
     "react-native-screens": "^4.3.0",
-    "react-native-track-player": "JaneaSystems/react-native-track-player#windows_cpp2",
+    "react-native-track-player": "doublesymmetry/react-native-track-player",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-windows": "0.76.0",

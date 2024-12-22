@@ -6745,9 +6745,9 @@ react-native-screens@^4.3.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-track-player@JaneaSystems/react-native-track-player#windows_cpp2:
-  version "1.2.5"
-  resolved "https://codeload.github.com/JaneaSystems/react-native-track-player/tar.gz/5838b8516c4ffb024abff928c7cc2b4f8159d768"
+react-native-track-player@doublesymmetry/react-native-track-player:
+  version "4.1.1"
+  resolved "https://codeload.github.com/doublesymmetry/react-native-track-player/tar.gz/2765d09cb93541d89be94a4809320e4df33c0d47"
 
 react-native-url-polyfill@^2.0.0:
   version "2.0.0"
