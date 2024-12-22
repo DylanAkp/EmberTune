@@ -1,5 +1,6 @@
 import { search } from 'ytmusic_api_unofficial';
 import { useSearchResults } from '../store/SearchResults';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type SearchResultsState = {
   setResults: (artists: any, albums: any, songs: any) => void;
@@ -7,11 +8,12 @@ type SearchResultsState = {
 
 async function InnerSearch(query: string) {
   try {
+    const searchLanguage = await AsyncStorage.getItem('searchLanguage') || 'en';
     // We do 3 searches to get artists, albums and songs
     // This avoid being limited in the number of results
-    const artists = await search(query, 'ARTIST');
-    const albums = await search(query, 'ALBUM');
-    const songs = await search(query, 'SONG');
+    const artists = await search(query, 'ARTIST', {language: searchLanguage, fetch: false});
+    const albums = await search(query, 'ALBUM', {language: searchLanguage, fetch: false});
+    const songs = await search(query, 'SONG', {language: searchLanguage, fetch: false});
 
     const filteredSongs = songs.content.filter((song: any) => song.resultType === 'song');
     const filteredAlbums = albums.content.filter((album: any) => album.resultType === 'album');
