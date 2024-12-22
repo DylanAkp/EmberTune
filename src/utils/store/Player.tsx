@@ -41,6 +41,8 @@ interface PlayerStore {
   playPrevious: () => void;
   setLyrics: (newLyrics: Lyrics) => void;
   setSongWithoutReset: (song: Song) => void;
+  getVolume: () => Promise<number>;
+  changeVolume: (volume: number) => void;
 }
 
 export const usePlayer = create<PlayerStore>((set, get) => ({
@@ -128,5 +130,12 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
       await TrackPlayer.play();
       set({isPlaying: true});
     }
+  },
+  getVolume: async () => {
+    const volume = await TrackPlayer.getVolume();
+    return volume;
+  },
+  changeVolume: async volume => {
+    await TrackPlayer.setVolume(volume / 100);
   },
 }));

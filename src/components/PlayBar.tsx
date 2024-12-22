@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FredokaText} from '../elements/FredokaText';
 import {getSizedThumbnail} from '../utils/ThumbnailManager';
 import {useTheme} from '../../ThemeContext';
@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {usePlayer} from '../utils/store/Player';
 import {useNavigation} from '@react-navigation/native';
 import {useNavigationState} from '@react-navigation/native';
+import Slider from '@react-native-community/slider';
 
 const truncateText = (text: string, maxLength: number) => {
   if (text.length > maxLength) {
@@ -86,6 +87,12 @@ const SongTools: React.FC<SongInfoProps> = ({song, theme}) => {
   const navigation = useNavigation();
   const route = useNavigationState(state => state.routes[state.index]);
   const [copy, setCopy] = useState('link');
+  const [volume, setVolume] = useState(100);
+  const {changeVolume, getVolume} = usePlayer();
+
+  useEffect(() => {
+    const initialVolume = getVolume();
+  }, [getVolume]);
 
   const handleLyrics = async () => {
     route.name === 'Lyrics'
@@ -101,11 +108,24 @@ const SongTools: React.FC<SongInfoProps> = ({song, theme}) => {
     }, 2000);
   };
 
+  const handleVolumeChange = (value: number) => {
+    setVolume(value);
+    changeVolume(value);
+  };
+
   return (
     <View style={styles.tools}>
-      <TouchableOpacity>
-        <Icon name="volume-high" size={20} color={theme.text} />
-      </TouchableOpacity>
+      <Icon name="volume-high" size={20} color={theme.text} />
+      <Slider
+        style={{width: '30%', height: 30}}
+        minimumValue={0}
+        maximumValue={100}
+        minimumTrackTintColor={theme.accent}
+        thumbTintColor={theme.accent}
+        step={1}
+        value={volume}
+        onValueChange={handleVolumeChange}
+      />
       <TouchableOpacity onPress={handleLyrics}>
         <Icon
           name="microphone-variant"
@@ -147,7 +167,7 @@ const styles = StyleSheet.create({
   songinfo: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 20,
+    gap: '10%',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flex: 1,
@@ -161,19 +181,21 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 0,
     borderRadius: 20,
-    gap: 20,
+    gap: '10%',
   },
   tools: {
     display: 'flex',
+    height: '100%',
+    alignItems: 'center',
     flexDirection: 'row',
-    gap: 10,
+    gap: '10%',
     justifyContent: 'flex-end',
     flex: 1,
   },
   controls: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 10,
+    gap: '5%',
     justifyContent: 'center',
     flex: 1,
   },

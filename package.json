@@ -8,11 +8,13 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "windows": "npx @react-native-community/cli run-windows"
+    "windows": "npx @react-native-community/cli run-windows",
+    "postinstall": "node scripts/fix-slider.js"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-clipboard/clipboard": "^1.15.0",
+    "@react-native-community/slider": "4.4.2",
     "@react-native-picker/picker": "^2.10.2",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/stack": "^7.1.1",
