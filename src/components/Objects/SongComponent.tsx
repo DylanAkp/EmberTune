@@ -4,6 +4,7 @@ import { useTheme } from '../../../ThemeContext';
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { usePlayer } from '../../utils/store/Player';
+import { getSizedThumbnail } from '../../utils/ThumbnailManager';
 
 interface SongComponentProps {
   song: {
@@ -39,7 +40,7 @@ const SongComponent: React.FC<SongComponentProps> = ({ song }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Image source={{ uri: song.thumbnails[song.thumbnails.length - 1].url }} style={styles.thumbnail} />
+        <Image source={{ uri: getSizedThumbnail(song.thumbnails, 120) }} style={styles.thumbnail} />
         {isHovered && (
           <>
             <View style={styles.overlay} />

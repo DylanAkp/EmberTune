@@ -1,4 +1,5 @@
 import React from 'react';
+import { getSizedThumbnail } from '../../utils/ThumbnailManager';
 import { FredokaText } from '../../elements/FredokaText';
 import { useTheme } from '../../../ThemeContext';
 import { Image, StyleSheet, View } from 'react-native';
@@ -32,7 +33,7 @@ const ArtistComponent: React.FC<ArtistComponentProps> = ({ artist }) => {
     const { theme } = useTheme();
     return (
         <View style={[styles.artist, { backgroundColor: theme.secondary }]}>
-            <Image source={{ uri: artist.thumbnails[artist.thumbnails.length - 1].url }} style={styles.thumbnail} />
+            <Image source={{ uri: getSizedThumbnail(artist.thumbnails, 70) }} style={styles.thumbnail} />
             <View>
                 <FredokaText size={16} style={styles.name} numberOfLines={1} ellipsizeMode="tail">
                     {artist.name}

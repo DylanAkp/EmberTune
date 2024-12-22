@@ -1,5 +1,6 @@
 import React from 'react';
 import { FredokaText } from '../elements/FredokaText';
+import { getSizedThumbnail } from '../utils/ThumbnailManager';
 import { useTheme } from '../../ThemeContext';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -63,7 +64,7 @@ interface SongInfoProps {
 const SongInfo: React.FC<SongInfoProps> = ({ song, theme }) => {
     return (
         <View style={styles.songinfo}>
-            <Image style={styles.image} source={{ uri: song.thumbnails[0]?.url || 'https://via.placeholder.com/60' }} />
+            <Image style={styles.image} source={{ uri: getSizedThumbnail(song.thumbnails, 60) || 'https://via.placeholder.com/60' }} />
             <View>
                 <FredokaText size={16}>{truncateText(song.title || 'No song selected', 20)}</FredokaText>
                 <FredokaText size={12} color="grey">{truncateText(song.artists[0]?.name || 'Unknown artist', 30)}</FredokaText>
