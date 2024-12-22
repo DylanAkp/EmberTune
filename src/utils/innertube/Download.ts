@@ -1,6 +1,10 @@
-import { download } from 'ytmusic_api_unofficial';
+import {download} from 'ytmusic_api_unofficial';
 
-async function InnerDownload(musicId: string, format?: string, quality?: string) {
+async function InnerDownload(
+  musicId: string,
+  format?: string,
+  quality?: string,
+) {
   try {
     const results = await download(musicId, format, quality);
     return results;

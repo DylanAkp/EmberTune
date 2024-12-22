@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import SearchBar from './SearchBar';
-import { TouchableOpacity } from 'react-native';
-import { searchBar } from '../style/Styles';
+import {TouchableOpacity} from 'react-native';
+import {searchBar} from '../style/Styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useTheme } from '../../ThemeContext';
-import { useNavigation, useNavigationState } from '@react-navigation/native';
+import {useTheme} from '../../ThemeContext';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
 
 const TopBar: React.FC = () => {
-  const { theme } = useTheme();
+  const {theme} = useTheme();
   const navigation = useNavigation();
   const routesLength = useNavigationState(state => state?.routes?.length);
 
@@ -16,18 +16,16 @@ const TopBar: React.FC = () => {
     <View style={styles.topBar}>
       {routesLength && routesLength > 1 && (
         <TouchableOpacity
-          style={[searchBar.searchIcon,{ backgroundColor: theme.secondary }]}
-          onPress={() => navigation.goBack()}
-        >
+          style={[searchBar.searchIcon, {backgroundColor: theme.secondary}]}
+          onPress={() => navigation.goBack()}>
           <Icon name="chevron-left" size={25} color={theme.text} />
         </TouchableOpacity>
       )}
       <SearchBar />
-      <TouchableOpacity 
-        style={[searchBar.searchIcon, { backgroundColor: theme.secondary }]}
-        onPress={() => navigation.navigate('Settings')}
-      >
-          <Icon name="cog" size={25} color={theme.text} />
+      <TouchableOpacity
+        style={[searchBar.searchIcon, {backgroundColor: theme.secondary}]}
+        onPress={() => navigation.navigate('Settings')}>
+        <Icon name="cog" size={25} color={theme.text} />
       </TouchableOpacity>
     </View>
   );

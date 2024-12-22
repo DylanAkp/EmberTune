@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import {create} from 'zustand';
 import InnerLyrics from '../innertube/Lyrics';
 import InnerRadio from '../innertube/Radio';
 import TrackPlayer from 'react-native-track-player';
@@ -48,7 +48,7 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     title: '',
     id: '',
     thumbnails: [],
-    artists: []
+    artists: [],
   },
   radio: [],
   lyrics: {
@@ -58,69 +58,75 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
       title: '',
       id: '',
       thumbnails: [],
-      artists: []
-    }
+      artists: [],
+    },
   },
   isPlaying: false,
-  setSong: async (newSong) => {
+  setSong: async newSong => {
     await TrackPlayer.reset();
     await TrackPlayer.add({
       id: newSong.id,
-      url: newSong.thumbnails[0]?.url,
+      url: 'https://cdn.pixabay.com/download/audio/2024/08/11/audio_27a173a0ae.mp3?filename=quiz-evaluation-loop-thinking-time-231582.mp3',
       title: newSong.title,
       artist: newSong.artists.map(artist => artist.name).join(' & '),
-      artwork: newSong.thumbnails[0]?.url
+      artwork: newSong.thumbnails[0]?.url,
     });
-    set({ song: newSong });
-    const filtered = (await InnerRadio(newSong.id)).filter((song: any) => song.resultType === 'song');
+    set({song: newSong});
+    const filtered = (await InnerRadio(newSong.id)).filter(
+      (song: any) => song.resultType === 'song',
+    );
     await TrackPlayer.play();
-    set({ isPlaying: true, lyrics: await InnerLyrics(newSong.id), radio: filtered });
+    set({
+      isPlaying: true,
+      lyrics: await InnerLyrics(newSong.id),
+      radio: filtered,
+    });
   },
-  setSongWithoutReset: async (song) => {
+  setSongWithoutReset: async song => {
     await TrackPlayer.add({
       id: song.id,
-      url: song.thumbnails[0]?.url,
+      url: 'https://cdn.pixabay.com/download/audio/2024/08/11/audio_27a173a0ae.mp3?filename=quiz-evaluation-loop-thinking-time-231582.mp3',
       title: song.title,
       artist: song.artists.map(artist => artist.name).join(' & '),
-      artwork: song.thumbnails[0]?.url
+      artwork: song.thumbnails[0]?.url,
     });
-    set({ song: song, lyrics: await InnerLyrics(song.id) });
+    set({song: song, lyrics: await InnerLyrics(song.id)});
   },
   setLyrics: async (newLyrics: Lyrics) => {
-    set({ lyrics: newLyrics });
+    set({lyrics: newLyrics});
   },
   playSong: async () => {
     await TrackPlayer.play();
-    set({ isPlaying: true });
+    set({isPlaying: true});
   },
   pauseSong: async () => {
     await TrackPlayer.pause();
-    set({ isPlaying: false });
+    set({isPlaying: false});
   },
   checkIfPlaying: async () => {
     const currentState = await TrackPlayer.getState();
-    set({ isPlaying: currentState === TrackPlayer.STATE_PLAYING });
+    set({isPlaying: currentState === TrackPlayer.STATE_PLAYING});
   },
   playNext: async () => {
-    const { radio, song } = get();
+    const {radio, song} = get();
     const currentIndex = radio.findIndex((s: any) => s.id === song.id) || 0;
     if (currentIndex >= 0 && currentIndex < radio.length - 1) {
       const nextSong = radio[currentIndex + 1];
       await get().setSongWithoutReset(nextSong);
       await TrackPlayer.skipToNext();
       await TrackPlayer.play();
-      set({ isPlaying: true });
+      set({isPlaying: true});
     }
   },
   playPrevious: async () => {
-    const { radio, song } = get();
+    const {radio, song} = get();
     const currentIndex = radio.findIndex((s: any) => s.id === song.id) || 0;
     if (currentIndex > 0) {
       const previousSong = radio[currentIndex - 1];
       await get().setSongWithoutReset(previousSong);
       await TrackPlayer.skipToPrevious();
       await TrackPlayer.play();
-      set({ isPlaying: true });
+      set({isPlaying: true});
     }
-  }
+  },
 }));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextProps, StyleSheet, Platform } from 'react-native';
+import {Text, TextProps, StyleSheet, Platform} from 'react-native';
 
 interface FredokaTextProps extends TextProps {
   variant?: 'regular' | 'medium' | 'semiBold' | 'bold';
@@ -8,24 +8,23 @@ interface FredokaTextProps extends TextProps {
   children: React.ReactNode;
 }
 
-export const FredokaText: React.FC<FredokaTextProps> = ({ 
-  style, 
-  variant = 'regular', 
-  size, 
+export const FredokaText: React.FC<FredokaTextProps> = ({
+  style,
+  variant = 'regular',
+  size,
   color,
   children,
-  ...props 
+  ...props
 }) => {
   return (
-    <Text 
+    <Text
       style={[
-        styles[variant], 
-        style, 
-        size ? { fontSize: size } : {},
-        color ? { color: color } : {}
-      ]} 
-      {...props}
-    >
+        styles[variant],
+        style,
+        size ? {fontSize: size} : {},
+        color ? {color: color} : {},
+      ]}
+      {...props}>
       {children}
     </Text>
   );

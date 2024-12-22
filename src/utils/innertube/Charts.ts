@@ -1,4 +1,4 @@
-import { charts } from 'ytmusic_api_unofficial';
+import {charts} from 'ytmusic_api_unofficial';
 
 async function InnerCharts(countryCode?: string) {
   try {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { FredokaText } from '../../elements/FredokaText';
-import { useTheme } from '../../../ThemeContext';
-import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {FredokaText} from '../../elements/FredokaText';
+import {useTheme} from '../../../ThemeContext';
+import {Image, StyleSheet, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { usePlayer } from '../../utils/store/Player';
-import { getSizedThumbnail } from '../../utils/ThumbnailManager';
+import {usePlayer} from '../../utils/store/Player';
+import {getSizedThumbnail} from '../../utils/ThumbnailManager';
 
 interface SongComponentProps {
   song: {
@@ -27,20 +27,22 @@ interface SongComponentProps {
   };
 }
 
-const SongComponent: React.FC<SongComponentProps> = ({ song }) => {
-  const { theme } = useTheme();
+const SongComponent: React.FC<SongComponentProps> = ({song}) => {
+  const {theme} = useTheme();
   const [isHovered, setIsHovered] = useState(false);
-  const { setSong } = usePlayer();
+  const {setSong} = usePlayer();
 
   return (
-    <View style={[styles.song, { backgroundColor: theme.secondary }]}>
+    <View style={[styles.song, {backgroundColor: theme.secondary}]}>
       <TouchableOpacity
         style={styles.thumbnailContainer}
         onPress={() => setSong(song)}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <Image source={{ uri: getSizedThumbnail(song.thumbnails, 120) }} style={styles.thumbnail} />
+        onMouseLeave={() => setIsHovered(false)}>
+        <Image
+          source={{uri: getSizedThumbnail(song.thumbnails, 120)}}
+          style={styles.thumbnail}
+        />
         {isHovered && (
           <>
             <View style={styles.overlay} />
@@ -50,11 +52,20 @@ const SongComponent: React.FC<SongComponentProps> = ({ song }) => {
           </>
         )}
       </TouchableOpacity>
-      <FredokaText size={16} style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+      <FredokaText
+        size={16}
+        style={styles.title}
+        numberOfLines={1}
+        ellipsizeMode="tail">
         {song.title}
       </FredokaText>
       {song.artists[0]?.name && (
-        <FredokaText size={14} color="grey" style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+        <FredokaText
+          size={14}
+          color="grey"
+          style={styles.title}
+          numberOfLines={1}
+          ellipsizeMode="tail">
           {song.artists[0].name || 'Unknown artist'}
         </FredokaText>
       )}
@@ -84,7 +95,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: [{ translateX: -25 }, { translateY: -25 }],
+    transform: [{translateX: -25}, {translateY: -25}],
     justifyContent: 'center',
     alignItems: 'center',
   },

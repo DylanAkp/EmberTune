@@ -4,7 +4,10 @@ interface Thumbnail {
   height: number;
 }
 
-export function getSizedThumbnail(thumbnails: Thumbnail[], size: number): string | undefined {
+export function getSizedThumbnail(
+  thumbnails: Thumbnail[],
+  size: number,
+): string | undefined {
   if (!thumbnails || thumbnails.length === 0) {
     return undefined;
   }

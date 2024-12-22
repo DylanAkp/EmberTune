@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
 const isWindows = Platform.OS === 'windows';
 const isMac = Platform.OS === 'macos';

@@ -2,13 +2,7 @@ import React, {useState} from 'react';
 import {FredokaText} from '../elements/FredokaText';
 import {getSizedThumbnail} from '../utils/ThumbnailManager';
 import {useTheme} from '../../ThemeContext';
-import {
-  Image,
-  StyleSheet,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {usePlayer} from '../utils/store/Player';
@@ -109,6 +103,9 @@ const SongTools: React.FC<SongInfoProps> = ({song, theme}) => {
 
   return (
     <View style={styles.tools}>
+      <TouchableOpacity>
+        <Icon name="volume-high" size={20} color={theme.text} />
+      </TouchableOpacity>
       <TouchableOpacity onPress={handleLyrics}>
         <Icon
           name="microphone-variant"

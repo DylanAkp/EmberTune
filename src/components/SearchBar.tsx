@@ -1,16 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, TextInput, TouchableOpacity, Animated, Easing } from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Animated,
+  Easing,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useTheme } from '../../ThemeContext';
-import { searchBar } from '../style/Styles';
+import {useTheme} from '../../ThemeContext';
+import {searchBar} from '../style/Styles';
 import InnerSearch from '../utils/innertube/Search';
-import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 const SearchBar: React.FC = () => {
   const navigation = useNavigation();
-  const { theme } = useTheme();
-  const { t } = useTranslation();
+  const {theme} = useTheme();
+  const {t} = useTranslation();
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -23,7 +29,7 @@ const SearchBar: React.FC = () => {
           duration: 1000,
           easing: Easing.linear,
           useNativeDriver: true,
-        })
+        }),
       ).start();
     } else {
       rotateAnim.stopAnimation();
@@ -54,18 +60,24 @@ const SearchBar: React.FC = () => {
 
   return (
     <View style={searchBar.searchContainer}>
-      <View style={[searchBar.searchBar, { backgroundColor: theme.secondary }]}>
+      <View style={[searchBar.searchBar, {backgroundColor: theme.secondary}]}>
         <TextInput
-          style={[searchBar.searchInput, { backgroundColor: theme.third, borderColor: theme.third }]}
+          style={[
+            searchBar.searchInput,
+            {backgroundColor: theme.third, borderColor: theme.third},
+          ]}
           placeholder={t('search')}
           value={query}
           onChangeText={setQuery}
           onSubmitEditing={searchMusic}
           editable={!isLoading}
         />
-        <TouchableOpacity style={[searchBar.searchIcon, { backgroundColor: theme.third }]} onPress={searchMusic} disabled={isLoading}>
+        <TouchableOpacity
+          style={[searchBar.searchIcon, {backgroundColor: theme.third}]}
+          onPress={searchMusic}
+          disabled={isLoading}>
           {isLoading ? (
-            <Animated.View style={{ transform: [{ rotate }] }}>
+            <Animated.View style={{transform: [{rotate}]}}>
               <Icon name="loading" size={25} color={theme.text} />
             </Animated.View>
           ) : (

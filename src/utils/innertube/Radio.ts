@@ -1,4 +1,4 @@
-import { get } from 'ytmusic_api_unofficial';
+import {get} from 'ytmusic_api_unofficial';
 
 async function InnerRadio(musicId: string) {
   try {

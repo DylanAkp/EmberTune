@@ -1,4 +1,4 @@
-import { get } from 'ytmusic_api_unofficial';
+import {get} from 'ytmusic_api_unofficial';
 
 async function InnerLyrics(musicId: string) {
   try {
@@ -7,7 +7,7 @@ async function InnerLyrics(musicId: string) {
     return lyrics;
   } catch (error) {
     if (error.code === 2003) {
-      return { lyrics: "", source: "" };
+      return {lyrics: '', source: ''};
     } else {
       console.error('Error downloading music:', error);
       throw error;
