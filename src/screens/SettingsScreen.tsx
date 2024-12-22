@@ -6,6 +6,7 @@ import { page } from '../style/Styles';
 import { useTranslation } from "react-i18next";
 import i18n from '../translations';
 import { Picker } from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const languages = [
   { code: 'en', label: 'English' },
@@ -20,6 +21,7 @@ const SettingsScreen: React.FC = () => {
   const handleLanguageChange = (languageCode: string) => {
     setSelectedLanguage(languageCode);
     i18n.changeLanguage(languageCode);
+    AsyncStorage.setItem('language', languageCode);
   };
 
   return (

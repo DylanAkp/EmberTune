@@ -1,5 +1,7 @@
 import React from 'react';
 import TrackPlayer from 'react-native-track-player';
+import i18n from './src/translations';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, StyleSheet } from 'react-native';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { NavigationContainer } from '@react-navigation/native';
@@ -29,6 +31,12 @@ const App: React.FC = () => {
 
 const ThemedApp: React.FC = () => {
   const { theme } = useTheme();
+  AsyncStorage.getItem('language').then((language) => {
+    if (language) {
+      i18n.changeLanguage(language);
+    }
+  });
+  
 
   return (
     <NavigationContainer>
