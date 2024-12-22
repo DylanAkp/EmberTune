@@ -6,11 +6,12 @@ import { page } from '../style/Styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRoute } from '@react-navigation/native';
 import { useTranslation } from "react-i18next";
+import { usePlayer } from '../utils/store/Player';
 
 const LyricsScreen: React.FC = () => {
   const { theme } = useTheme();
   const route = useRoute();
-  const { lyrics, song } = route.params;
+  const { lyrics, song } = usePlayer();
   const { t } = useTranslation();
 
   return (

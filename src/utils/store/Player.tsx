@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import InnerLyrics from '../innertube/Lyrics';
 import TrackPlayer from 'react-native-track-player';
 
 interface Thumbnail {
@@ -20,9 +21,16 @@ interface Song {
   artists: Artist[];
 }
 
+interface Lyrics {
+  lyrics: string;
+  source: string;
+  song: Song;
+}
+
 interface PlayerStore {
   song: Song;
   isPlaying: boolean;
+  lyrics: Lyrics;
   setSong: (newSong: Song) => void;
   playSong: () => void;
   pauseSong: () => void;
@@ -35,6 +43,16 @@ export const usePlayer = create<PlayerStore>((set) => ({
     id: '',
     thumbnails: [],
     artists: []
+  },
+  lyrics: {
+    lyrics: '',
+    source: '',
+    song: {
+      title: '',
+      id: '',
+      thumbnails: [],
+      artists: []
+    }
   },
   isPlaying: false,
   setSong: async (newSong) => {
@@ -49,6 +67,10 @@ export const usePlayer = create<PlayerStore>((set) => ({
     set({ song: newSong });
     await TrackPlayer.play();
     set({ isPlaying: true });
+    set({ lyrics: await InnerLyrics(newSong.id), song: newSong });
+  },
+  setLyrics: async (newLyrics: Lyrics) => {
+    set({ lyrics: newLyrics });
   },
   playSong: async () => {
     await TrackPlayer.play();

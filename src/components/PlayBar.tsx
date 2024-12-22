@@ -58,12 +58,8 @@ const SongTools: React.FC<SongInfoProps> = ({ song, theme }) => {
     const navigation = useNavigation();
     const route = useNavigationState(state => state.routes[state.index]);
 
-    console.log(route.name, route.name === 'Lyrics');
-
     const handleLyrics = async () => {
-      await InnerLyrics(song.id).then((lyrics) => {
-        route.name === 'Lyrics' ? navigation.goBack() : navigation.navigate('Lyrics', { lyrics, song });
-      });
+        route.name === 'Lyrics' ? navigation.goBack() : navigation.navigate('Lyrics');
     };
   
     return (
