@@ -1,4 +1,7 @@
 module.exports = {
+    reactNative: {
+        bridge: false,
+    },
     project: {
         ios: {},
         android: {},
