@@ -16,7 +16,7 @@ const TopBar: React.FC = () => {
     <View style={styles.topBar}>
       {routesLength && routesLength > 1 && (
         <TouchableOpacity
-          style={[searchBar.searchIcon, {backgroundColor: theme.secondary}]}
+          style={[searchBar.searchIcon, {backgroundColor: theme.secondary, marginRight: 10}]}
           onPress={() => navigation.goBack()}>
           <Icon name="chevron-left" size={25} color={theme.text} />
         </TouchableOpacity>

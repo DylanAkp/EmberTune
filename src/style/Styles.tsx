@@ -4,7 +4,7 @@ const sidebar = StyleSheet.create({
   sidebar: {
     height: '100%',
     width: '50%',
-    maxWidth: 400,
+    maxWidth: 300,
     padding: 16,
     display: 'flex',
     borderTopRightRadius: 15,
@@ -13,7 +13,7 @@ const sidebar = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   title: {
-    fontSize: 35,
+    fontSize: 30,
     textAlign: 'center',
   },
   header: {
