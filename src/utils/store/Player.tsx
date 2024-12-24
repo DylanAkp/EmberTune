@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import InnerLyrics from '../innertube/Lyrics';
 import InnerRadio from '../innertube/Radio';
-import TrackPlayer from 'react-native-track-player';
+// import TrackPlayer from 'react-native-track-player';
 
 interface Thumbnail {
   url: string;
@@ -65,19 +65,19 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
   },
   isPlaying: false,
   setSong: async newSong => {
-    await TrackPlayer.reset();
-    await TrackPlayer.add({
-      id: newSong.id,
-      url: 'https://cdn.pixabay.com/download/audio/2024/08/11/audio_27a173a0ae.mp3?filename=quiz-evaluation-loop-thinking-time-231582.mp3',
-      title: newSong.title,
-      artist: newSong.artists.map(artist => artist.name).join(' & '),
-      artwork: newSong.thumbnails[0]?.url,
-    });
+    // await TrackPlayer.reset();
+    // await TrackPlayer.add({
+    //   id: newSong.id,
+    //   url: 'https://cdn.pixabay.com/download/audio/2024/08/11/audio_27a173a0ae.mp3?filename=quiz-evaluation-loop-thinking-time-231582.mp3',
+    //   title: newSong.title,
+    //   artist: newSong.artists.map(artist => artist.name).join(' & '),
+    //   artwork: newSong.thumbnails[0]?.url,
+    // });
     set({song: newSong});
     const filtered = (await InnerRadio(newSong.id)).filter(
       (song: any) => song.resultType === 'song',
     );
-    await TrackPlayer.play();
+    // await TrackPlayer.play();
     set({
       isPlaying: true,
       lyrics: await InnerLyrics(newSong.id),
@@ -85,29 +85,29 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     });
   },
   setSongWithoutReset: async song => {
-    await TrackPlayer.add({
-      id: song.id,
-      url: 'https://cdn.pixabay.com/download/audio/2024/08/11/audio_27a173a0ae.mp3?filename=quiz-evaluation-loop-thinking-time-231582.mp3',
-      title: song.title,
-      artist: song.artists.map(artist => artist.name).join(' & '),
-      artwork: song.thumbnails[0]?.url,
-    });
+    // await TrackPlayer.add({
+    //   id: song.id,
+    //   url: 'https://cdn.pixabay.com/download/audio/2024/08/11/audio_27a173a0ae.mp3?filename=quiz-evaluation-loop-thinking-time-231582.mp3',
+    //   title: song.title,
+    //   artist: song.artists.map(artist => artist.name).join(' & '),
+    //   artwork: song.thumbnails[0]?.url,
+    // });
     set({song: song, lyrics: await InnerLyrics(song.id)});
   },
   setLyrics: async (newLyrics: Lyrics) => {
     set({lyrics: newLyrics});
   },
   playSong: async () => {
-    await TrackPlayer.play();
+    // await TrackPlayer.play();
     set({isPlaying: true});
   },
   pauseSong: async () => {
-    await TrackPlayer.pause();
+    // await TrackPlayer.pause();
     set({isPlaying: false});
   },
   checkIfPlaying: async () => {
-    const currentState = await TrackPlayer.getState();
-    set({isPlaying: currentState === TrackPlayer.STATE_PLAYING});
+    // const currentState = await TrackPlayer.getState();
+    // set({isPlaying: currentState === TrackPlayer.STATE_PLAYING});
   },
   playNext: async () => {
     const {radio, song} = get();
@@ -115,8 +115,8 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     if (currentIndex >= 0 && currentIndex < radio.length - 1) {
       const nextSong = radio[currentIndex + 1];
       await get().setSongWithoutReset(nextSong);
-      await TrackPlayer.skipToNext();
-      await TrackPlayer.play();
+      // await TrackPlayer.skipToNext();
+      // await TrackPlayer.play();
       set({isPlaying: true});
     }
   },
@@ -126,16 +126,16 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     if (currentIndex > 0) {
       const previousSong = radio[currentIndex - 1];
       await get().setSongWithoutReset(previousSong);
-      await TrackPlayer.skipToPrevious();
-      await TrackPlayer.play();
+      // await TrackPlayer.skipToPrevious();
+      // await TrackPlayer.play();
       set({isPlaying: true});
     }
   },
   getVolume: async () => {
-    const volume = await TrackPlayer.getVolume();
-    return volume;
+    // const volume = await TrackPlayer.getVolume();
+    return 1; //volume;
   },
   changeVolume: async volume => {
-    await TrackPlayer.setVolume(volume / 100);
+    // await TrackPlayer.setVolume(volume / 100);
   },
 }));

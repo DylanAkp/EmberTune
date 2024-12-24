@@ -3,41 +3,12 @@
 #include "pch.h"
 #include "AutolinkedNativeModules.g.h"
 
-// Includes from @react-native-async-storage/async-storage
-#include <winrt/ReactNativeAsyncStorage.h>
-
-// Includes from @react-native-clipboard/clipboard
-#include <winrt/NativeClipboard.h>
-
-// Includes from @react-native-community/slider
-#include <winrt/SliderWindows.h>
-
-// Includes from @react-native-picker/picker
-#include <winrt/ReactNativePicker.h>
-
-// Includes from react-native-screens
-#include <winrt/RNScreens.h>
-
-// Includes from react-native-track-player
-#include <winrt/RNTrackPlayer.h>
-
 namespace winrt::Microsoft::ReactNative
 {
 
 void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::ReactNative::IReactPackageProvider> const& packageProviders)
 { 
-    // IReactPackageProviders from @react-native-async-storage/async-storage
-    packageProviders.Append(winrt::ReactNativeAsyncStorage::ReactPackageProvider());
-    // IReactPackageProviders from @react-native-clipboard/clipboard
-    packageProviders.Append(winrt::NativeClipboard::ReactPackageProvider());
-    // IReactPackageProviders from @react-native-community/slider
-    packageProviders.Append(winrt::SliderWindows::ReactPackageProvider());
-    // IReactPackageProviders from @react-native-picker/picker
-    packageProviders.Append(winrt::ReactNativePicker::ReactPackageProvider());
-    // IReactPackageProviders from react-native-screens
-    packageProviders.Append(winrt::RNScreens::ReactPackageProvider());
-    // IReactPackageProviders from react-native-track-player
-    packageProviders.Append(winrt::RNTrackPlayer::ReactPackageProvider());
+    UNREFERENCED_PARAMETER(packageProviders);
 }
 
 }

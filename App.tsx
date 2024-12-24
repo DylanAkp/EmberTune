@@ -1,13 +1,13 @@
 import React from 'react';
-import TrackPlayer from 'react-native-track-player';
+// import TrackPlayer from 'react-native-track-player';
 import i18n from './src/translations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, StyleSheet } from 'react-native';
-import { ThemeProvider, useTheme } from './ThemeContext';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { isDesktop } from './src/utils/platform/Platform';
-import "react-native-url-polyfill/auto";
+import {View, StyleSheet} from 'react-native';
+import {ThemeProvider, useTheme} from './ThemeContext';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {isDesktop} from './src/utils/platform/Platform';
+import 'react-native-url-polyfill/auto';
 //Components
 import SideBar from './src/components/SideBar';
 import TopBar from './src/components/TopBar';
@@ -29,21 +29,22 @@ const App: React.FC = () => {
 };
 
 const ThemedApp: React.FC = () => {
-  const { theme } = useTheme();
-  AsyncStorage.getItem('language').then((language) => {
+  const {theme} = useTheme();
+  AsyncStorage.getItem('language').then(language => {
     if (language) {
       i18n.changeLanguage(language);
     }
   });
-  
 
   return (
     <NavigationContainer>
-      <View style={[styles.container, { backgroundColor: theme.primary }]}>
+      <View style={[styles.container, {backgroundColor: theme.primary}]}>
         {isDesktop() && <SideBar />}
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <TopBar />
-          <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{headerShown: false}}>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="Search" component={SearchScreen} />
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   appcontent: {
     flex: 1,
     flexDirection: 'column',
-  }
+  },
 });
 
 export default App;
