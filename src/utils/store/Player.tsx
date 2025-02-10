@@ -1,6 +1,7 @@
 import {create} from 'zustand';
 import InnerLyrics from '../innertube/Lyrics';
 import InnerRadio from '../innertube/Radio';
+import InnerDownload from '../innertube/Download';
 import TrackPlayer from 'react-native-track-player';
 
 interface Thumbnail {
@@ -65,10 +66,11 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
   },
   isPlaying: false,
   setSong: async newSong => {
+    const songUrl = await InnerDownload(newSong.id);
     await TrackPlayer.reset();
     await TrackPlayer.add({
       id: newSong.id,
-      url: 'https://cdn.pixabay.com/download/audio/2024/08/11/audio_27a173a0ae.mp3?filename=quiz-evaluation-loop-thinking-time-231582.mp3',
+      url: songUrl,
       title: newSong.title,
       artist: newSong.artists.map(artist => artist.name).join(' & '),
       artwork: newSong.thumbnails[0]?.url,
@@ -85,9 +87,10 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     });
   },
   setSongWithoutReset: async song => {
+    const songUrl = await InnerDownload(song.id);
     await TrackPlayer.add({
       id: song.id,
-      url: 'https://cdn.pixabay.com/download/audio/2024/08/11/audio_27a173a0ae.mp3?filename=quiz-evaluation-loop-thinking-time-231582.mp3',
+      url: songUrl,
       title: song.title,
       artist: song.artists.map(artist => artist.name).join(' & '),
       artwork: song.thumbnails[0]?.url,
