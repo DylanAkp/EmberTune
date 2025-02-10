@@ -7,7 +7,7 @@
 #include <winrt/ReactNativeAsyncStorage.h>
 
 // Includes from @react-native-clipboard/clipboard
-#include <winrt/NativeClipboard.h>
+#include <winrt/Clipboard.h>
 
 // Includes from @react-native-community/slider
 #include <winrt/SliderWindows.h>
@@ -29,7 +29,7 @@ void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collecti
     // IReactPackageProviders from @react-native-async-storage/async-storage
     packageProviders.Append(winrt::ReactNativeAsyncStorage::ReactPackageProvider());
     // IReactPackageProviders from @react-native-clipboard/clipboard
-    packageProviders.Append(winrt::NativeClipboard::ReactPackageProvider());
+    packageProviders.Append(winrt::Clipboard::ReactPackageProvider());
     // IReactPackageProviders from @react-native-community/slider
     packageProviders.Append(winrt::SliderWindows::ReactPackageProvider());
     // IReactPackageProviders from @react-native-picker/picker

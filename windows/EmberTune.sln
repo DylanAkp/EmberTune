@@ -41,9 +41,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReactNativeAsyncStorage", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReactNativePicker", "..\node_modules\@react-native-picker\picker\windows\ReactNativePicker\ReactNativePicker.vcxproj", "{BEDCC600-4541-41F2-AA46-9E058202B6AD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Clipboard", "..\node_modules\@react-native-clipboard\clipboard\windows\Clipboard\Clipboard.vcxproj", "{99A938FA-9FF3-47A0-9256-195A06E7FDD1}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SliderWindows", "..\node_modules\@react-native-community\slider\windows\SliderWindows\SliderWindows.vcxproj", "{685A83AE-36BC-4E9D-BDC6-417EBF168463}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Clipboard", "..\node_modules\@react-native-clipboard\clipboard\windows\Clipboard\Clipboard.vcxproj", "{90BFF18B-474B-445D-9847-B065853288D8}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -218,6 +218,18 @@ Global
 		{685A83AE-36BC-4E9D-BDC6-417EBF168463}.Release|x86.Build.0 = Release|Win32
 		{685A83AE-36BC-4E9D-BDC6-417EBF168463}.Release|ARM64.ActiveCfg = Release|ARM64
 		{685A83AE-36BC-4E9D-BDC6-417EBF168463}.Release|ARM64.Build.0 = Release|ARM64
+		{90BFF18B-474B-445D-9847-B065853288D8}.Debug|x64.ActiveCfg = Debug|x64
+		{90BFF18B-474B-445D-9847-B065853288D8}.Debug|x64.Build.0 = Debug|x64
+		{90BFF18B-474B-445D-9847-B065853288D8}.Debug|x86.ActiveCfg = Debug|Win32
+		{90BFF18B-474B-445D-9847-B065853288D8}.Debug|x86.Build.0 = Debug|Win32
+		{90BFF18B-474B-445D-9847-B065853288D8}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{90BFF18B-474B-445D-9847-B065853288D8}.Debug|ARM64.Build.0 = Debug|ARM64
+		{90BFF18B-474B-445D-9847-B065853288D8}.Release|x64.ActiveCfg = Release|x64
+		{90BFF18B-474B-445D-9847-B065853288D8}.Release|x64.Build.0 = Release|x64
+		{90BFF18B-474B-445D-9847-B065853288D8}.Release|x86.ActiveCfg = Release|Win32
+		{90BFF18B-474B-445D-9847-B065853288D8}.Release|x86.Build.0 = Release|Win32
+		{90BFF18B-474B-445D-9847-B065853288D8}.Release|ARM64.ActiveCfg = Release|ARM64
+		{90BFF18B-474B-445D-9847-B065853288D8}.Release|ARM64.Build.0 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,7 @@
     </ProjectReference>
     <!-- Projects from @react-native-clipboard/clipboard -->
     <ProjectReference Include="$(ProjectDir)..\..\node_modules\@react-native-clipboard\clipboard\windows\Clipboard\Clipboard.vcxproj">
-      <Project>{99a938fa-9ff3-47a0-9256-195a06e7fdd1}</Project>
+      <Project>{90BFF18B-474B-445D-9847-B065853288D8}</Project>
     </ProjectReference>
     <!-- Projects from @react-native-community/slider -->
     <ProjectReference Include="$(ProjectDir)..\..\node_modules\@react-native-community\slider\windows\SliderWindows\SliderWindows.vcxproj">
