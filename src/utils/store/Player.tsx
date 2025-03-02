@@ -34,6 +34,8 @@ interface PlayerStore {
   radio: Song[];
   isPlaying: boolean;
   lyrics: Lyrics;
+  progress: number;
+  duration: number;
   setSong: (newSong: Song) => void;
   playSong: () => void;
   pauseSong: () => void;
@@ -44,6 +46,9 @@ interface PlayerStore {
   setSongWithoutReset: (song: Song) => void;
   getVolume: () => Promise<number>;
   changeVolume: (volume: number) => void;
+  getProgress: () => Promise<number>;
+  getDuration: () => Promise<number>;
+  seekTo: (position: number) => void;
 }
 
 export const usePlayer = create<PlayerStore>((set, get) => ({
@@ -65,22 +70,40 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     },
   },
   isPlaying: false,
+  progress: 0,
+  duration: 0,
   setSong: async newSong => {
     const songUrl = await InnerDownload(newSong.id);
     await TrackPlayer.reset();
-    await TrackPlayer.add({
-      id: newSong.id,
-      url: songUrl,
-      title: newSong.title,
-      artist: newSong.artists.map(artist => artist.name).join(' & '),
-      artwork: newSong.thumbnails[0]?.url,
-    });
-    set({song: newSong});
+
+    // Get radio tracks first
     const filtered = (await InnerRadio(newSong.id)).filter(
       (song: any) => song.resultType === 'song',
     );
+
+    // Add current song and radio tracks to queue
+    const tracks = [
+      {
+        id: newSong.id,
+        url: songUrl,
+        title: newSong.title,
+        artist: newSong.artists.map(artist => artist.name).join(' & '),
+        artwork: newSong.thumbnails[0]?.url,
+      },
+      ...filtered.map((song: any) => ({
+        id: song.id,
+        url: songUrl,
+        title: song.title,
+        artist: song.artists.map((artist: any) => artist.name).join(' & '),
+        artwork: song.thumbnails[0]?.url,
+      })),
+    ];
+
+    await TrackPlayer.add(tracks);
     await TrackPlayer.play();
+
     set({
+      song: newSong,
       isPlaying: true,
       lyrics: await InnerLyrics(newSong.id),
       radio: filtered,
@@ -109,29 +132,40 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     set({isPlaying: false});
   },
   checkIfPlaying: async () => {
-    const currentState = await TrackPlayer.getState();
-    set({isPlaying: currentState === TrackPlayer.STATE_PLAYING});
+    try {
+      const state = await TrackPlayer.getState();
+      set({isPlaying: state === TrackPlayer.State.Playing});
+    } catch (error) {
+      console.warn('Error checking play state:', error);
+      set({isPlaying: false});
+    }
   },
   playNext: async () => {
     const {radio, song} = get();
-    const currentIndex = radio.findIndex((s: any) => s.id === song.id) || 0;
+    const currentIndex = radio.findIndex((s: any) => s.id === song.id);
     if (currentIndex >= 0 && currentIndex < radio.length - 1) {
       const nextSong = radio[currentIndex + 1];
-      await get().setSongWithoutReset(nextSong);
       await TrackPlayer.skipToNext();
       await TrackPlayer.play();
-      set({isPlaying: true});
+      set({
+        song: nextSong,
+        isPlaying: true,
+        lyrics: await InnerLyrics(nextSong.id),
+      });
     }
   },
   playPrevious: async () => {
     const {radio, song} = get();
-    const currentIndex = radio.findIndex((s: any) => s.id === song.id) || 0;
+    const currentIndex = radio.findIndex((s: any) => s.id === song.id);
     if (currentIndex > 0) {
       const previousSong = radio[currentIndex - 1];
-      await get().setSongWithoutReset(previousSong);
       await TrackPlayer.skipToPrevious();
       await TrackPlayer.play();
-      set({isPlaying: true});
+      set({
+        song: previousSong,
+        isPlaying: true,
+        lyrics: await InnerLyrics(previousSong.id),
+      });
     }
   },
   getVolume: async () => {
@@ -140,5 +174,25 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
   },
   changeVolume: async volume => {
     await TrackPlayer.setVolume(volume / 100);
+  },
+  getProgress: async () => {
+    const position = await TrackPlayer.getPosition();
+    set({progress: position});
+    return position;
+  },
+  getDuration: async () => {
+    const duration = await TrackPlayer.getDuration();
+    set({duration});
+    return duration;
+  },
+  seekTo: async (position: number) => {
+    try {
+      await TrackPlayer.seekTo(position);
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const newPosition = await TrackPlayer.getPosition();
+      set({progress: newPosition});
+    } catch (error) {
+      console.warn('Error while seeking:', error);
+    }
   },
 }));

@@ -146,6 +146,79 @@ const SongTools: React.FC<SongInfoProps> = ({song, theme}) => {
   );
 };
 
+const formatTime = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+};
+
+const ProgressBar: React.FC<{theme: any}> = ({theme}) => {
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
+  const [seekValue, setSeekValue] = useState(0);
+  const {getProgress, getDuration, seekTo} = usePlayer();
+
+  useEffect(() => {
+    const updateProgress = async () => {
+      if (!isSeeking) {
+        try {
+          const currentProgress = await getProgress();
+          const currentDuration = await getDuration();
+          setProgress(currentProgress);
+          setDuration(currentDuration || 0);
+        } catch (error) {
+          console.warn('Error updating progress:', error);
+        }
+      }
+    };
+
+    const interval = setInterval(updateProgress, 1000);
+    return () => clearInterval(interval);
+  }, [getProgress, getDuration, isSeeking]);
+
+  const handleSlidingStart = () => {
+    setIsSeeking(true);
+  };
+
+  const handleValueChange = (value: number) => {
+    setSeekValue(value);
+    setProgress(value);
+  };
+
+  const handleSeek = async (value: number) => {
+    try {
+      await seekTo(value);
+      setProgress(value);
+    } finally {
+      setIsSeeking(false);
+    }
+  };
+
+  return (
+    <View style={styles.progressContainer}>
+      <FredokaText size={12} color="grey">
+        {formatTime(progress)}
+      </FredokaText>
+      <Slider
+        style={styles.progressBar}
+        minimumValue={0}
+        maximumValue={duration || 100}
+        value={isSeeking ? seekValue : progress}
+        minimumTrackTintColor={theme.accent}
+        maximumTrackTintColor={theme.text}
+        thumbTintColor={theme.accent}
+        onSlidingStart={handleSlidingStart}
+        onValueChange={handleValueChange}
+        onSlidingComplete={handleSeek}
+      />
+      <FredokaText size={12} color="grey">
+        {formatTime(duration)}
+      </FredokaText>
+    </View>
+  );
+};
+
 const PlayBar: React.FC = () => {
   const {theme} = useTheme();
   const {song} = usePlayer();
@@ -156,9 +229,12 @@ const PlayBar: React.FC = () => {
 
   return (
     <View style={[styles.playbar, {backgroundColor: theme.secondary}]}>
-      <SongInfo song={song} theme={theme} />
-      <PlayerControls theme={theme} />
-      <SongTools song={song} theme={theme} />
+      <View style={styles.mainContent}>
+        <SongInfo song={song} theme={theme} />
+        <PlayerControls theme={theme} />
+        <SongTools song={song} theme={theme} />
+      </View>
+      <ProgressBar theme={theme} />
     </View>
   );
 };
@@ -174,14 +250,14 @@ const styles = StyleSheet.create({
   },
   playbar: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     padding: 10,
     paddingRight: 20,
     margin: 20,
     marginTop: 0,
     borderRadius: 20,
-    gap: '10%',
+    gap: 5,
   },
   tools: {
     display: 'flex',
@@ -203,6 +279,24 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 15,
+  },
+  mainContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: '10%',
+    width: '100%',
+  },
+  progressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    width: '100%',
+    gap: 10,
+  },
+  progressBar: {
+    flex: 1,
+    height: 40,
   },
 });
 
