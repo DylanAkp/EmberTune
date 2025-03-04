@@ -73,33 +73,23 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
   progress: 0,
   duration: 0,
   setSong: async newSong => {
+    // Download current song first
     const songUrl = await InnerDownload(newSong.id);
     await TrackPlayer.reset();
 
-    // Get radio tracks first
+    // Get radio tracks then
     const filtered = (await InnerRadio(newSong.id)).filter(
       (song: any) => song.resultType === 'song',
     );
 
-    // Add current song and radio tracks to queue
-    const tracks = [
-      {
-        id: newSong.id,
-        url: songUrl,
-        title: newSong.title,
-        artist: newSong.artists.map(artist => artist.name).join(' & '),
-        artwork: newSong.thumbnails[0]?.url,
-      },
-      ...filtered.map((song: any) => ({
-        id: song.id,
-        url: songUrl,
-        title: song.title,
-        artist: song.artists.map((artist: any) => artist.name).join(' & '),
-        artwork: song.thumbnails[0]?.url,
-      })),
-    ];
-
-    await TrackPlayer.add(tracks);
+    // Add current song to queue and start playing immediately
+    await TrackPlayer.add({
+      id: newSong.id,
+      url: songUrl,
+      title: newSong.title,
+      artist: newSong.artists.map(artist => artist.name).join(' & '),
+      artwork: newSong.thumbnails[0]?.url,
+    });
     await TrackPlayer.play();
 
     set({
@@ -107,6 +97,22 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
       isPlaying: true,
       lyrics: await InnerLyrics(newSong.id),
       radio: filtered,
+    });
+
+    // Add recommendations to queue
+    filtered.forEach(async (song: any) => {
+      try {
+        const radioSongUrl = await InnerDownload(song.id);
+        await TrackPlayer.add({
+          id: song.id,
+          url: radioSongUrl,
+          title: song.title,
+          artist: song.artists.map((artist: any) => artist.name).join(' & '),
+          artwork: song.thumbnails[0]?.url,
+        });
+      } catch (error) {
+        console.warn(`Failed to download radio song ${song.title}:`, error);
+      }
     });
   },
   setSongWithoutReset: async song => {
