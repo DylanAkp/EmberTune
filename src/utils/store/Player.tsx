@@ -36,6 +36,7 @@ interface PlayerStore {
   lyrics: Lyrics;
   progress: number;
   duration: number;
+  currentPlaylist: Song[] | null;
   setSong: (newSong: Song) => void;
   playSong: () => void;
   pauseSong: () => void;
@@ -49,6 +50,7 @@ interface PlayerStore {
   getProgress: () => Promise<number>;
   getDuration: () => Promise<number>;
   seekTo: (position: number) => void;
+  setCurrentPlaylist: (playlist: Song[] | null) => void;
 }
 
 export const usePlayer = create<PlayerStore>((set, get) => ({
@@ -59,6 +61,7 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     artists: [],
   },
   radio: [],
+  currentPlaylist: null,
   lyrics: {
     lyrics: '',
     source: '',
@@ -90,6 +93,49 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
       artist: newSong.artists.map(artist => artist.name).join(' & '),
       artwork: newSong.thumbnails[0]?.url,
     });
+
+    // If we have a current playlist, add the remaining songs to the queue
+    const {currentPlaylist} = get();
+    if (currentPlaylist) {
+      const currentIndex = currentPlaylist.findIndex(s => s.id === newSong.id);
+      if (currentIndex >= 0) {
+        const remainingSongs = currentPlaylist.slice(currentIndex + 1);
+        for (const song of remainingSongs) {
+          try {
+            const songUrl = await InnerDownload(song.id);
+            await TrackPlayer.add({
+              id: song.id,
+              url: songUrl,
+              title: song.title,
+              artist: song.artists.map(artist => artist.name).join(' & '),
+              artwork: song.thumbnails[0]?.url,
+            });
+          } catch (error) {
+            console.warn(
+              `Failed to download playlist song ${song.title}:`,
+              error,
+            );
+          }
+        }
+      }
+    } else {
+      // If no playlist, add radio recommendations
+      filtered.forEach(async (song: any) => {
+        try {
+          const radioSongUrl = await InnerDownload(song.id);
+          await TrackPlayer.add({
+            id: song.id,
+            url: radioSongUrl,
+            title: song.title,
+            artist: song.artists.map((artist: any) => artist.name).join(' & '),
+            artwork: song.thumbnails[0]?.url,
+          });
+        } catch (error) {
+          console.warn(`Failed to download radio song ${song.title}:`, error);
+        }
+      });
+    }
+
     await TrackPlayer.play();
 
     set({
@@ -97,22 +143,6 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
       isPlaying: true,
       lyrics: await InnerLyrics(newSong.id),
       radio: filtered,
-    });
-
-    // Add recommendations to queue
-    filtered.forEach(async (song: any) => {
-      try {
-        const radioSongUrl = await InnerDownload(song.id);
-        await TrackPlayer.add({
-          id: song.id,
-          url: radioSongUrl,
-          title: song.title,
-          artist: song.artists.map((artist: any) => artist.name).join(' & '),
-          artwork: song.thumbnails[0]?.url,
-        });
-      } catch (error) {
-        console.warn(`Failed to download radio song ${song.title}:`, error);
-      }
     });
   },
   setSongWithoutReset: async song => {
@@ -125,6 +155,9 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
       artwork: song.thumbnails[0]?.url,
     });
     set({song: song, lyrics: await InnerLyrics(song.id)});
+  },
+  setCurrentPlaylist: (playlist: Song[] | null) => {
+    set({currentPlaylist: playlist});
   },
   setLyrics: async (newLyrics: Lyrics) => {
     set({lyrics: newLyrics});
@@ -147,10 +180,32 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     }
   },
   playNext: async () => {
-    const {radio, song} = get();
-    const currentIndex = radio.findIndex((s: any) => s.id === song.id);
-    if (currentIndex >= 0 && currentIndex < radio.length - 1) {
-      const nextSong = radio[currentIndex + 1];
+    const {currentPlaylist, song, radio} = get();
+
+    // If no song is currently playing, return early
+    if (!song || !song.id) return;
+
+    let nextSong = null;
+    let currentIndex = -1;
+
+    // Try to find the next song in current playlist
+    if (currentPlaylist && currentPlaylist.length > 0) {
+      currentIndex = currentPlaylist.findIndex(s => s.id === song.id);
+      if (currentIndex >= 0 && currentIndex < currentPlaylist.length - 1) {
+        nextSong = currentPlaylist[currentIndex + 1];
+      }
+    }
+
+    // If no next song in current playlist, try radio
+    if (!nextSong && radio && radio.length > 0) {
+      currentIndex = radio.findIndex((s: any) => s.id === song.id);
+      if (currentIndex >= 0 && currentIndex < radio.length - 1) {
+        nextSong = radio[currentIndex + 1];
+      }
+    }
+
+    // If we found a next song, play it
+    if (nextSong) {
       await TrackPlayer.skipToNext();
       await TrackPlayer.play();
       set({
@@ -161,17 +216,32 @@ export const usePlayer = create<PlayerStore>((set, get) => ({
     }
   },
   playPrevious: async () => {
-    const {radio, song} = get();
-    const currentIndex = radio.findIndex((s: any) => s.id === song.id);
-    if (currentIndex > 0) {
-      const previousSong = radio[currentIndex - 1];
-      await TrackPlayer.skipToPrevious();
-      await TrackPlayer.play();
-      set({
-        song: previousSong,
-        isPlaying: true,
-        lyrics: await InnerLyrics(previousSong.id),
-      });
+    const {currentPlaylist, song} = get();
+    if (currentPlaylist) {
+      const currentIndex = currentPlaylist.findIndex(s => s.id === song.id);
+      if (currentIndex > 0) {
+        const previousSong = currentPlaylist[currentIndex - 1];
+        await TrackPlayer.skipToPrevious();
+        await TrackPlayer.play();
+        set({
+          song: previousSong,
+          isPlaying: true,
+          lyrics: await InnerLyrics(previousSong.id),
+        });
+      }
+    } else {
+      const {radio} = get();
+      const currentIndex = radio.findIndex((s: any) => s.id === song.id);
+      if (currentIndex > 0) {
+        const previousSong = radio[currentIndex - 1];
+        await TrackPlayer.skipToPrevious();
+        await TrackPlayer.play();
+        set({
+          song: previousSong,
+          isPlaying: true,
+          lyrics: await InnerLyrics(previousSong.id),
+        });
+      }
     }
   },
   getVolume: async () => {
