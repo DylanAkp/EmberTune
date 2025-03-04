@@ -19,6 +19,7 @@ import SearchScreen from './src/screens/SearchScreen';
 import LyricsScreen from './src/screens/LyricsScreen';
 import PlaylistScreen from './src/screens/PlaylistScreen';
 import PlaylistDetailScreen from './src/screens/PlaylistDetailScreen';
+import AddToPlaylistScreen from './src/screens/AddToPlaylistScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -27,6 +28,7 @@ export type RootStackParamList = {
   Lyrics: undefined;
   Playlists: undefined;
   PlaylistDetail: {playlistId: string};
+  AddToPlaylist: {song: Song};
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -64,6 +66,10 @@ const ThemedApp: React.FC = () => {
             <Stack.Screen
               name="PlaylistDetail"
               component={PlaylistDetailScreen}
+            />
+            <Stack.Screen
+              name="AddToPlaylist"
+              component={AddToPlaylistScreen}
             />
           </Stack.Navigator>
           <PlayBar />

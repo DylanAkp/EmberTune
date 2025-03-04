@@ -10,6 +10,9 @@ import {useNavigation} from '@react-navigation/native';
 import {useNavigationState} from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 import {usePlaylist} from '../utils/store/Playlist';
+import {useTranslation} from 'react-i18next';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
 
 const truncateText = (text: string, maxLength: number) => {
   if (text.length > maxLength) {
@@ -84,59 +87,14 @@ const SongInfo: React.FC<SongInfoProps> = ({song, theme}) => {
   );
 };
 
-const AddToPlaylist: React.FC<{song: any; theme: any}> = ({song, theme}) => {
-  const [showPlaylists, setShowPlaylists] = useState(false);
-  const {playlists, addSongToPlaylist} = usePlaylist();
-
-  const customPlaylists = playlists.filter(p => !p.isDefault);
-
-  if (customPlaylists.length === 0) {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          Alert.alert(
-            'No Playlists',
-            'Create a playlist first to add songs to it.',
-          )
-        }>
-        <Icon name="playlist-plus" size={20} color={theme.text} />
-      </TouchableOpacity>
-    );
-  }
-
-  return (
-    <View style={styles.playlistContainer}>
-      <TouchableOpacity onPress={() => setShowPlaylists(!showPlaylists)}>
-        <Icon name="playlist-plus" size={20} color={theme.text} />
-      </TouchableOpacity>
-      {showPlaylists && (
-        <View
-          style={[styles.playlistDropdown, {backgroundColor: theme.primary}]}>
-          {customPlaylists.map(playlist => (
-            <TouchableOpacity
-              key={playlist.id}
-              style={styles.playlistItem}
-              onPress={() => {
-                addSongToPlaylist(playlist.id, song);
-                setShowPlaylists(false);
-              }}>
-              <FredokaText size={14}>{playlist.name}</FredokaText>
-              <Icon name="plus" size={20} color={theme.accent} />
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
-    </View>
-  );
-};
-
 const SongTools: React.FC<SongInfoProps> = ({song, theme}) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const route = useNavigationState(state => state.routes[state.index]);
   const [copy, setCopy] = useState('link');
   const [volume, setVolume] = useState(100);
   const {changeVolume, getVolume} = usePlayer();
   const {playlists, removeSongFromPlaylist, addSongToPlaylist} = usePlaylist();
+  const {t} = useTranslation();
 
   useEffect(() => {
     const initialVolume = getVolume();
@@ -180,6 +138,10 @@ const SongTools: React.FC<SongInfoProps> = ({song, theme}) => {
     }
   };
 
+  const handleAddToPlaylist = () => {
+    navigation.navigate('AddToPlaylist', {song});
+  };
+
   return (
     <View style={styles.tools}>
       <Icon name="volume-high" size={20} color={theme.text} />
@@ -214,7 +176,9 @@ const SongTools: React.FC<SongInfoProps> = ({song, theme}) => {
           color={isSongLiked() ? theme.accent : theme.text}
         />
       </TouchableOpacity>
-      <AddToPlaylist song={song} theme={theme} />
+      <TouchableOpacity onPress={handleAddToPlaylist}>
+        <Icon name="playlist-plus" size={20} color={theme.text} />
+      </TouchableOpacity>
     </View>
   );
 };

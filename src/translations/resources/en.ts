@@ -21,4 +21,5 @@ export default {
   unknownArtist: 'Unknown artist',
   noPlaylists: 'No Playlists',
   createPlaylistFirst: 'Create a playlist first to add songs to it.',
+  addToPlaylist: 'Add to Playlist',
 };
