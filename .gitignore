@@ -76,8 +76,6 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-yarn.lock
-./yarn.lock
 
 # Others
 example.json
