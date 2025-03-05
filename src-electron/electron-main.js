@@ -18,7 +18,11 @@ async function createWindow () {
     icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon
     width: 1000,
     height: 600,
+    minWidth: 800,
+    minHeight: 600,
     useContentSize: true,
+    autoHideMenuBar: true,
+    title: 'EmberTune',
     webPreferences: {
       contextIsolation: true,
       // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
@@ -35,11 +39,7 @@ async function createWindow () {
     await mainWindow.loadFile('index.html')
   }
 
-  if (process.env.DEBUGGING) {
-    // if on DEV or Production with debug enabled
-    mainWindow.webContents.openDevTools()
-  } else {
-    // we're on production; no access to devtools pls
+  if (!process.env.DEBUGGING) {
     mainWindow.webContents.on('devtools-opened', () => {
       mainWindow.webContents.closeDevTools()
     })
