@@ -29,3 +29,23 @@ body {
 .clickable {
   cursor: pointer;
 }
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-bg);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--tertiary-bg);
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--accent-color);
+  }
+}
