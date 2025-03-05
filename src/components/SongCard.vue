@@ -48,14 +48,18 @@ defineProps({
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   background-color: var(--secondary-bg);
   border-radius: 15px;
   width: 160px;
-  height: 240px;
+  height: 215px;
   padding: 10px;
   box-sizing: border-box;
 
   .song-card-title {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
     text-align: center;
     box-sizing: border-box;
@@ -64,6 +68,7 @@ defineProps({
       font-size: 16px;
       font-weight: 600;
       margin: 0;
+      line-height: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -72,6 +77,7 @@ defineProps({
     p {
       font-size: 14px;
       margin: 0;
+      line-height: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
