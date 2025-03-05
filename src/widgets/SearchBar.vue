@@ -3,7 +3,7 @@
     <input
       class="search-input"
       type="text"
-      placeholder="Search"
+      :placeholder="t('common.search')"
       v-model="searchQuery"
       @keyup.enter="handleSearch"
     />
@@ -16,7 +16,9 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const router = useRouter()
 const searchQuery = ref('')
 
