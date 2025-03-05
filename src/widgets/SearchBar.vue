@@ -34,6 +34,7 @@ const handleSearch = () => {
 .search-bar {
   background-color: var(--secondary-bg);
   width: fit-content;
+  max-width: 100%;
   border-radius: 30px;
   padding: 5px;
   display: flex;
@@ -44,7 +45,8 @@ const handleSearch = () => {
   margin-left: auto;
 
   .search-input {
-    width: 300px;
+    width: 500px;
+    max-width: calc(100% - 65px);
     height: 50px;
     border-radius: 25px;
     border: none;
