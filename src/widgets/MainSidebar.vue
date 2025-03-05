@@ -36,8 +36,8 @@ const routes = [
   gap: 20px;
   border-radius: 0 20px 20px 0;
   overflow: none;
-  width: 50%;
-  max-width: 300px;
+  width: var(--sidebar-width);
+  max-width: var(--sidebar-width);
   .header {
     display: flex;
     flex-direction: row;

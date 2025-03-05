@@ -3,7 +3,9 @@
     <MainSidebar />
     <div class="main-content">
       <SearchBar />
-      <router-view />
+      <div class="router-view-container">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -20,13 +22,18 @@ import SearchBar from 'src/widgets/SearchBar.vue'
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+
   .main-content {
-    padding: 20px;
+    padding: var(--content-padding);
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     overflow-y: auto;
+
+    .router-view-container {
+      margin-top: var(--search-bar-spacing);
+    }
   }
 }
 </style>

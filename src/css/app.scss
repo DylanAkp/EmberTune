@@ -6,6 +6,12 @@
   --tertiary-bg: #2e2f36;
   --text-color: #dfe0e7;
   --accent-color: #f5a747;
+
+  --sidebar-width: 300px;
+  --content-padding: 20px;
+  --search-bar-height: 50px;
+  --search-bar-total-height: calc(var(--search-bar-height) + 10px);
+  --search-bar-spacing: calc(var(--search-bar-total-height) + var(--content-padding) * 2);
 }
 
 * {

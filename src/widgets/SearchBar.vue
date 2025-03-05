@@ -34,23 +34,26 @@ const handleSearch = () => {
 
 <style lang="scss" scoped>
 .search-bar {
+  position: fixed;
+  top: var(--content-padding);
+  left: calc(var(--sidebar-width) + (100% - var(--sidebar-width)) / 2);
+  transform: translateX(-50%);
+  z-index: 100;
   background-color: var(--secondary-bg);
   width: fit-content;
-  max-width: 100%;
-  border-radius: 30px;
+  max-width: calc(100% - var(--sidebar-width) - 40px);
+  border-radius: calc(var(--search-bar-total-height) / 2);
   padding: 5px;
   display: flex;
   gap: 10px;
   justify-content: center;
   align-items: center;
-  margin-right: auto;
-  margin-left: auto;
 
   .search-input {
     width: 500px;
     max-width: calc(100% - 55px);
-    height: 50px;
-    border-radius: 25px;
+    height: var(--search-bar-height);
+    border-radius: calc(var(--search-bar-height) / 2);
     border: none;
     padding: 0 20px;
     background-color: var(--tertiary-bg);
@@ -70,11 +73,10 @@ const handleSearch = () => {
     justify-content: center;
     align-items: center;
     background-color: var(--tertiary-bg);
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
-    height: 50px;
-    padding: 10px;
+    width: var(--search-bar-height);
+    min-width: var(--search-bar-height);
+    max-width: var(--search-bar-height);
+    height: var(--search-bar-height);
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
