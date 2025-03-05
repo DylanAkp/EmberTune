@@ -1,0 +1,53 @@
+name: Windows Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: |
+          yarn install
+
+      - name: Setup Windows SDK
+        uses: microsoft/setup-msbuild@v1.3
+
+      - name: Install Windows SDK
+        shell: powershell
+        run: |
+          Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/p/?linkid=2083338" -OutFile "sdksetup.exe"
+          Start-Process -FilePath "sdksetup.exe" -ArgumentList "/features", "+", "/quiet" -Wait -NoNewWindow
+
+      - name: Install Windows App SDK Dependencies
+        run: |
+          cd windows
+          nuget install Microsoft.WindowsAppSDK -Version 1.4.0
+          nuget install Microsoft.Windows.CppWinRT -Version 2.0.200316.3
+          nuget restore
+
+      - name: Build Windows App
+        run: |
+          cd windows
+          msbuild EmberTune.sln /p:Configuration=Release /p:Platform=x64 /p:WindowsTargetPlatformVersion=10.0.18362.0 /p:TreatWarningsAsErrors=false /p:WarningLevel=3 /p:DisableAdvancedSupport=true /restore
+
+      - name: Create artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-app
+          path: |
+            windows/AppPackages/
+            windows/EmberTune.Package/Release/
