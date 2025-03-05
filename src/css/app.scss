@@ -1,1 +1,30 @@
-// app global css in SCSS form
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-bg: #191b1f;
+  --secondary-bg: #0d1116;
+  --tertiary-bg: #2e2f36;
+  --text-color: #dfe0e7;
+}
+
+* {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+}
+
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
