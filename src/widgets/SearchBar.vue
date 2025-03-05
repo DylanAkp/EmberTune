@@ -46,7 +46,7 @@ const handleSearch = () => {
 
   .search-input {
     width: 500px;
-    max-width: calc(100% - 65px);
+    max-width: calc(100% - 55px);
     height: 50px;
     border-radius: 25px;
     border: none;
@@ -69,6 +69,8 @@ const handleSearch = () => {
     align-items: center;
     background-color: var(--tertiary-bg);
     width: 50px;
+    min-width: 50px;
+    max-width: 50px;
     height: 50px;
     padding: 10px;
     border-radius: 50%;
