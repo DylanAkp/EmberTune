@@ -1,0 +1,9 @@
+{
+  "app": {
+    "name": "EmberTune"
+  },
+  "common": {
+    "search": "Rechercher",
+    "loading": "Chargement..."
+  }
+}
