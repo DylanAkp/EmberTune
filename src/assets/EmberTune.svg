@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Dégradé_sans_nom_280);
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #995007;
+      }
+
+      .cls-3 {
+        fill: #7a7a7a;
+        opacity: 0;
+      }
+
+      .cls-4 {
+        fill: #723c01;
+      }
+
+      .cls-5 {
+        fill: #633303;
+      }
+    </style>
+    <linearGradient id="Dégradé_sans_nom_280" data-name="Dégradé sans nom 280" x1="500.12" y1="843.5" x2="500.12" y2="51" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e97b00"/>
+      <stop offset="1" stop-color="#f0b000"/>
+    </linearGradient>
+  </defs>
+  <g id="Background">
+    <rect class="cls-3" width="1000" height="1000"/>
+  </g>
+  <g id="Flame">
+    <path class="cls-1" d="M820.24,523.38c0,176.81-143.32,320.13-320.13,320.13s-320.13-143.32-320.13-320.13c0-101.43,47.17-191.85,120.78-250.5,13.09,114.36,107.61,203.98,224.12,209.43-88.07-34.56-150.43-120.3-150.43-220.63,0-11.49.82-22.79,2.4-33.84,11.04-77.21,59.32-142.42,126.07-176.84,10.12,77.44,57.65,143.11,123.86,178.29,6.47,3.46,13.13,6.59,19.93,9.43,43.42,22.41,81.06,54.45,110.08,93.32,17.05,22.82,31.12,48.02,41.65,74.97,14.07,36.06,21.8,75.31,21.8,116.37Z"/>
+  </g>
+  <g id="Wood">
+    <rect class="cls-5" x="455.18" y="459.5" width="88.64" height="773.33" rx="44.32" ry="44.32" transform="translate(-424.37 1180.8) rotate(-79.36)"/>
+    <circle class="cls-2" cx="837.99" cy="910.4" r="38.54"/>
+    <rect class="cls-4" x="455.18" y="459.5" width="88.64" height="773.33" rx="44.32" ry="44.32" transform="translate(-239.86 1493.36) rotate(-100.64)"/>
+    <circle class="cls-2" cx="161.01" cy="910.4" r="38.54"/>
+  </g>
+</svg>
