@@ -1,6 +1,8 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
 import os from 'node:os'
+import './ipc/youtube'
+import './ipc/playlist'
 import { fileURLToPath } from 'node:url'
 
 // needed in case process is undefined under Linux
@@ -10,10 +12,7 @@ const currentDir = fileURLToPath(new URL('.', import.meta.url))
 
 let mainWindow
 
-async function createWindow () {
-  /**
-   * Initial window options
-   */
+async function createWindow() {
   mainWindow = new BrowserWindow({
     icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon
     width: 1000,
@@ -28,9 +27,12 @@ async function createWindow () {
       // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
       preload: path.resolve(
         currentDir,
-        path.join(process.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION)
-      )
-    }
+        path.join(
+          process.env.QUASAR_ELECTRON_PRELOAD_FOLDER,
+          'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION,
+        ),
+      ),
+    },
   })
 
   if (process.env.DEV) {
