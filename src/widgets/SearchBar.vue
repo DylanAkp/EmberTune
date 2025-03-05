@@ -1,11 +1,34 @@
 <template>
   <div class="search-bar">
-    <input class="search-input" type="text" placeholder="Search" />
-    <div class="search-icon">
+    <input
+      class="search-input"
+      type="text"
+      placeholder="Search"
+      v-model="searchQuery"
+      @keyup.enter="handleSearch"
+    />
+    <div class="search-icon" @click="handleSearch">
       <q-icon size="25px" name="mdi-magnify" />
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const searchQuery = ref('')
+
+const handleSearch = () => {
+  if (searchQuery.value.trim()) {
+    router.push({
+      path: '/search',
+      query: { q: searchQuery.value },
+    })
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .search-bar {

@@ -2,7 +2,6 @@ import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
 import os from 'node:os'
 import './ipc/youtube'
-import './ipc/playlist'
 import { fileURLToPath } from 'node:url'
 
 // needed in case process is undefined under Linux

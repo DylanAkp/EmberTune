@@ -1,9 +1,9 @@
 import { get, download, search } from 'ytmusic_api_unofficial'
 import { ipcMain } from 'electron'
 
-ipcMain.handle('search', async (event, query, type = null) => {
+ipcMain.handle('searchSongs', async (event, query) => {
   try {
-    const response = await search(query, type)
+    const response = await search(query, 'SONG')
     return JSON.parse(JSON.stringify(response))
   } catch (error) {
     console.error('Search Error:', error)

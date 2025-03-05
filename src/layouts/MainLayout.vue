@@ -19,12 +19,14 @@ import SearchBar from 'src/widgets/SearchBar.vue'
   flex-direction: row;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
   .main-content {
     padding: 20px;
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
+    overflow-y: auto;
   }
 }
 </style>
