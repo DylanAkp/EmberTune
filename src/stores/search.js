@@ -15,7 +15,7 @@ export const useSearchStore = defineStore('search', {
       try {
         this.loading = true
         const results = await window.youtube.searchSongs(query)
-        this.results = results.content
+        this.results = results.content.reverse()
       } catch (error) {
         this.error = error
       } finally {
