@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #995007;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        opacity: 0;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #7a7a7a;
+      }
+
+      .cls-4 {
+        fill: #723c01;
+      }
+
+      .cls-5 {
+        fill: #633303;
+      }
+    </style>
+  </defs>
+  <g id="Background">
+    <rect class="cls-2" width="1000" height="1000"/>
+  </g>
+  <g id="Smoke">
+    <path class="cls-3" d="M481.12,783.75s96.21-234.75,2.89-363.52c-146.86-202.63,60.29-362.85,60.29-362.85,0,0-110.97,240.99,36.08,405.78,74.31,99.89-99.26,320.59-99.26,320.59Z"/>
+    <path class="cls-3" d="M573.29,64.37c-76.38,231.02,26.4,365.72,26.4,365.72,0,0,59.48-123.52-26.4-365.72"/>
+  </g>
+  <g id="Wood">
+    <rect class="cls-5" x="455.18" y="459.5" width="88.64" height="773.33" rx="44.32" ry="44.32" transform="translate(-424.37 1180.8) rotate(-79.36)"/>
+    <circle class="cls-1" cx="837.99" cy="910.4" r="38.54"/>
+    <rect class="cls-4" x="455.18" y="459.5" width="88.64" height="773.33" rx="44.32" ry="44.32" transform="translate(-239.86 1493.36) rotate(-100.64)"/>
+    <circle class="cls-1" cx="161.01" cy="910.4" r="38.54"/>
+  </g>
+</svg>

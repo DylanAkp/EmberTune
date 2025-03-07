@@ -1,8 +1,12 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'node:path'
 import os from 'node:os'
 import './ipc/youtube'
 import { fileURLToPath } from 'node:url'
+import { initializeDiscordRPC, updatePresence, clearPresence } from './discord-rpc'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform()
@@ -51,7 +55,20 @@ async function createWindow() {
   })
 }
 
-app.whenReady().then(createWindow)
+// Initialize Discord RPC when the app is ready
+app.whenReady().then(async () => {
+  await createWindow()
+  await initializeDiscordRPC()
+})
+
+// Set up IPC handlers for Discord Rich Presence
+ipcMain.handle('discord:update-presence', async (event, activity) => {
+  await updatePresence(activity)
+})
+
+ipcMain.handle('discord:clear-presence', async () => {
+  await clearPresence()
+})
 
 app.on('window-all-closed', () => {
   if (platform !== 'darwin') {

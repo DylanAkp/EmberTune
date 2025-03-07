@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
+    "discord-rpc": "^4.0.1",
+    "dotenv": "^16.4.7",
     "pinia": "^3.0.1",
     "quasar": "^2.16.0",
     "vue": "^3.4.18",

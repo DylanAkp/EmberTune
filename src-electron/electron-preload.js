@@ -35,3 +35,8 @@ contextBridge.exposeInMainWorld('youtube', {
   getSong: (id) => ipcRenderer.invoke('getSong', id),
   getRelatives: (id) => ipcRenderer.invoke('getRelatives', id),
 })
+
+contextBridge.exposeInMainWorld('discord', {
+  updatePresence: (activity) => ipcRenderer.invoke('discord:update-presence', activity),
+  clearPresence: () => ipcRenderer.invoke('discord:clear-presence'),
+})
