@@ -60,10 +60,13 @@ watch(
   }
 
   .results-list {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 15px;
-    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 </style>
