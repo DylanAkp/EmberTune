@@ -25,6 +25,24 @@ body {
   color: var(--text-color);
 }
 
+h1 {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+}
+
 .no-select {
   -webkit-user-select: none;
   -moz-user-select: none;

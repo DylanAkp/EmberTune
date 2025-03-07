@@ -1,6 +1,8 @@
 <template>
   <div class="main-layout">
     <MainSidebar />
+
+    <SettingButton />
     <div class="main-content">
       <SearchBar />
       <div class="router-view-container">
@@ -13,6 +15,7 @@
 <script setup>
 import MainSidebar from 'src/widgets/MainSidebar.vue'
 import SearchBar from 'src/widgets/SearchBar.vue'
+import SettingButton from 'src/widgets/SettingButton.vue'
 </script>
 
 <style lang="scss" scoped>

@@ -50,7 +50,7 @@ const handleSearch = () => {
   align-items: center;
 
   .search-input {
-    width: 500px;
+    width: 300px;
     max-width: calc(100% - 55px);
     height: var(--search-bar-height);
     border-radius: calc(var(--search-bar-height) / 2);
