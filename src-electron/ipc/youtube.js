@@ -41,3 +41,14 @@ ipcMain.handle('getRelatives', async (event, id) => {
     throw error
   }
 })
+
+ipcMain.handle('getLyrics', async (event, id) => {
+  try {
+    const song = await get(id)
+    const lyrics = await song.getLyrics()
+    return JSON.parse(JSON.stringify(lyrics))
+  } catch (error) {
+    console.error('Get Lyrics Error:', error)
+    throw error
+  }
+})

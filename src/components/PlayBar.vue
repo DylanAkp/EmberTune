@@ -1,15 +1,16 @@
 <script setup>
 import { usePlayerStore } from '../stores/player'
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const player = usePlayerStore()
 const currentTime = ref(0)
 const duration = ref(0)
 const volume = ref(player.volume * 100)
 const isLiked = ref(false)
-const hasLyrics = ref(false)
 const copyStatus = ref('initial')
 const showVolumeSlider = ref(false)
+const router = useRouter()
 
 const updateTime = () => {
   if (player.audio) {
@@ -139,8 +140,12 @@ onUnmounted(() => {
         <q-icon
           name="mdi-microphone-variant"
           size="20px"
-          :class="{ clickable: true, 'text-accent': hasLyrics, 'text-grey': !hasLyrics }"
-          @click="notImplemented('Lyrics')"
+          :class="{
+            clickable: true,
+            'text-accent': $route.path === '/lyrics',
+            'text-grey': $route.path !== '/lyrics',
+          }"
+          @click="router.push('/lyrics')"
         />
         <q-icon
           :name="copyStatus === 'copied' ? 'mdi-check' : 'mdi-link'"

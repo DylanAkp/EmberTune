@@ -34,6 +34,7 @@ contextBridge.exposeInMainWorld('youtube', {
   download: (id) => ipcRenderer.invoke('download', id),
   getSong: (id) => ipcRenderer.invoke('getSong', id),
   getRelatives: (id) => ipcRenderer.invoke('getRelatives', id),
+  getLyrics: (id) => ipcRenderer.invoke('getLyrics', id),
 })
 
 contextBridge.exposeInMainWorld('discord', {
