@@ -8,12 +8,15 @@
         <router-view />
       </div>
     </div>
+
+    <PlayBar />
   </div>
 </template>
 
 <script setup>
 import MainSidebar from 'src/widgets/MainSidebar.vue'
 import SearchBar from 'src/widgets/SearchBar.vue'
+import PlayBar from 'src/components/PlayBar.vue'
 </script>
 
 <style lang="scss" scoped>
@@ -31,6 +34,7 @@ import SearchBar from 'src/widgets/SearchBar.vue'
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    padding-bottom: 90px; // Make room for the playbar
 
     .router-view-container {
       margin-top: var(--search-bar-spacing);

@@ -34,7 +34,8 @@ ipcMain.handle('getRelatives', async (event, id) => {
   try {
     const music = await get(id)
     const relatives = await music.getRadioPlaylist()
-    return JSON.parse(JSON.stringify(relatives))
+    relatives.musics.shift()
+    return JSON.parse(JSON.stringify(relatives)).musics
   } catch (error) {
     console.error('Get Relatives Error:', error)
     throw error

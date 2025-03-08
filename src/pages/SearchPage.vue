@@ -32,7 +32,6 @@ const performSearch = async (query) => {
   if (query) {
     await searchStore.search(query)
   }
-  console.log(searchStore.results)
 }
 
 onMounted(() => {

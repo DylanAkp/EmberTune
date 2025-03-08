@@ -20,7 +20,7 @@ async function createWindow() {
     icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon
     width: 1000,
     height: 600,
-    minWidth: 800,
+    minWidth: 960,
     minHeight: 600,
     useContentSize: true,
     autoHideMenuBar: true,

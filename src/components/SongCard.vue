@@ -1,6 +1,6 @@
 <template>
   <div class="song-card no-select">
-    <div class="artwork-container">
+    <div class="artwork-container" @click="handlePlay">
       <div v-if="loading" class="artwork-loader"></div>
       <img
         v-show="!loading"
@@ -10,6 +10,9 @@
         @error="loading = true"
         @load="loading = false"
       />
+      <div class="play-overlay">
+        <q-icon name="mdi-play" size="48px" />
+      </div>
     </div>
     <div class="song-card-title">
       <h3>{{ title }}</h3>
@@ -20,10 +23,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import { usePlayerStore } from '../stores/player'
 
 const loading = ref(true)
+const player = usePlayerStore()
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     required: true,
@@ -41,6 +46,10 @@ defineProps({
     required: true,
   },
 })
+
+const handlePlay = async () => {
+  await player.play(props.id, true)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -88,6 +97,31 @@ defineProps({
     position: relative;
     width: 140px;
     height: 140px;
+    cursor: pointer;
+
+    &:hover {
+      .play-overlay {
+        opacity: 1;
+      }
+
+      img {
+        filter: brightness(0.7);
+      }
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      border-radius: 8px;
+    }
 
     .artwork-loader {
       width: 140px;
