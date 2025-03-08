@@ -5356,10 +5356,10 @@ yoctocolors-cjs@^2.1.2:
   resolved "https://registry.yarnpkg.com/yoctocolors-cjs/-/yoctocolors-cjs-2.1.2.tgz#f4b905a840a37506813a7acaa28febe97767a242"
   integrity sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==
 
-ytmusic_api_unofficial@^2.0.20:
-  version "2.0.20"
-  resolved "https://registry.yarnpkg.com/ytmusic_api_unofficial/-/ytmusic_api_unofficial-2.0.20.tgz#9ec9a122246b9a0fead0a468c762a1c378c15ce5"
-  integrity sha512-XT2qVTZxtatqndkuVTazeHA79AeoNbmG4PQGDlZ0YEmkc7ytu8mU2U4WX4q8MNQ72Q5DReEkS2qY623iHwFjfg==
+ytmusic_api_unofficial@^2.0.22:
+  version "2.0.22"
+  resolved "https://registry.yarnpkg.com/ytmusic_api_unofficial/-/ytmusic_api_unofficial-2.0.22.tgz#b817cdfb8cc83913308ade45e7788f008828c67e"
+  integrity sha512-TnYo61KT9p1TXw38pLYc0/B7Nard8hL1+M71RcRWDjPDug1xMMZXqnP1Adv3g1ZBkpCbKPwPhurhi10X7R4/UQ==
   dependencies:
     axios "1.7.9"
     querystring "^0.2.1"
