@@ -1,0 +1,57 @@
+name: Release Windows
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Set environment variables
+        env:
+          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+        run: |
+          echo "DISCORD_CLIENT_ID=$env:DISCORD_CLIENT_ID" > .env
+
+      - name: Install Quasar CLI
+        run: yarn global add @quasar/cli
+
+      - name: Build Electron app
+        run: yarn quasar build -m electron
+
+      - name: Create Portable Version
+        run: |
+          Compress-Archive -Path "dist/electron/UnPackaged/*" -DestinationPath "dist/electron/EmberTune-Portable-Windows_${{ github.ref_name }}.zip"
+
+      - name: Rename Setup file
+        run: |
+          $setupFile = Get-ChildItem -Path "dist/electron/Packaged" -Filter "EmberTune Setup *.exe" | Select-Object -First 1
+          Rename-Item -Path $setupFile.FullName -NewName "EmberTune-Setup-Windows_${{ github.ref_name }}.exe"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            dist/electron/Packaged/EmberTune-Setup-Windows_${{ github.ref_name }}.exe
+            dist/electron/EmberTune-Portable-Windows_${{ github.ref_name }}.zip
+          draft: false
+          prerelease: false
