@@ -1,19 +1,36 @@
 <template>
   <div>
     <h1>Settings</h1>
-    <h2>Discord Rich Presence</h2>
-    <div class="toggle-container">
-      <label class="toggle">
-        <input type="checkbox" v-model="settingsStore.discordRich" />
-        <span class="toggle-slider"></span>
-      </label>
-      <span class="toggle-label">Enable Discord Rich Presence</span>
-    </div>
+    <template v-for="(section, sectionName) in Settings" :key="sectionName">
+      <h2>{{ sectionName }}</h2>
+      <div v-for="(setting, key) in section" :key="key" class="toggle-container">
+        <label v-if="setting.type === 'boolean'" class="toggle">
+          <input type="checkbox" v-model="settingsStore[key]" />
+          <span class="toggle-slider"></span>
+        </label>
+        <div class="label-container">
+          <span class="toggle-label">{{ setting.label }}</span>
+          <div class="toggle-description">
+            {{ setting.description }}
+          </div>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
 import { useSettingsStore } from 'src/stores/settings'
+
+const Settings = {
+  Advanced: {
+    discordRich: {
+      label: 'Enable Discord Rich Presence',
+      description: 'This will show the current song playing in your Discord status.',
+      type: 'boolean',
+    },
+  },
+}
 
 const settingsStore = useSettingsStore()
 </script>
@@ -31,6 +48,7 @@ const settingsStore = useSettingsStore()
   display: inline-block;
   width: 50px;
   height: 24px;
+  flex-shrink: 0;
 
   input {
     opacity: 0;
@@ -74,5 +92,18 @@ const settingsStore = useSettingsStore()
 .toggle-label {
   color: var(--text-color);
   font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.toggle-description {
+  color: var(--text-color);
+  opacity: 0.7;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.label-container {
+  display: flex;
+  flex-direction: column;
 }
 </style>
