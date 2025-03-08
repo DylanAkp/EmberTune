@@ -35,63 +35,18 @@ export const usePlayerStore = defineStore('player', {
           url: downloadDetails.urlDecoded,
         }
 
-        // Update queue if track not present
+        // Update queue and set current track
         const trackIndex = this.queue.findIndex((t) => t.id === id)
         if (trackIndex === -1) {
-          console.log('Adding track to queue')
           this.queue.push(track)
           this.currentIndex = this.queue.length - 1
-
-          // Fetch and add recommended songs to queue
-          try {
-            let relatives = []
-            let retryCount = 0
-            const maxRetries = 3
-
-            // Retry loop for fetching relatives
-            while (retryCount < maxRetries) {
-              relatives = await window.youtube.getRelatives(id)
-              console.log(`Attempt ${retryCount + 1}: Found ${relatives.length} relatives`)
-
-              // If we have enough relatives, break the loop
-              if (relatives.length > 1) {
-                break
-              }
-
-              // Otherwise, increment retry counter and try again
-              retryCount++
-
-              // Wait a bit before retrying to avoid rate limits
-              if (retryCount < maxRetries) {
-                await new Promise((resolve) => setTimeout(resolve, 500))
-              }
-            }
-
-            // Only add relatives if we found enough
-            if (relatives.length > 1) {
-              console.log('Adding relatives to queue:', relatives)
-              const recommendedTracks = relatives.map((song) => ({
-                id: song.id,
-                title: song.title,
-                artist: this.formatArtists(song.artists),
-                thumbnail: song.thumbnails,
-                url: null, // URL will be fetched when playing
-              }))
-              this.queue.push(...recommendedTracks)
-              console.log('Queue after adding relatives:', this.queue)
-            } else {
-              console.warn('Failed to fetch enough relatives after maximum retries')
-            }
-          } catch (error) {
-            console.error('Error fetching recommendations:', error)
-          }
         } else {
           this.currentIndex = trackIndex
         }
-        // Set current track
+
         this.currentTrack = track
 
-        // Handle audio
+        // Handle audio playback first
         if (this.audio) {
           this.audio.pause()
           this.audio = null
@@ -110,9 +65,58 @@ export const usePlayerStore = defineStore('player', {
             this.isPlaying = false
           }
         }
+
+        // Fetch relatives after playback has started
+        if (trackIndex === -1) {
+          this.fetchRelatives(id).catch((error) => {
+            console.error('Error fetching recommendations:', error)
+          })
+        }
       } catch (error) {
         console.error('Error playing track:', error)
         this.isPlaying = false
+      }
+    },
+
+    // New helper method to fetch relatives
+    async fetchRelatives(id) {
+      let relatives = []
+      let retryCount = 0
+      const maxRetries = 3
+
+      // Retry loop for fetching relatives
+      while (retryCount < maxRetries) {
+        relatives = await window.youtube.getRelatives(id)
+        console.log(`Attempt ${retryCount + 1}: Found ${relatives.length} relatives`)
+
+        // If we have enough relatives, break the loop
+        if (relatives.length > 1) {
+          break
+        }
+
+        // Otherwise, increment retry counter and try again
+        retryCount++
+
+        // Wait a bit before retrying to avoid rate limits
+        if (retryCount < maxRetries) {
+          await new Promise((resolve) => setTimeout(resolve, 500))
+        }
+      }
+
+      // Only add relatives if we found enough
+      if (relatives.length > 1) {
+        console.log('Adding relatives to queue:', relatives)
+        const recommendedTracks = relatives.map((song) => ({
+          id: song.id,
+          title: song.title,
+          artist: this.formatArtists(song.artists),
+          thumbnail: song.thumbnails,
+          url: null, // URL will be fetched when playing
+        }))
+        this.queue.push(...recommendedTracks)
+        console.log('Queue after adding relatives:', this.queue)
+      } else {
+        console.warn('Failed to fetch enough relatives after maximum retries')
       }
     },
 
