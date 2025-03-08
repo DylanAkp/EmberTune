@@ -16,6 +16,36 @@ export const usePlayerStore = defineStore('player', {
   },
 
   actions: {
+    async updateDiscordPresence() {
+      const settings = useSettingsStore()
+      if (!settings.discordRich || !this.currentTrack) return
+
+      const track = this.currentTrack
+      const activity = {
+        details: track.title,
+        state: `by ${track.artist}`,
+        largeImageKey: track.thumbnail[0]?.url || 'idle',
+        largeImageText: 'EmberTune',
+        smallImageKey: 'embertune_logo',
+        smallImageText: this.isPlaying ? 'Playing' : 'Paused',
+        buttons: [
+          {
+            label: 'Listen on YouTube Music',
+            url: `https://music.youtube.com/watch?v=${track.id}`,
+          },
+          {
+            label: 'Download EmberTune',
+            url: 'https://github.com/DylanAkp/EmberTune',
+          },
+        ],
+      }
+
+      if (this.isPlaying) {
+        activity.startTimestamp = Date.now()
+      }
+
+      await window.discord.updatePresence(activity)
+    },
     async play(id, newPlay = false) {
       try {
         if (newPlay) {
@@ -56,6 +86,9 @@ export const usePlayerStore = defineStore('player', {
         this.audio.volume = this.volume
         await this.audio.play()
         this.isPlaying = true
+
+        // Update Discord presence
+        await this.updateDiscordPresence()
 
         // Handle audio ending
         this.audio.onended = () => {
@@ -120,11 +153,12 @@ export const usePlayerStore = defineStore('player', {
       }
     },
 
-    pause() {
+    async pause() {
       if (this.audio) {
         this.audio.pause()
       }
       this.isPlaying = false
+      await this.updateDiscordPresence()
     },
 
     async next() {
@@ -132,6 +166,7 @@ export const usePlayerStore = defineStore('player', {
       this.currentIndex++
       const nextTrack = this.queue[this.currentIndex]
       await this.play(nextTrack.id)
+      await this.updateDiscordPresence()
     },
 
     async previous() {
@@ -145,10 +180,11 @@ export const usePlayerStore = defineStore('player', {
       if (!this.currentTrack) return
 
       if (this.isPlaying) {
-        this.pause()
+        await this.pause()
       } else if (this.audio) {
         await this.audio.play()
         this.isPlaying = true
+        await this.updateDiscordPresence()
       } else {
         await this.play(this.currentTrack.id)
       }
