@@ -1,4 +1,4 @@
-import { get, download, search } from 'ytmusic_api_unofficial'
+import { get, download, search } from 'ytmusic_api_unofficial/dist/index.js'
 import { ipcMain } from 'electron'
 
 ipcMain.handle('searchSongs', async (event, query) => {

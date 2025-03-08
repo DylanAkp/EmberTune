@@ -1,4 +1,4 @@
-import { Client } from 'discord-rpc'
+import { Client } from 'discord-rpc/src/index.js'
 
 const clientId = process.env.DISCORD_CLIENT_ID
 const rpc = new Client({ transport: 'ipc' })
