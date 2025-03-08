@@ -1,16 +1,25 @@
 <script setup>
 import { usePlayerStore } from '../stores/player'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import AddToPlaylistDialog from './AddToPlaylistDialog.vue'
+import { usePlaylistStore } from '../stores/playlist'
 
 const player = usePlayerStore()
 const currentTime = ref(0)
 const duration = ref(0)
 const volume = ref(player.volume * 100)
-const isLiked = ref(false)
 const copyStatus = ref('initial')
 const showVolumeSlider = ref(false)
+const showAddToPlaylistDialog = ref(false)
 const router = useRouter()
+const playlistStore = usePlaylistStore()
+
+const isLiked = computed(() => {
+  if (!player.currentTrack) return false
+  const likedPlaylist = playlistStore.playlists.find((p) => p.id === 'liked-songs')
+  return likedPlaylist?.songs.some((song) => song.id === player.currentTrack.id) || false
+})
 
 const updateTime = () => {
   if (player.audio) {
@@ -38,12 +47,18 @@ const copyLink = () => {
 }
 
 const toggleLike = () => {
-  isLiked.value = !isLiked.value
-  notImplemented('Like/Unlike')
-}
+  if (!player.currentTrack) return
 
-const notImplemented = (feature) => {
-  console.log(feature)
+  if (isLiked.value) {
+    playlistStore.removeSongFromPlaylist('liked-songs', player.currentTrack.id)
+  } else {
+    playlistStore.addSongToPlaylist('liked-songs', {
+      id: player.currentTrack.id,
+      title: player.currentTrack.title,
+      artist: player.currentTrack.artist,
+      thumbnails: player.currentTrack.thumbnail,
+    })
+  }
 }
 
 const formatTime = (seconds) => {
@@ -164,10 +179,10 @@ onUnmounted(() => {
           @click="toggleLike"
         />
         <q-icon
-          name="mdi-playlist-music"
+          name="mdi-playlist-plus"
           size="20px"
-          class="clickable text-grey"
-          @click="notImplemented('Add to Playlist')"
+          class="text-grey clickable"
+          @click="showAddToPlaylistDialog = true"
         />
       </div>
     </div>
@@ -189,6 +204,17 @@ onUnmounted(() => {
       </div>
       <div class="time">{{ formatTime(duration) }}</div>
     </div>
+
+    <!-- Add to Playlist Dialog -->
+    <AddToPlaylistDialog
+      v-model="showAddToPlaylistDialog"
+      :song="{
+        id: player.currentTrack?.id,
+        title: player.currentTrack?.title,
+        artist: player.currentTrack?.artist,
+        thumbnails: player.currentTrack?.thumbnail,
+      }"
+    />
   </div>
 </template>
 
@@ -202,7 +228,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 20px;
   z-index: 1000;
 }

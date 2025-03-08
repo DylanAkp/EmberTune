@@ -1,4 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
+import { useSettingsStore } from './settings'
 
 export const usePlayerStore = defineStore('player', {
   state: () => ({
@@ -220,6 +221,26 @@ export const usePlayerStore = defineStore('player', {
       }
 
       return 'Unknown Artist'
+    },
+
+    async playPlaylist(songs) {
+      if (!songs || songs.length === 0) return
+
+      // Clear the current queue and reset index
+      this.queue = []
+      this.currentIndex = -1
+
+      // Add all songs to the queue
+      this.queue = songs.map((song) => ({
+        id: song.id,
+        title: song.title,
+        artist: this.formatArtists(song.artists || song.artist),
+        thumbnail: song.thumbnails,
+        url: null, // URL will be fetched when playing
+      }))
+
+      // Start playing the first song
+      await this.play(this.queue[0].id)
     },
   },
 })

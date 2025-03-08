@@ -7,7 +7,10 @@ const routes = [
   {
     path: '/playlists',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('src/pages/PlaylistPage.vue') }],
+    children: [
+      { path: '', component: () => import('src/pages/PlaylistPage.vue') },
+      { path: ':id', component: () => import('src/pages/PlaylistDetailPage.vue') },
+    ],
   },
   {
     path: '/search',
