@@ -1,6 +1,6 @@
 <script setup>
 import { usePlayerStore } from '../stores/player'
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import AddToPlaylistDialog from './AddToPlaylistDialog.vue'
 import { usePlaylistStore } from '../stores/playlist'
@@ -72,15 +72,63 @@ const toggleVolumeSlider = () => {
   showVolumeSlider.value = !showVolumeSlider.value
 }
 
+// Add event listeners to sync playback state when controlled by external media keys
+const syncPlaybackState = () => {
+  if (player.audio) {
+    player.isPlaying = !player.audio.paused
+  }
+}
+
+// Set up audio event listeners
+const setupAudioListeners = (audio) => {
+  if (audio) {
+    audio.addEventListener('play', syncPlaybackState)
+    audio.addEventListener('pause', syncPlaybackState)
+  }
+}
+
+// Remove audio event listeners
+const cleanupAudioListeners = (audio) => {
+  if (audio) {
+    audio.removeEventListener('play', syncPlaybackState)
+    audio.removeEventListener('pause', syncPlaybackState)
+  }
+}
+
 let timeUpdateInterval
+let previousAudio = null
+
+// Watch for audio changes
+watch(
+  () => player.audio,
+  (newAudio, oldAudio) => {
+    if (oldAudio) {
+      cleanupAudioListeners(oldAudio)
+    }
+    if (newAudio) {
+      setupAudioListeners(newAudio)
+      previousAudio = newAudio
+    }
+  },
+  { immediate: true },
+)
 
 onMounted(() => {
   timeUpdateInterval = setInterval(updateTime, 1000)
+
+  if (player.audio) {
+    setupAudioListeners(player.audio)
+    previousAudio = player.audio
+  }
 })
 
 onUnmounted(() => {
   if (timeUpdateInterval) {
     clearInterval(timeUpdateInterval)
+  }
+
+  if (previousAudio) {
+    cleanupAudioListeners(previousAudio)
   }
 })
 </script>
