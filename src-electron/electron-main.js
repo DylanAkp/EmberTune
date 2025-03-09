@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import path from 'node:path'
 import os from 'node:os'
 import './ipc/youtube'
@@ -68,6 +68,11 @@ ipcMain.handle('discord:update-presence', async (event, activity) => {
 
 ipcMain.handle('discord:clear-presence', async () => {
   await clearPresence()
+})
+
+// Set up IPC handler for opening external links
+ipcMain.handle('shell:open-external', async (event, url) => {
+  await shell.openExternal(url)
 })
 
 app.on('window-all-closed', () => {

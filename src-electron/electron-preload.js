@@ -41,3 +41,7 @@ contextBridge.exposeInMainWorld('discord', {
   updatePresence: (activity) => ipcRenderer.invoke('discord:update-presence', activity),
   clearPresence: () => ipcRenderer.invoke('discord:clear-presence'),
 })
+
+contextBridge.exposeInMainWorld('shell', {
+  openExternal: (url) => ipcRenderer.invoke('shell:open-external', url),
+})

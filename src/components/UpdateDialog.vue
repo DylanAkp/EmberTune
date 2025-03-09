@@ -52,7 +52,7 @@ function closeDialog() {
 
 function openDownloadPage() {
   // Open the GitHub releases page
-  window.electron.shell.openExternal('https://github.com/DylanAkp/EmberTune/releases/latest')
+  window.shell.openExternal('https://github.com/DylanAkp/EmberTune/releases/latest')
   closeDialog()
 }
 </script>
