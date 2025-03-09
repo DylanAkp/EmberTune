@@ -34,10 +34,11 @@ import PlayBar from 'src/components/PlayBar.vue'
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    padding-bottom: 90px; // Make room for the playbar
+    padding-bottom: 90px;
 
     .router-view-container {
       margin-top: var(--search-bar-spacing);
+      margin-bottom: var(--playbar-safe-height);
     }
   }
 }

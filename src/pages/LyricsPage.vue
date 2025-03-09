@@ -68,7 +68,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .lyrics-container {
-  margin-bottom: var(--playbar-safe-height);
   background-color: var(--tertiary-bg);
   padding: 20px;
   border-radius: 10px;
