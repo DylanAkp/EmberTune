@@ -1,0 +1,87 @@
+name: Build/Release
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Set environment variables
+        env:
+          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+        run: |
+          echo "DISCORD_CLIENT_ID=${{ env.DISCORD_CLIENT_ID }}" > .env
+
+      - name: Install Quasar CLI
+        run: yarn global add @quasar/cli
+
+      - name: Build Electron App
+        run: yarn build:electron
+
+      - name: Get version from package.json
+        id: package-version
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Create release and upload Linux artifacts
+      - name: Create Release and Upload Linux Artifacts
+        if: matrix.os == 'ubuntu-latest'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref }}
+          name: Release ${{ env.VERSION }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            ./dist/electron/Packaged/EmberTune-${{ env.VERSION }}.AppImage
+          make_latest: true
+
+      # Convert Windows paths to use forward slashes
+      - name: Prepare Windows paths
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          $FilePath = "dist/electron/Packaged/EmberTune Setup ${{ env.VERSION }}.exe"
+          echo "ASSET_PATH=$($FilePath -replace '\\','/')" >> $env:GITHUB_ENV
+
+      # Upload Windows artifacts to the existing release
+      - name: Upload Windows Artifacts
+        if: matrix.os == 'windows-latest'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "v${{ env.VERSION }}" "${{ env.ASSET_PATH }}" --clobber
+
+      # Upload macOS artifacts to the existing release
+      - name: Upload macOS Artifacts
+        if: matrix.os == 'macos-latest'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "v${{ env.VERSION }}" "./dist/electron/Packaged/EmberTune-${{ env.VERSION }}-arm64.dmg"

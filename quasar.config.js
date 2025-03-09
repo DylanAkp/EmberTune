@@ -206,6 +206,10 @@ export default defineConfig((ctx) => {
         // https://www.electron.build/configuration/configuration
 
         appId: 'embertune',
+        linux: {
+          target: ['AppImage'],
+          category: 'Audio',
+        },
       },
     },
 

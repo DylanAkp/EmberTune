@@ -13,7 +13,7 @@
     "dev": "quasar dev",
     "build": "quasar build",
     "postinstall": "quasar prepare",
-    "build:electron": "quasar build -m electron"
+    "build:electron": "quasar build -m electron --publish never"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
