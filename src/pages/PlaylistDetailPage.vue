@@ -26,9 +26,16 @@
           <div class="playlist-stats">{{ playlist.songs.length }} songs</div>
         </div>
       </div>
-      <div class="actions" v-if="!playlist.isDefault">
-        <q-btn flat round color="primary" icon="mdi-play" @click="playPlaylist" />
-        <q-btn flat round color="negative" icon="mdi-delete" @click="confirmDelete = true" />
+      <div class="actions">
+        <q-btn flat round color="orange" icon="mdi-play" @click="playPlaylist" />
+        <q-btn
+          v-if="!playlist.isDefault"
+          flat
+          round
+          color="negative"
+          icon="mdi-delete"
+          @click="confirmDelete = true"
+        />
       </div>
     </div>
 
