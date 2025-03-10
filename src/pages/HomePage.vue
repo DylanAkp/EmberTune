@@ -7,22 +7,25 @@
       </div>
       <p class="tagline">Your personal music companion</p>
       <div class="features">
-        <div class="feature-item" @click="$router.push('/playlists')">
-          <q-icon name="mdi-playlist-music" size="24px" />
-          <span>Create custom playlists</span>
-        </div>
-        <div class="feature-item" @click="$router.push('/settings')">
-          <q-icon name="mdi-cog" size="24px" />
-          <span>Configure EmberTune</span>
-        </div>
-        <div class="feature-item" @click="openGithub">
-          <q-icon name="mdi-github" size="24px" />
-          <span>See on Github</span>
-        </div>
-        <div class="feature-item" @click="openGithubUser">
-          <q-icon name="mdi-github" size="24px" />
-          <span>Discover other projects</span>
-        </div>
+        <StyledButton
+          icon="mdi-playlist-music"
+          text="Create custom playlists"
+          variant="light"
+          @click="$router.push('/playlists')"
+        />
+        <StyledButton
+          icon="mdi-cog"
+          text="Configure EmberTune"
+          variant="light"
+          @click="$router.push('/settings')"
+        />
+        <StyledButton icon="mdi-github" text="See on Github" variant="light" @click="openGithub" />
+        <StyledButton
+          icon="mdi-github"
+          text="Discover other projects"
+          variant="light"
+          @click="openGithubUser"
+        />
       </div>
     </div>
   </div>
@@ -30,6 +33,7 @@
 
 <script setup>
 import logoImage from '../assets/EmberTune.svg'
+import StyledButton from '../components/StyledButton.vue'
 
 const openGithub = () => {
   window.shell.openExternal('https://github.com/DylanAkp/EmberTune')
@@ -86,28 +90,5 @@ const openGithubUser = () => {
   gap: 1rem;
   max-width: 300px;
   margin: 0 auto;
-
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 1rem;
-    border-radius: 8px;
-    background: var(--tertiary-bg);
-    transition: transform 0.2s;
-    cursor: pointer;
-
-    &:hover {
-      transform: translateX(8px);
-    }
-
-    .q-icon {
-      color: var(--accent-color);
-    }
-
-    span {
-      color: var(--text-color);
-    }
-  }
 }
 </style>

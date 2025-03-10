@@ -2,11 +2,10 @@
   <div class="playlist-page">
     <div class="header">
       <h1>Your Playlists</h1>
-      <q-btn
+      <StyledButton
         icon="mdi-plus"
-        rounded
-        label="Create Playlist"
-        color="accent"
+        text="Create Playlist"
+        variant="accent"
         @click="showCreateDialog = true"
       />
     </div>
@@ -54,6 +53,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePlaylistStore } from '../stores/playlist'
 import CreatePlaylistDialog from '../components/CreatePlaylistDialog.vue'
+import StyledButton from '../components/StyledButton.vue'
 
 const router = useRouter()
 const playlistStore = usePlaylistStore()
