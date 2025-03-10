@@ -131,6 +131,14 @@ export const usePlaylistStore = defineStore('playlist', {
         historyPlaylist.updatedAt = Date.now()
       }
     },
+
+    clearHistory() {
+      const historyPlaylist = this.playlists.find((p) => p.id === 'history')
+      if (historyPlaylist) {
+        historyPlaylist.songs = []
+        historyPlaylist.updatedAt = Date.now()
+      }
+    },
   },
 
   persist: true,

@@ -42,6 +42,14 @@
           icon="mdi-delete"
           @click="confirmDelete = true"
         />
+        <q-btn
+          v-if="playlist.id === 'history'"
+          flat
+          round
+          color="grey"
+          icon="mdi-delete-sweep"
+          @click="clearHistory"
+        />
       </div>
     </div>
 
@@ -194,6 +202,10 @@ function formatArtists(song) {
       .join(', ')
   }
   return 'Unknown Artist'
+}
+
+function clearHistory() {
+  playlistStore.clearHistory()
 }
 </script>
 
