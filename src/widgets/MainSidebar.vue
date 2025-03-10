@@ -4,6 +4,8 @@ import logoImage from '../assets/EmberTune.svg'
 const routes = [
   { name: 'Home', icon: 'mdi-home', path: '/' },
   { name: 'Playlists', icon: 'mdi-playlist-music', path: '/playlists' },
+  { name: 'History', icon: 'mdi-history', path: '/playlists/history' },
+  { name: 'Liked Songs', icon: 'mdi-heart', path: '/playlists/liked-songs' },
 ]
 
 const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
@@ -22,6 +24,7 @@ const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
           v-for="(route, index) in routes"
           :key="index"
           @click="$router.push(route.path)"
+          :class="{ 'nav-item__active': $route.path === route.path }"
         >
           <q-icon :name="route.icon" size="24px" />
           {{ route.name }}
@@ -34,6 +37,7 @@ const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
         v-for="(route, index) in bottomRoutes"
         :key="index"
         @click="$router.push(route.path)"
+        :class="{ 'nav-item__active': $route.path === route.path }"
       >
         <q-icon :name="route.icon" size="24px" />
         {{ route.name }}
@@ -83,6 +87,10 @@ const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
     gap: 10px;
   }
   .nav-item {
+    &__active {
+      background-color: var(--tertiary-bg);
+      color: var(--accent-color);
+    }
     display: flex;
     padding: 10px;
     border-radius: 10px;
