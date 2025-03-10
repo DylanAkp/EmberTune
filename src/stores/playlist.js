@@ -19,6 +19,18 @@ export const usePlaylistStore = defineStore('playlist', {
         }
         this.playlists.push(defaultPlaylist)
       }
+
+      if (!this.playlists.some((p) => p.id === 'history')) {
+        const historyPlaylist = {
+          id: 'history',
+          name: 'History',
+          songs: [],
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          isDefault: true,
+        }
+        this.playlists.push(historyPlaylist)
+      }
     },
 
     createPlaylist(name) {
@@ -102,6 +114,18 @@ export const usePlaylistStore = defineStore('playlist', {
 
     setCurrentPlaylist(playlist) {
       this.currentPlaylist = playlist
+    },
+
+    addSongToHistory(song) {
+      const historyPlaylist = this.playlists.find((p) => p.id === 'history')
+      if (historyPlaylist) {
+        historyPlaylist.songs = historyPlaylist.songs.filter((s) => s.id !== song.id)
+        historyPlaylist.songs.unshift(song)
+        if (historyPlaylist.songs.length > 50) {
+          historyPlaylist.songs = historyPlaylist.songs.slice(0, 50)
+        }
+        historyPlaylist.updatedAt = Date.now()
+      }
     },
   },
 

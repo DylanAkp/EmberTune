@@ -25,6 +25,12 @@
             name="mdi-heart"
             size="64px"
           />
+          <q-icon
+            v-else-if="playlist.id === 'history'"
+            class="default-icon"
+            name="mdi-history"
+            size="64px"
+          />
           <img
             v-else-if="playlist.songs.length > 0"
             :src="playlist.songs[0].thumbnails[0].url"

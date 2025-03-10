@@ -57,7 +57,6 @@ watch(
   () => props.modelValue,
   (newVal) => {
     if (newVal) {
-      // Reset and focus input when dialog opens
       playlistName.value = ''
       setTimeout(() => {
         inputRef.value?.focus()
@@ -72,7 +71,6 @@ function closeDialog() {
 
 function handleCreate() {
   if (playlistName.value) {
-    // Create the playlist
     playlistStore.createPlaylist(playlistName.value)
 
     // If we need to add a song after creation (used in PlayBar)

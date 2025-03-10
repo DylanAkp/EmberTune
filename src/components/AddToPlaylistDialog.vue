@@ -83,7 +83,7 @@ const showCreateDialog = ref(false)
 
 const playlists = computed(() => {
   return playlistStore.playlists
-    .filter((playlist) => playlist.id !== 'liked-songs')
+    .filter((playlist) => !playlist.isDefault)
     .map((playlist) => ({
       ...playlist,
       hasSong: playlist.songs.some((s) => s.id === props.song.id),

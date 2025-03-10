@@ -143,7 +143,7 @@ function handleDelete() {
   }
 
   .btn-delete {
-    background: #dc2626; // A nice red color for delete
+    background: #dc2626;
     color: white;
   }
 }

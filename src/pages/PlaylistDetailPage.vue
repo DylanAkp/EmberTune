@@ -4,6 +4,12 @@
       <div class="playlist-info">
         <div class="thumbnail">
           <q-icon v-if="playlist.id === 'liked-songs'" name="mdi-heart" color="red" size="96px" />
+          <q-icon
+            v-else-if="playlist.id === 'history'"
+            name="mdi-history"
+            color="orange"
+            size="96px"
+          />
           <img
             v-else-if="playlist.songs.length > 0"
             :src="playlist.songs[0].thumbnails[0].url"
@@ -43,7 +49,13 @@
       <div v-if="playlist.songs.length === 0" class="empty-state">
         <q-icon name="mdi-playlist-music" size="64px" />
         <div class="message">This playlist is empty</div>
-        <div class="sub-message">Add songs while playing music</div>
+        <div class="sub-message">
+          {{
+            playlist.id === 'history'
+              ? 'Play some songs to see your history'
+              : 'Add songs while playing music'
+          }}
+        </div>
       </div>
       <div v-else class="songs-list">
         <div class="list-header">
@@ -57,7 +69,7 @@
             v-for="(song, index) in playlist.songs"
             :key="song.id"
             class="song-item"
-            draggable="true"
+            :draggable="!playlist.isDefault && playlist.id !== 'history'"
             @dragstart="dragStart($event, index)"
             @dragover.prevent
             @dragenter.prevent
@@ -66,13 +78,19 @@
           >
             <div class="index">{{ index + 1 }}</div>
             <div class="title">
-              <img :src="song.thumbnails[0].url" alt="Song Thumbnail" />
+              <img
+                v-if="song.thumbnails && song.thumbnails.length > 0"
+                :src="song.thumbnails[0].url"
+                alt="Song Thumbnail"
+              />
+              <q-icon v-else name="mdi-music" size="24px" class="default-icon" />
               {{ song.title }}
             </div>
             <div class="artist">{{ formatArtists(song) }}</div>
             <div class="actions">
               <q-btn flat round icon="mdi-play" size="sm" @click="playSong(song)" />
               <q-btn
+                v-if="!playlist.isDefault"
                 flat
                 round
                 icon="mdi-delete"

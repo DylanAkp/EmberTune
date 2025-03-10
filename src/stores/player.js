@@ -1,5 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { useSettingsStore } from './settings'
+import { usePlaylistStore } from './playlist'
 
 export const usePlayerStore = defineStore('player', {
   state: () => ({
@@ -77,6 +78,9 @@ export const usePlayerStore = defineStore('player', {
 
         this.currentTrack = track
 
+        const playlistStore = usePlaylistStore()
+        playlistStore.addSongToHistory(track)
+
         // Handle audio playback first
         if (this.audio) {
           this.audio.pause()
@@ -112,34 +116,26 @@ export const usePlayerStore = defineStore('player', {
       }
     },
 
-    // New helper method to fetch relatives
     async fetchRelatives(id) {
       let relatives = []
       let retryCount = 0
       const maxRetries = 3
 
-      // Retry loop for fetching relatives
       while (retryCount < maxRetries) {
         relatives = await window.youtube.getRelatives(id)
-        console.log(`Attempt ${retryCount + 1}: Found ${relatives.length} relatives`)
 
-        // If we have enough relatives, break the loop
         if (relatives.length > 1) {
           break
         }
 
-        // Otherwise, increment retry counter and try again
         retryCount++
 
-        // Wait a bit before retrying to avoid rate limits
         if (retryCount < maxRetries) {
           await new Promise((resolve) => setTimeout(resolve, 500))
         }
       }
 
-      // Only add relatives if we found enough
       if (relatives.length > 1) {
-        console.log('Adding relatives to queue:', relatives)
         const recommendedTracks = relatives.map((song) => ({
           id: song.id,
           title: song.title,
@@ -148,7 +144,6 @@ export const usePlayerStore = defineStore('player', {
           url: null, // URL will be fetched when playing
         }))
         this.queue.push(...recommendedTracks)
-        console.log('Queue after adding relatives:', this.queue)
       } else {
         console.warn('Failed to fetch enough relatives after maximum retries')
       }
@@ -203,10 +198,10 @@ export const usePlayerStore = defineStore('player', {
         const newTime = parseFloat(time)
         if (!isNaN(newTime) && isFinite(newTime) && newTime >= 0) {
           this.audio.currentTime = newTime
-          return newTime // Return the new time so the component can update
+          return newTime
         }
       }
-      return this.audio?.currentTime || 0 // Return current time if seek failed
+      return this.audio?.currentTime || 0
     },
 
     formatArtists(artists) {
@@ -230,7 +225,6 @@ export const usePlayerStore = defineStore('player', {
       this.queue = []
       this.currentIndex = -1
 
-      // Add all songs to the queue
       this.queue = songs.map((song) => ({
         id: song.id,
         title: song.title,
@@ -239,7 +233,6 @@ export const usePlayerStore = defineStore('player', {
         url: null, // URL will be fetched when playing
       }))
 
-      // Start playing the first song
       await this.play(this.queue[0].id)
     },
   },
