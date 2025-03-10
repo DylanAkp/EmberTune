@@ -43,7 +43,6 @@ const copyLink = () => {
   setTimeout(() => {
     copyStatus.value = 'initial'
   }, 2000)
-  console.log(player.currentTrack.artist)
 }
 
 const toggleLike = () => {

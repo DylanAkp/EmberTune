@@ -51,7 +51,6 @@ function closeDialog() {
 }
 
 function openDownloadPage() {
-  // Open the GitHub releases page
   window.shell.openExternal('https://github.com/DylanAkp/EmberTune/releases/latest')
   closeDialog()
 }
