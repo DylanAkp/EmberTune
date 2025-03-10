@@ -87,10 +87,6 @@ const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
     gap: 10px;
   }
   .nav-item {
-    &__active {
-      background-color: var(--tertiary-bg);
-      color: var(--accent-color);
-    }
     display: flex;
     padding: 10px;
     border-radius: 10px;
@@ -98,6 +94,10 @@ const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
     background-color: var(--primary-bg);
     align-items: center;
     gap: 12px;
+    &__active {
+      background-color: var(--tertiary-bg);
+      color: var(--accent-color);
+    }
     width: 100%;
   }
 }
