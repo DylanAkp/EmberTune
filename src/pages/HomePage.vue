@@ -11,7 +11,7 @@
           <q-icon name="mdi-playlist-music" size="24px" />
           <span>Create custom playlists</span>
         </div>
-        <div class="feature-item" @click="$router.push('/playlists')">
+        <div class="feature-item" @click="$router.push('/settings')">
           <q-icon name="mdi-cog" size="24px" />
           <span>Configure EmberTune</span>
         </div>
