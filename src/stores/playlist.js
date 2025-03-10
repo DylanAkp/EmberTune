@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useSettingsStore } from './settings'
 
 export const usePlaylistStore = defineStore('playlist', {
   state: () => ({
@@ -117,6 +118,9 @@ export const usePlaylistStore = defineStore('playlist', {
     },
 
     addSongToHistory(song) {
+      const settingsStore = useSettingsStore()
+      if (!settingsStore.saveHistory) return
+
       const historyPlaylist = this.playlists.find((p) => p.id === 'history')
       if (historyPlaylist) {
         historyPlaylist.songs = historyPlaylist.songs.filter((s) => s.id !== song.id)

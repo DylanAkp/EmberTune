@@ -23,6 +23,13 @@
 import { useSettingsStore } from 'src/stores/settings'
 
 const Settings = {
+  General: {
+    saveHistory: {
+      label: 'Save Play History',
+      description: 'Save your listening history to view and access recently played tracks.',
+      type: 'boolean',
+    },
+  },
   Advanced: {
     discordRich: {
       label: 'Enable Discord Rich Presence',
