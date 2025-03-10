@@ -87,20 +87,17 @@ function openPlaylist(playlist) {
   }
 
   .playlists-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
   }
 
   .playlist-card {
+    width: 200px;
+    max-width: 300px;
     background: var(--secondary-bg);
     border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-    }
 
     .playlist-thumbnail {
       aspect-ratio: 1;
