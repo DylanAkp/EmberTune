@@ -14,6 +14,16 @@
           <input type="checkbox" v-model="settingsStore[key]" />
           <span class="toggle-slider"></span>
         </label>
+        <select
+          v-else-if="setting.type === 'select'"
+          v-model="settingsStore[key]"
+          class="select-input"
+          @change="handleSelectChange(key, settingsStore[key])"
+        >
+          <option v-for="option in setting.options" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
       </div>
     </template>
   </div>
@@ -21,6 +31,8 @@
 
 <script setup>
 import { useSettingsStore } from 'src/stores/settings'
+import { watch } from 'vue'
+import { i18n } from 'src/boot/i18n'
 
 const Settings = {
   General: {
@@ -28,6 +40,15 @@ const Settings = {
       label: 'Save Play History',
       description: 'Save your listening history to view and access recently played tracks.',
       type: 'boolean',
+    },
+    language: {
+      label: 'Language',
+      description: 'Select your preferred language for the application interface.',
+      type: 'select',
+      options: [
+        { value: 'en', label: 'English' },
+        { value: 'fr', label: 'Français' },
+      ],
     },
   },
   Advanced: {
@@ -40,6 +61,22 @@ const Settings = {
 }
 
 const settingsStore = useSettingsStore()
+
+// Apply language change
+const handleSelectChange = (key, value) => {
+  if (key === 'language') {
+    i18n.global.locale.value = value
+  }
+}
+
+// Initialize language from settings on load
+watch(
+  () => settingsStore.language,
+  (newValue) => {
+    i18n.global.locale.value = newValue
+  },
+  { immediate: true },
+)
 </script>
 
 <style lang="scss" scoped>
@@ -102,6 +139,27 @@ const settingsStore = useSettingsStore()
       transition: 0.4s;
       border-radius: 50%;
     }
+  }
+}
+
+.select-input {
+  height: 36px;
+  min-width: 120px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+  background-color: var(--secondary-bg, #2a2a2a);
+  color: var(--text-color, #ffffff);
+  font-size: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cpath fill='%23ffffff' d='M6 6L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent-color);
   }
 }
 

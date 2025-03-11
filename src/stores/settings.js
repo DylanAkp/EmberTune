@@ -6,6 +6,7 @@ export const useSettingsStore = defineStore(
   () => {
     const discordRich = ref(true)
     const saveHistory = ref(true)
+    const language = ref('en')
 
     function toggleDiscordRich() {
       discordRich.value = !discordRich.value
@@ -15,11 +16,17 @@ export const useSettingsStore = defineStore(
       saveHistory.value = !saveHistory.value
     }
 
+    function setLanguage(lang) {
+      language.value = lang
+    }
+
     return {
       discordRich,
       toggleDiscordRich,
       saveHistory,
       toggleSaveHistory,
+      language,
+      setLanguage,
     }
   },
   {
