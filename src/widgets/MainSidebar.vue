@@ -4,9 +4,9 @@ import StyledButton from '../components/StyledButton.vue'
 
 const routes = [
   { name: 'Home', icon: 'mdi-home', path: '/' },
+  { name: 'Liked Songs', icon: 'mdi-heart', path: '/playlists/liked-songs' },
   { name: 'Playlists', icon: 'mdi-playlist-music', path: '/playlists' },
   { name: 'History', icon: 'mdi-history', path: '/playlists/history' },
-  { name: 'Liked Songs', icon: 'mdi-heart', path: '/playlists/liked-songs' },
 ]
 
 const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
