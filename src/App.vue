@@ -12,10 +12,19 @@ import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { useSettingsStore } from './stores/settings'
 import { version } from '../package.json'
 import UpdateDialog from './components/UpdateDialog.vue'
+import { i18n } from './boot/i18n'
 
 const settings = useSettingsStore()
 const showUpdateDialog = ref(false)
 const latestVersion = ref('')
+
+watch(
+  () => settings.language,
+  (newValue) => {
+    i18n.global.locale.value = newValue
+  },
+  { immediate: true },
+)
 
 const setupDiscordPresence = async () => {
   if (!settings.discordRich) {
