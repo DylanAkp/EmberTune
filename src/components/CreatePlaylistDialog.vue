@@ -2,7 +2,7 @@
   <div v-if="modelValue" class="dialog-overlay" @click="closeDialog">
     <div class="dialog-content" @click.stop>
       <div class="dialog-header">
-        <h2>Create New Playlist</h2>
+        <h2>{{ t('dialogs.createPlaylist.title') }}</h2>
         <div class="close-button" @click="closeDialog">
           <q-icon name="mdi-close" size="24px" />
         </div>
@@ -13,7 +13,7 @@
           <input
             type="text"
             v-model="playlistName"
-            placeholder="Playlist Name"
+            :placeholder="t('dialogs.createPlaylist.placeholder')"
             @keyup.enter="handleCreate"
             ref="inputRef"
           />
@@ -21,8 +21,10 @@
       </div>
 
       <div class="dialog-actions">
-        <button class="btn-cancel" @click="closeDialog">Cancel</button>
-        <button class="btn-create" :disabled="!playlistName" @click="handleCreate">Create</button>
+        <button class="btn-cancel" @click="closeDialog">{{ t('common.cancel') }}</button>
+        <button class="btn-create" :disabled="!playlistName" @click="handleCreate">
+          {{ t('common.create') }}
+        </button>
       </div>
     </div>
   </div>
@@ -31,6 +33,9 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { usePlaylistStore } from '../stores/playlist'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
   modelValue: {

@@ -2,7 +2,7 @@
   <div v-if="modelValue" class="dialog-overlay" @click="closeDialog">
     <div class="dialog-content" @click.stop>
       <div class="dialog-header">
-        <h2>Add to Playlist</h2>
+        <h2>{{ t('dialogs.addToPlaylist.title') }}</h2>
         <div class="close-button" @click="closeDialog">
           <q-icon name="mdi-close" size="24px" />
         </div>
@@ -11,8 +11,10 @@
       <div class="dialog-body">
         <div v-if="playlists.length === 0" class="empty-state">
           <q-icon name="mdi-playlist-music" size="48px" class="icon" />
-          <p>No playlists yet</p>
-          <button class="btn-create" @click="showCreateDialog = true">Create Playlist</button>
+          <p>{{ t('dialogs.addToPlaylist.noPlaylists') }}</p>
+          <button class="btn-create" @click="showCreateDialog = true">
+            {{ t('playlists.create') }}
+          </button>
         </div>
 
         <div v-else class="playlists-list">
@@ -33,7 +35,7 @@
               </div>
               <div class="details">
                 <div class="name">{{ playlist.name }}</div>
-                <div class="songs-count">{{ playlist.songs.length }} songs</div>
+                <div class="songs-count">{{ playlist.songs.length }} {{ t('common.songs') }}</div>
               </div>
             </div>
             <q-icon
@@ -46,7 +48,7 @@
 
         <div class="create-new" @click="showCreateDialog = true">
           <q-icon name="mdi-plus" size="20px" />
-          <span>Create New Playlist</span>
+          <span>{{ t('dialogs.addToPlaylist.createNew') }}</span>
         </div>
       </div>
     </div>
@@ -65,6 +67,9 @@
 import { ref, computed } from 'vue'
 import { usePlaylistStore } from '../stores/playlist'
 import CreatePlaylistDialog from './CreatePlaylistDialog.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
   modelValue: {

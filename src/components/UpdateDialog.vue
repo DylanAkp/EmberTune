@@ -2,7 +2,7 @@
   <div v-if="modelValue" class="dialog-overlay" @click="closeDialog">
     <div class="dialog-content" @click.stop>
       <div class="dialog-header">
-        <h2>Update Available</h2>
+        <h2>{{ t('dialogs.update.title') }}</h2>
         <div class="close-button" @click="closeDialog">
           <q-icon name="mdi-close" size="24px" />
         </div>
@@ -11,14 +11,16 @@
       <div class="dialog-body">
         <div class="update-info">
           <q-icon name="mdi-update" size="48px" class="icon" />
-          <p>A new version of EmberTune is available!</p>
+          <p>{{ t('dialogs.update.message') }}</p>
           <div class="version-info">
-            <span>Current version: {{ currentVersion }}</span>
-            <span>Latest version: {{ latestVersion }}</span>
+            <span>{{ t('dialogs.update.currentVersion') }}: {{ currentVersion }}</span>
+            <span>{{ t('dialogs.update.latestVersion') }}: {{ latestVersion }}</span>
           </div>
           <div class="actions">
-            <button class="btn-update" @click="openDownloadPage">Download Update</button>
-            <button class="btn-later" @click="closeDialog">Maybe Later</button>
+            <button class="btn-update" @click="openDownloadPage">
+              {{ t('dialogs.update.downloadButton') }}
+            </button>
+            <button class="btn-later" @click="closeDialog">{{ t('common.later') }}</button>
           </div>
         </div>
       </div>
@@ -27,6 +29,10 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 defineProps({
   modelValue: {
     type: Boolean,

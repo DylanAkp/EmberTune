@@ -2,20 +2,20 @@
   <div v-if="modelValue" class="dialog-overlay" @click="closeDialog">
     <div class="dialog-content" @click.stop>
       <div class="dialog-header">
-        <h2>Delete Playlist</h2>
+        <h2>{{ t('dialogs.deletePlaylist.title') }}</h2>
         <div class="close-button" @click="closeDialog">
           <q-icon name="mdi-close" size="24px" />
         </div>
       </div>
 
       <div class="dialog-body">
-        <p>Are you sure you want to delete "{{ playlistName }}"?</p>
-        <p class="warning">This action cannot be undone.</p>
+        <p>{{ t('dialogs.deletePlaylist.confirmMessage') }} "{{ playlistName }}"?</p>
+        <p class="warning">{{ t('dialogs.deletePlaylist.warning') }}</p>
       </div>
 
       <div class="dialog-actions">
-        <button class="btn-cancel" @click="closeDialog">Cancel</button>
-        <button class="btn-delete" @click="handleDelete">Delete</button>
+        <button class="btn-cancel" @click="closeDialog">{{ t('common.cancel') }}</button>
+        <button class="btn-delete" @click="handleDelete">{{ t('common.delete') }}</button>
       </div>
     </div>
   </div>
@@ -24,6 +24,9 @@
 <script setup>
 import { usePlaylistStore } from '../stores/playlist'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
   modelValue: {

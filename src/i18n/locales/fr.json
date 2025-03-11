@@ -10,7 +10,11 @@
     "delete": "Supprimer",
     "title": "Titre",
     "artist": "Artiste",
-    "unknownArtist": "Artiste Inconnu"
+    "unknownArtist": "Artiste Inconnu",
+    "cancel": "Annuler",
+    "create": "Créer",
+    "close": "Fermer",
+    "later": "Plus tard"
   },
   "sidebar": {
     "home": "Accueil",
@@ -58,5 +62,28 @@
     "emptyHistory": "Écoutez des titres pour voir votre historique",
     "emptySuggestion": "Ajoutez des titres pendant l'écoute",
     "clearHistory": "Effacer l'Historique"
+  },
+  "dialogs": {
+    "update": {
+      "title": "Mise à jour disponible",
+      "message": "Une nouvelle version d'EmberTune est disponible !",
+      "currentVersion": "Version actuelle",
+      "latestVersion": "Dernière version",
+      "downloadButton": "Télécharger la mise à jour"
+    },
+    "addToPlaylist": {
+      "title": "Ajouter à la playlist",
+      "noPlaylists": "Aucune playlist pour l'instant",
+      "createNew": "Créer une nouvelle playlist"
+    },
+    "createPlaylist": {
+      "title": "Créer une nouvelle playlist",
+      "placeholder": "Nom de la playlist"
+    },
+    "deletePlaylist": {
+      "title": "Supprimer la playlist",
+      "confirmMessage": "Êtes-vous sûr de vouloir supprimer",
+      "warning": "Cette action ne peut pas être annulée."
+    }
   }
 }

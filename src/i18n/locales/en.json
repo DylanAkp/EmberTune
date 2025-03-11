@@ -10,7 +10,11 @@
     "delete": "Delete",
     "title": "Title",
     "artist": "Artist",
-    "unknownArtist": "Unknown Artist"
+    "unknownArtist": "Unknown Artist",
+    "cancel": "Cancel",
+    "create": "Create",
+    "close": "Close",
+    "later": "Maybe Later"
   },
   "sidebar": {
     "home": "Home",
@@ -58,5 +62,28 @@
     "emptyHistory": "Play some songs to see your history",
     "emptySuggestion": "Add songs while playing music",
     "clearHistory": "Clear History"
+  },
+  "dialogs": {
+    "update": {
+      "title": "Update Available",
+      "message": "A new version of EmberTune is available!",
+      "currentVersion": "Current version",
+      "latestVersion": "Latest version",
+      "downloadButton": "Download Update"
+    },
+    "addToPlaylist": {
+      "title": "Add to Playlist",
+      "noPlaylists": "No playlists yet",
+      "createNew": "Create New Playlist"
+    },
+    "createPlaylist": {
+      "title": "Create New Playlist",
+      "placeholder": "Playlist Name"
+    },
+    "deletePlaylist": {
+      "title": "Delete Playlist",
+      "confirmMessage": "Are you sure you want to delete",
+      "warning": "This action cannot be undone."
+    }
   }
 }
