@@ -16,7 +16,7 @@ const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
   <div class="sidebar no-select">
     <div class="top-section">
       <div class="header">
-        <img class="logo" alt="EmberTune Logo" :src="logoImage" @click="switchTheme" />
+        <img class="logo" alt="EmberTune Logo" :src="logoImage" />
         <div class="brand-name">EmberTune</div>
       </div>
       <div class="navigation">
