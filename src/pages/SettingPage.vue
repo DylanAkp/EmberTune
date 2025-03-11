@@ -4,16 +4,16 @@
     <template v-for="(section, sectionName) in Settings" :key="sectionName">
       <h2>{{ sectionName }}</h2>
       <div v-for="(setting, key) in section" :key="key" class="toggle-container">
-        <label v-if="setting.type === 'boolean'" class="toggle">
-          <input type="checkbox" v-model="settingsStore[key]" />
-          <span class="toggle-slider"></span>
-        </label>
         <div class="label-container">
           <span class="toggle-label">{{ setting.label }}</span>
           <div class="toggle-description">
             {{ setting.description }}
           </div>
         </div>
+        <label v-if="setting.type === 'boolean'" class="toggle">
+          <input type="checkbox" v-model="settingsStore[key]" />
+          <span class="toggle-slider"></span>
+        </label>
       </div>
     </template>
   </div>
@@ -46,8 +46,17 @@ const settingsStore = useSettingsStore()
 .toggle-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   margin-top: 8px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+
+  &:last-of-type {
+    border-bottom: none;
+    margin-bottom: 24px;
+  }
 }
 
 .toggle {
@@ -112,5 +121,6 @@ const settingsStore = useSettingsStore()
 .label-container {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 </style>
