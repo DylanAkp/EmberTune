@@ -1,15 +1,21 @@
 <script setup>
 import logoImage from '../assets/EmberTune.svg'
 import StyledButton from '../components/StyledButton.vue'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
-const routes = [
-  { name: 'Home', icon: 'mdi-home', path: '/' },
-  { name: 'Liked Songs', icon: 'mdi-heart', path: '/playlists/liked-songs' },
-  { name: 'Playlists', icon: 'mdi-playlist-music', path: '/playlists' },
-  { name: 'History', icon: 'mdi-history', path: '/playlists/history' },
-]
+const { t } = useI18n()
 
-const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
+const routes = computed(() => [
+  { name: t('sidebar.home'), icon: 'mdi-home', path: '/' },
+  { name: t('sidebar.likedSongs'), icon: 'mdi-heart', path: '/playlists/liked-songs' },
+  { name: t('sidebar.playlists'), icon: 'mdi-playlist-music', path: '/playlists' },
+  { name: t('sidebar.history'), icon: 'mdi-history', path: '/playlists/history' },
+])
+
+const bottomRoutes = computed(() => [
+  { name: t('sidebar.settings'), icon: 'mdi-cog', path: '/settings' },
+])
 </script>
 
 <template>
@@ -17,7 +23,7 @@ const bottomRoutes = [{ name: 'Settings', icon: 'mdi-cog', path: '/settings' }]
     <div class="top-section">
       <div class="header">
         <img class="logo" alt="EmberTune Logo" :src="logoImage" />
-        <div class="brand-name">EmberTune</div>
+        <div class="brand-name">{{ t('app.name') }}</div>
       </div>
       <div class="navigation">
         <StyledButton

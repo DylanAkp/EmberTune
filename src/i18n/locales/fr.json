@@ -5,5 +5,12 @@
   "common": {
     "search": "Rechercher",
     "loading": "Chargement..."
+  },
+  "sidebar": {
+    "home": "Accueil",
+    "likedSongs": "Titres Favoris",
+    "playlists": "Playlists",
+    "history": "Historique",
+    "settings": "Paramètres"
   }
 }
