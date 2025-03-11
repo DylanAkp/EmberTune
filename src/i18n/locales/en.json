@@ -4,7 +4,13 @@
   },
   "common": {
     "search": "Search",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "songs": "songs",
+    "play": "Play",
+    "delete": "Delete",
+    "title": "Title",
+    "artist": "Artist",
+    "unknownArtist": "Unknown Artist"
   },
   "sidebar": {
     "home": "Home",
@@ -42,5 +48,15 @@
       "seeOnGithub": "See on Github",
       "discoverProjects": "Discover other projects"
     }
+  },
+  "playlists": {
+    "title": "Your Playlists",
+    "create": "Create Playlist",
+    "defaultPlaylist": "Default Playlist",
+    "playlist": "Playlist",
+    "empty": "This playlist is empty",
+    "emptyHistory": "Play some songs to see your history",
+    "emptySuggestion": "Add songs while playing music",
+    "clearHistory": "Clear History"
   }
 }

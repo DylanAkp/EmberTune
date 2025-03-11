@@ -19,7 +19,7 @@
         </div>
         <div class="info">
           <div class="playlist-type">
-            {{ playlist.isDefault ? 'Default Playlist' : 'Playlist' }}
+            {{ playlist.isDefault ? t('playlists.defaultPlaylist') : t('playlists.playlist') }}
           </div>
           <div
             class="playlist-name"
@@ -29,7 +29,7 @@
           >
             {{ playlist.name }}
           </div>
-          <div class="playlist-stats">{{ playlist.songs.length }} songs</div>
+          <div class="playlist-stats">{{ playlist.songs.length }} {{ t('common.songs') }}</div>
         </div>
       </div>
       <div class="actions">
@@ -56,20 +56,18 @@
     <div class="content">
       <div v-if="playlist.songs.length === 0" class="empty-state">
         <q-icon name="mdi-playlist-music" size="64px" />
-        <div class="message">This playlist is empty</div>
+        <div class="message">{{ t('playlists.empty') }}</div>
         <div class="sub-message">
           {{
-            playlist.id === 'history'
-              ? 'Play some songs to see your history'
-              : 'Add songs while playing music'
+            playlist.id === 'history' ? t('playlists.emptyHistory') : t('playlists.emptySuggestion')
           }}
         </div>
       </div>
       <div v-else class="songs-list">
         <div class="list-header">
           <div class="index">#</div>
-          <div class="title">Title</div>
-          <div class="artist">Artist</div>
+          <div class="title">{{ t('common.title') }}</div>
+          <div class="artist">{{ t('common.artist') }}</div>
           <div class="actions"></div>
         </div>
         <div class="songs-container">
@@ -125,6 +123,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { usePlaylistStore } from '../stores/playlist'
 import { usePlayerStore } from '../stores/player'
+import { useI18n } from 'vue-i18n'
 import DeletePlaylistDialog from '../components/DeletePlaylistDialog.vue'
 
 const route = useRoute()
@@ -134,6 +133,7 @@ const playerStore = usePlayerStore()
 const nameElement = ref(null)
 const confirmDelete = ref(false)
 const draggedIndex = ref(-1)
+const { t } = useI18n()
 
 const playlist = computed(() => {
   return playlistStore.playlists.find((p) => p.id === route.params.id)
@@ -192,7 +192,7 @@ function formatArtists(song) {
     if (song.artists.artists) song.artists = song.artists.artists
   }
 
-  if (!song.artists) return 'Unknown Artist'
+  if (!song.artists) return t('common.unknownArtist')
   if (Array.isArray(song.artists)) {
     return song.artists
       .map((artist) => {
@@ -201,7 +201,7 @@ function formatArtists(song) {
       })
       .join(', ')
   }
-  return 'Unknown Artist'
+  return t('common.unknownArtist')
 }
 
 function clearHistory() {

@@ -1,10 +1,10 @@
 <template>
   <div class="playlist-page">
     <div class="header">
-      <h1>Your Playlists</h1>
+      <h1>{{ t('playlists.title') }}</h1>
       <StyledButton
         icon="mdi-plus"
-        text="Create Playlist"
+        :text="t('playlists.create')"
         variant="accent"
         @click="showCreateDialog = true"
       />
@@ -39,7 +39,7 @@
         </div>
         <div class="playlist-info">
           <div class="playlist-name">{{ playlist.name }}</div>
-          <div class="playlist-details">{{ playlist.songs.length }} songs</div>
+          <div class="playlist-details">{{ playlist.songs.length }} {{ t('common.songs') }}</div>
         </div>
       </div>
     </div>
@@ -54,10 +54,12 @@ import { useRouter } from 'vue-router'
 import { usePlaylistStore } from '../stores/playlist'
 import CreatePlaylistDialog from '../components/CreatePlaylistDialog.vue'
 import StyledButton from '../components/StyledButton.vue'
+import { useI18n } from 'vue-i18n'
 
 const router = useRouter()
 const playlistStore = usePlaylistStore()
 const showCreateDialog = ref(false)
+const { t } = useI18n()
 
 onMounted(() => {
   playlistStore.initializeDefaultPlaylist()
