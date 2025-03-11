@@ -12,5 +12,26 @@
     "playlists": "Playlists",
     "history": "History",
     "settings": "Settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "sections": {
+      "general": "General",
+      "advanced": "Advanced"
+    },
+    "options": {
+      "saveHistory": {
+        "label": "Save Play History",
+        "description": "Save your listening history to view and access recently played tracks."
+      },
+      "language": {
+        "label": "Language",
+        "description": "Select your preferred language for the application interface."
+      },
+      "discordRich": {
+        "label": "Enable Discord Rich Presence",
+        "description": "This will show the current song playing in your Discord status."
+      }
+    }
   }
 }

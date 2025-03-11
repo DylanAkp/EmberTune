@@ -12,5 +12,26 @@
     "playlists": "Playlists",
     "history": "Historique",
     "settings": "Paramètres"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "sections": {
+      "general": "Général",
+      "advanced": "Avancé"
+    },
+    "options": {
+      "saveHistory": {
+        "label": "Enregistrer l'historique",
+        "description": "Enregistrez votre historique d'écoute pour consulter et accéder aux pistes récemment jouées."
+      },
+      "language": {
+        "label": "Langue",
+        "description": "Sélectionnez votre langue préférée pour l'interface de l'application."
+      },
+      "discordRich": {
+        "label": "Activer Discord Rich Presence",
+        "description": "Cela affichera la chanson en cours de lecture dans votre statut Discord."
+      }
+    }
   }
 }

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>Settings</h1>
+    <h1>{{ t('settings.title') }}</h1>
     <template v-for="(section, sectionName) in Settings" :key="sectionName">
-      <h2>{{ sectionName }}</h2>
+      <h2>{{ t(`settings.sections.${sectionName.toLowerCase()}`) }}</h2>
       <div v-for="(setting, key) in section" :key="key" class="toggle-container">
         <div class="label-container">
-          <span class="toggle-label">{{ setting.label }}</span>
+          <span class="toggle-label">{{ t(`settings.options.${key}.label`) }}</span>
           <div class="toggle-description">
-            {{ setting.description }}
+            {{ t(`settings.options.${key}.description`) }}
           </div>
         </div>
         <label v-if="setting.type === 'boolean'" class="toggle">
@@ -33,17 +33,16 @@
 import { useSettingsStore } from 'src/stores/settings'
 import { watch } from 'vue'
 import { i18n } from 'src/boot/i18n'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const Settings = {
   General: {
     saveHistory: {
-      label: 'Save Play History',
-      description: 'Save your listening history to view and access recently played tracks.',
       type: 'boolean',
     },
     language: {
-      label: 'Language',
-      description: 'Select your preferred language for the application interface.',
       type: 'select',
       options: [
         { value: 'en', label: 'English' },
@@ -53,8 +52,6 @@ const Settings = {
   },
   Advanced: {
     discordRich: {
-      label: 'Enable Discord Rich Presence',
-      description: 'This will show the current song playing in your Discord status.',
       type: 'boolean',
     },
   },
