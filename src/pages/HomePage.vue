@@ -3,26 +3,31 @@
     <div class="welcome-content">
       <div class="logo">
         <img :src="logoImage" alt="EmberTune Logo" class="logo-image" />
-        <h1>EmberTune</h1>
+        <h1>{{ t('app.name') }}</h1>
       </div>
-      <p class="tagline">Your personal music companion</p>
+      <p class="tagline">{{ t('home.tagline') }}</p>
       <div class="features">
         <StyledButton
           icon="mdi-playlist-music"
-          text="Create custom playlists"
+          :text="t('home.buttons.createPlaylists')"
           variant="light"
           @click="$router.push('/playlists')"
         />
         <StyledButton
           icon="mdi-cog"
-          text="Configure EmberTune"
+          :text="t('home.buttons.configureApp')"
           variant="light"
           @click="$router.push('/settings')"
         />
-        <StyledButton icon="mdi-github" text="See on Github" variant="light" @click="openGithub" />
         <StyledButton
           icon="mdi-github"
-          text="Discover other projects"
+          :text="t('home.buttons.seeOnGithub')"
+          variant="light"
+          @click="openGithub"
+        />
+        <StyledButton
+          icon="mdi-github"
+          :text="t('home.buttons.discoverProjects')"
           variant="light"
           @click="openGithubUser"
         />
@@ -34,6 +39,9 @@
 <script setup>
 import logoImage from '../assets/EmberTune.svg'
 import StyledButton from '../components/StyledButton.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const openGithub = () => {
   window.shell.openExternal('https://github.com/DylanAkp/EmberTune')

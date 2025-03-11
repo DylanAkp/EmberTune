@@ -33,5 +33,14 @@
         "description": "This will show the current song playing in your Discord status."
       }
     }
+  },
+  "home": {
+    "tagline": "Your personal music companion",
+    "buttons": {
+      "createPlaylists": "Create custom playlists",
+      "configureApp": "Configure EmberTune",
+      "seeOnGithub": "See on Github",
+      "discoverProjects": "Discover other projects"
+    }
   }
 }

@@ -33,5 +33,14 @@
         "description": "Cela affichera la chanson en cours de lecture dans votre statut Discord."
       }
     }
+  },
+  "home": {
+    "tagline": "Votre compagnon musical personnel",
+    "buttons": {
+      "createPlaylists": "Créer des playlists",
+      "configureApp": "Configurer EmberTune",
+      "seeOnGithub": "Voir sur Github",
+      "discoverProjects": "Découvrir d'autres projets"
+    }
   }
 }
