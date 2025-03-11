@@ -55,7 +55,7 @@ const toggleLike = () => {
       id: player.currentTrack.id,
       title: player.currentTrack.title,
       artist: player.currentTrack.artist,
-      thumbnails: player.currentTrack.thumbnail,
+      thumbnails: player.currentTrack.thumbnails,
     })
   }
 }
@@ -139,7 +139,7 @@ onUnmounted(() => {
       <div class="song-info">
         <img
           :src="
-            player.currentTrack.thumbnail.reduce((prev, current) =>
+            player.currentTrack.thumbnails.reduce((prev, current) =>
               prev.width > current.width ? prev : current,
             ).url
           "

@@ -26,7 +26,7 @@ export const usePlayerStore = defineStore('player', {
       const activity = {
         details: track.title,
         state: `by ${track.artist}`,
-        largeImageKey: track.thumbnail[0]?.url || 'idle',
+        largeImageKey: track.thumbnails[0]?.url || 'idle',
         largeImageText: 'EmberTune',
         smallImageKey: 'embertune_logo',
         smallImageText: this.isPlaying ? 'Playing' : 'Paused',
@@ -63,7 +63,7 @@ export const usePlayerStore = defineStore('player', {
           id,
           title: songDetails.title,
           artist: this.formatArtists(songDetails.artists),
-          thumbnail: songDetails.thumbnails,
+          thumbnails: songDetails.thumbnails,
           url: downloadDetails.urlDecoded,
         }
 
