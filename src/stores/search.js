@@ -16,7 +16,7 @@ export const useSearchStore = defineStore('search', {
         this.loading = true
         this.error = null // Clear any previous errors
         const results = await window.youtube.searchSongs(query)
-        this.results = results.content.reverse()
+        this.results = results.content
       } catch (error) {
         // Only set error state for non-"no results" errors
         if (error.code !== 1002) {
