@@ -170,7 +170,7 @@ function addToPlaylist(playlistId) {
 
     p {
       margin: 0;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--secondary-text-color);
     }
 
     .btn-create {
@@ -256,7 +256,7 @@ function addToPlaylist(playlistId) {
 
           .songs-count {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--secondary-text-color);
           }
         }
       }

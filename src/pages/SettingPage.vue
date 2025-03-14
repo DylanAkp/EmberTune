@@ -49,6 +49,9 @@ const Settings = {
         { value: 'fr', label: 'Français' },
       ],
     },
+    darkMode: {
+      type: 'boolean',
+    },
   },
   Advanced: {
     discordRich: {
@@ -132,7 +135,7 @@ watch(
       width: 16px;
       left: 4px;
       bottom: 4px;
-      background-color: white;
+      background-color: var(--text-color);
       transition: 0.4s;
       border-radius: 50%;
     }
@@ -149,10 +152,14 @@ watch(
   color: var(--text-color, #ffffff);
   font-size: 14px;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cpath fill='%23ffffff' d='M6 6L0 0h12z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cpath fill='%23dfe0e7' d='M6 6L0 0h12z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   cursor: pointer;
+
+  .light-mode & {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cpath fill='%231a1a1a' d='M6 6L0 0h12z'/%3E%3C/svg%3E");
+  }
 
   &:focus {
     outline: none;

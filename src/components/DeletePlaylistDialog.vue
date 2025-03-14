@@ -113,7 +113,7 @@ function handleDelete() {
 
     &.warning {
       margin-top: 8px;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--secondary-text-color);
       font-size: 14px;
     }
   }

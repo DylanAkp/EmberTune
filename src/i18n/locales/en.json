@@ -38,6 +38,10 @@
         "label": "Language",
         "description": "Select your preferred language for the application interface."
       },
+      "darkMode": {
+        "label": "Dark Mode",
+        "description": "Toggle between dark and light app themes."
+      },
       "discordRich": {
         "label": "Enable Discord Rich Presence",
         "description": "This will show the current song playing in your Discord status."

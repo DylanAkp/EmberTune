@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
 
 :root {
+  /* Dark theme (default) */
   --primary-bg: #191b1f;
   --secondary-bg: #0d1116;
   --tertiary-bg: #2e2f36;
   --text-color: #dfe0e7;
   --accent-color: #eb8400;
+  --border-color: rgba(255, 255, 255, 0.12);
 
   --sidebar-width: 300px;
   --playbar-safe-height: 50px;
@@ -13,6 +15,16 @@
   --search-bar-height: 50px;
   --search-bar-total-height: calc(var(--search-bar-height) + 10px);
   --search-bar-spacing: calc(var(--search-bar-total-height) + var(--content-padding) * 2);
+}
+
+/* Light theme */
+.light-mode {
+  --primary-bg: #f5f5f7;
+  --secondary-bg: #e0e0e5;
+  --tertiary-bg: #ffffff;
+  --text-color: #1a1a1a;
+  --accent-color: #eb8400;
+  --border-color: rgba(0, 0, 0, 0.12);
 }
 
 * {

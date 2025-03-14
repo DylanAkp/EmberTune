@@ -180,7 +180,7 @@ onUnmounted(() => {
           <q-icon
             name="mdi-volume-high"
             size="20px"
-            class="text-grey clickable"
+            class="text-grey-6 clickable"
             @click="toggleVolumeSlider"
             @mouseenter="showVolumeSlider = true"
           />
@@ -205,7 +205,7 @@ onUnmounted(() => {
           :class="{
             clickable: true,
             'text-accent': $route.path === '/lyrics',
-            'text-grey': $route.path !== '/lyrics',
+            'text-grey-6': $route.path !== '/lyrics',
           }"
           @click="router.push('/lyrics')"
         />
@@ -215,20 +215,20 @@ onUnmounted(() => {
           :class="{
             clickable: true,
             'text-accent': copyStatus === 'copied',
-            'text-grey': copyStatus !== 'copied',
+            'text-grey-6': copyStatus !== 'copied',
           }"
           @click="copyLink"
         />
         <q-icon
           :name="isLiked ? 'mdi-heart' : 'mdi-heart-outline'"
           size="20px"
-          :class="{ clickable: true, 'text-accent': isLiked, 'text-grey': !isLiked }"
+          :class="{ clickable: true, 'text-accent': isLiked, 'text-grey-6': !isLiked }"
           @click="toggleLike"
         />
         <q-icon
           name="mdi-playlist-plus"
           size="20px"
-          class="text-grey clickable"
+          class="text-grey-6 clickable"
           @click="showAddToPlaylistDialog = true"
         />
       </div>
@@ -318,7 +318,7 @@ onUnmounted(() => {
     }
     .artist {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--secondary-text-color);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -402,7 +402,7 @@ onUnmounted(() => {
 
   .time {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--secondary-text-color);
     min-width: 45px;
   }
 }
@@ -454,9 +454,5 @@ onUnmounted(() => {
 
 .text-accent {
   color: var(--accent-color);
-}
-
-.text-grey {
-  color: rgba(255, 255, 255, 0.7);
 }
 </style>

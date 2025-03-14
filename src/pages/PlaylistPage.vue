@@ -131,7 +131,8 @@ function openPlaylist(playlist) {
 
       .playlist-details {
         font-size: 0.9em;
-        color: rgba(255, 255, 255, 0.7);
+        color: var(--text-color);
+        opacity: 0.7;
       }
     }
   }

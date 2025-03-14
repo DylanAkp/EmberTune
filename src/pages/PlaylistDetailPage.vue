@@ -240,6 +240,7 @@ function clearHistory() {
         }
 
         .default-icon {
+          color: var(--text-color);
           opacity: 0.5;
         }
       }
@@ -255,7 +256,8 @@ function clearHistory() {
           text-transform: uppercase;
           letter-spacing: 1px;
           margin-bottom: 10px;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-color);
+          opacity: 0.7;
         }
 
         .playlist-name {
@@ -265,14 +267,15 @@ function clearHistory() {
           outline: none;
 
           &[contenteditable='true']:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--tertiary-bg);
             border-radius: 5px;
           }
         }
 
         .playlist-stats {
           font-size: 0.9em;
-          color: rgba(255, 255, 255, 0.7);
+          color: var(--text-color);
+          opacity: 0.7;
         }
       }
     }
@@ -285,7 +288,8 @@ function clearHistory() {
       align-items: center;
       justify-content: center;
       padding: 60px;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--text-color);
+      opacity: 0.7;
 
       .message {
         font-size: 1.2em;
@@ -302,9 +306,10 @@ function clearHistory() {
         display: grid;
         grid-template-columns: 50px 1fr 1fr 100px;
         padding: 10px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid var(--border-color);
         font-size: 0.9em;
-        color: rgba(255, 255, 255, 0.7);
+        color: var(--text-color);
+        opacity: 0.7;
         text-transform: uppercase;
         letter-spacing: 1px;
       }
@@ -321,16 +326,18 @@ function clearHistory() {
           transition: background-color 0.2s ease;
 
           &:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--tertiary-bg);
           }
 
           &.is-dragging {
             opacity: 0.5;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--tertiary-bg);
+            opacity: 0.5;
           }
 
           .index {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-color);
+            opacity: 0.7;
           }
 
           .title {
@@ -347,7 +354,8 @@ function clearHistory() {
           }
 
           .artist {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-color);
+            opacity: 0.7;
           }
 
           .actions {

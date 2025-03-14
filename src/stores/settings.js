@@ -7,6 +7,7 @@ export const useSettingsStore = defineStore(
     const discordRich = ref(true)
     const saveHistory = ref(true)
     const language = ref('en')
+    const darkMode = ref(true) // Default to dark theme
 
     function toggleDiscordRich() {
       discordRich.value = !discordRich.value
@@ -20,6 +21,24 @@ export const useSettingsStore = defineStore(
       language.value = lang
     }
 
+    function toggleDarkMode() {
+      darkMode.value = !darkMode.value
+      applyTheme()
+    }
+
+    function setDarkMode(value) {
+      darkMode.value = value
+      applyTheme()
+    }
+
+    function applyTheme() {
+      if (darkMode.value) {
+        document.body.classList.remove('light-mode')
+      } else {
+        document.body.classList.add('light-mode')
+      }
+    }
+
     return {
       discordRich,
       toggleDiscordRich,
@@ -27,6 +46,10 @@ export const useSettingsStore = defineStore(
       toggleSaveHistory,
       language,
       setLanguage,
+      darkMode,
+      toggleDarkMode,
+      setDarkMode,
+      applyTheme,
     }
   },
   {

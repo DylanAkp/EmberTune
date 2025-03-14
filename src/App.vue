@@ -1,10 +1,12 @@
 <template>
-  <router-view />
-  <UpdateDialog
-    v-model="showUpdateDialog"
-    :current-version="version"
-    :latest-version="latestVersion"
-  />
+  <div :class="{ 'light-mode': !settings.darkMode }">
+    <router-view />
+    <UpdateDialog
+      v-model="showUpdateDialog"
+      :current-version="version"
+      :latest-version="latestVersion"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -22,6 +24,14 @@ watch(
   () => settings.language,
   (newValue) => {
     i18n.global.locale.value = newValue
+  },
+  { immediate: true },
+)
+
+watch(
+  () => settings.darkMode,
+  () => {
+    settings.applyTheme()
   },
   { immediate: true },
 )
@@ -86,6 +96,7 @@ watch(
 onMounted(() => {
   setupDiscordPresence()
   checkForUpdates()
+  settings.applyTheme()
 })
 
 onUnmounted(() => {
