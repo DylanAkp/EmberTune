@@ -49,7 +49,7 @@
       },
       "version": {
         "label": "EmberTune",
-        "description": "Version {version}"
+        "description": "Check for a new EmberTune update"
       }
     }
   },

@@ -7,7 +7,7 @@
         <div class="label-container">
           <span class="toggle-label">{{ t(`settings.options.${key}.label`) }}</span>
           <div class="toggle-description">
-            {{ t(`settings.options.${key}.description`, key === 'version' ? { version } : {}) }}
+            {{ t(`settings.options.${key}.description`) }}
           </div>
         </div>
         <label v-if="setting.type === 'boolean'" class="toggle">
