@@ -59,6 +59,7 @@
   },
   "home": {
     "tagline": "Your personal music companion",
+    "trending": "Trending Music",
     "buttons": {
       "createPlaylists": "Create custom playlists",
       "configureApp": "Configure EmberTune",

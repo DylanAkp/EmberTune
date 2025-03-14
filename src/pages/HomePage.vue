@@ -1,55 +1,43 @@
 <template>
   <div class="welcome-container">
-    <div class="welcome-content">
-      <div class="logo">
-        <img :src="logoImage" alt="EmberTune Logo" class="logo-image" />
-        <h1>{{ t('app.name') }}</h1>
-      </div>
-      <p class="tagline">{{ t('home.tagline') }}</p>
-      <div class="features">
-        <StyledButton
-          icon="mdi-playlist-music"
-          :text="t('home.buttons.createPlaylists')"
-          variant="light"
-          @click="$router.push('/playlists')"
-        />
-        <StyledButton
-          icon="mdi-cog"
-          :text="t('home.buttons.configureApp')"
-          variant="light"
-          @click="$router.push('/settings')"
-        />
-        <StyledButton
-          icon="mdi-github"
-          :text="t('home.buttons.seeOnGithub')"
-          variant="light"
-          @click="openGithub"
-        />
-        <StyledButton
-          icon="mdi-github"
-          :text="t('home.buttons.discoverProjects')"
-          variant="light"
-          @click="openGithubUser"
-        />
+    <div class="charts-container">
+      <h2 class="section-title">{{ t('home.trending') }}</h2>
+      <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
+      <div v-else-if="error" class="error">{{ error }}</div>
+      <div v-else class="charts-grid">
+        <div v-for="song in chartMusic" :key="song.id">
+          <SongCard
+            :title="song.title"
+            :thumbnail="song.thumbnails"
+            :artist="song.artists[0].name"
+            :id="song.id"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import logoImage from '../assets/EmberTune.svg'
-import StyledButton from '../components/StyledButton.vue'
+import SongCard from '../components/SongCard.vue'
 import { useI18n } from 'vue-i18n'
+import { ref, onMounted } from 'vue'
 
 const { t } = useI18n()
+const chartMusic = ref([])
+const loading = ref(true)
+const error = ref(null)
 
-const openGithub = () => {
-  window.shell.openExternal('https://github.com/DylanAkp/EmberTune')
-}
-
-const openGithubUser = () => {
-  window.shell.openExternal('https://github.com/DylanAkp')
-}
+onMounted(async () => {
+  try {
+    const charts = await window.youtube.getCharts()
+    chartMusic.value = charts.musics
+  } catch (err) {
+    error.value = err.message || 'Failed to load charts'
+  } finally {
+    loading.value = false
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -57,46 +45,36 @@ const openGithubUser = () => {
   height: 100%;
   border-radius: 25px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--secondary-bg);
-}
-
-.welcome-content {
-  text-align: center;
-  padding: 2rem;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 1rem;
-
-  .logo-image {
-    width: 70px;
-    height: 70px;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    margin: 0;
-    color: var(--text-color);
-  }
-}
-
-.tagline {
-  font-size: 1.2rem;
-  color: var(--secondary-text-color);
-  margin-bottom: 2rem;
-}
-
-.features {
-  display: flex;
   flex-direction: column;
-  gap: 1rem;
-  max-width: 300px;
-  margin: 0 auto;
+  align-items: center;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.charts-container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.section-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-color);
+  font-size: 1.1rem;
 }
 </style>

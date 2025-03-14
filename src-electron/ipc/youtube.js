@@ -1,6 +1,18 @@
-import { get, download, search } from 'ytmusic_api_unofficial/dist/index.js'
+import { get, download, search, charts } from 'ytmusic_api_unofficial/dist/index.js'
 import { ipcMain } from 'electron'
 
+ipcMain.handle('getCharts', async (event, country) => {
+  try {
+    if (!country) {
+      country = 'US'
+    }
+    const results = await charts(country)
+    return JSON.parse(JSON.stringify(results))
+  } catch (error) {
+    console.error('Get Charts Error:', error)
+    throw error
+  }
+})
 ipcMain.handle('searchSongs', async (event, query) => {
   try {
     const response = await search(query, 'SONG')
