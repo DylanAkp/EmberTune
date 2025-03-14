@@ -25,6 +25,7 @@
   },
   "settings": {
     "title": "Settings",
+    "checkUpdates": "Check for Updates",
     "sections": {
       "general": "General",
       "advanced": "Advanced"
@@ -45,8 +46,16 @@
       "discordRich": {
         "label": "Enable Discord Rich Presence",
         "description": "This will show the current song playing in your Discord status."
+      },
+      "version": {
+        "label": "EmberTune",
+        "description": "Version {version}"
       }
     }
+  },
+  "updates": {
+    "upToDate": "EmberTune is up to date.",
+    "checkFailed": "Failed to check for updates. Please try again later."
   },
   "home": {
     "tagline": "Your personal music companion",

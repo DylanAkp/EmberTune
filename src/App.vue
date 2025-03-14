@@ -15,6 +15,7 @@ import { useSettingsStore } from './stores/settings'
 import { version } from '../package.json'
 import UpdateDialog from './components/UpdateDialog.vue'
 import { i18n } from './boot/i18n'
+import { checkForUpdates } from './utils/updateChecker'
 
 const settings = useSettingsStore()
 const showUpdateDialog = ref(false)
@@ -57,24 +58,13 @@ const clearDiscordPresence = () => {
   window.discord.clearPresence()
 }
 
-const checkForUpdates = async () => {
+const handleUpdateCheck = async () => {
   try {
-    const response = await fetch('https://api.github.com/repos/DylanAkp/EmberTune/releases/latest')
-    const data = await response.json()
-    const latest = data.tag_name.replace('v', '')
+    const { updateAvailable, latestVersion: latest } = await checkForUpdates(version)
     latestVersion.value = latest
 
-    // Compare versions
-    const currentParts = version.split('.').map(Number)
-    const latestParts = latest.split('.').map(Number)
-
-    for (let i = 0; i < 3; i++) {
-      if (latestParts[i] > currentParts[i]) {
-        showUpdateDialog.value = true
-        break
-      } else if (latestParts[i] < currentParts[i]) {
-        break
-      }
+    if (updateAvailable) {
+      showUpdateDialog.value = true
     }
   } catch (error) {
     console.error('Failed to check for updates:', error)
@@ -95,7 +85,7 @@ watch(
 
 onMounted(() => {
   setupDiscordPresence()
-  checkForUpdates()
+  handleUpdateCheck()
   settings.applyTheme()
 })
 

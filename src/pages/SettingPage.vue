@@ -7,7 +7,7 @@
         <div class="label-container">
           <span class="toggle-label">{{ t(`settings.options.${key}.label`) }}</span>
           <div class="toggle-description">
-            {{ t(`settings.options.${key}.description`) }}
+            {{ t(`settings.options.${key}.description`, key === 'version' ? { version } : {}) }}
           </div>
         </div>
         <label v-if="setting.type === 'boolean'" class="toggle">
@@ -24,19 +24,83 @@
             {{ option.label }}
           </option>
         </select>
+        <StyledButton
+          v-else-if="setting.type === 'button'"
+          :variant="key === 'version' && updateStatus === 'upToDate' ? 'success' : 'accent'"
+          :text="
+            key === 'version' && updateStatus === 'upToDate'
+              ? t('updates.upToDate')
+              : key === 'version' && updateStatus === 'checking'
+                ? t('common.loading')
+                : t(setting.buttonText)
+          "
+          :icon="key === 'version' && updateStatus === 'upToDate' ? 'mdi-check' : 'mdi-refresh'"
+          @click="setting.action"
+          :class="{ checking: key === 'version' && updateStatus === 'checking' }"
+        />
       </div>
     </template>
+
+    <!-- Update Dialog -->
+    <UpdateDialog
+      v-model="showUpdateDialog"
+      :current-version="version"
+      :latest-version="latestVersion"
+    />
   </div>
 </template>
 
 <script setup>
 import { useSettingsStore } from 'src/stores/settings'
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { i18n } from 'src/boot/i18n'
 import { useI18n } from 'vue-i18n'
+import { version } from '../../package.json'
+import StyledButton from 'src/components/StyledButton.vue'
+import UpdateDialog from 'src/components/UpdateDialog.vue'
+import { checkForUpdates } from 'src/utils/updateChecker'
 
 const { t } = useI18n()
+const showUpdateDialog = ref(false)
+const latestVersion = ref('')
+const settingsStore = useSettingsStore()
+const updateStatus = ref('') // 'upToDate', 'checking', or empty
 
+// Apply language change
+const handleSelectChange = (key, value) => {
+  if (key === 'language') {
+    i18n.global.locale.value = value
+  }
+}
+
+// Check for updates
+const handleUpdateCheck = async () => {
+  updateStatus.value = 'checking'
+
+  try {
+    const { updateAvailable, latestVersion: latest } = await checkForUpdates(version)
+    latestVersion.value = latest
+
+    if (updateAvailable) {
+      // Show the update dialog
+      updateStatus.value = ''
+      showUpdateDialog.value = true
+    } else {
+      // Show that the app is up to date with the button style
+      updateStatus.value = 'upToDate'
+
+      // Reset status after 3 seconds
+      setTimeout(() => {
+        updateStatus.value = ''
+      }, 3000)
+    }
+  } catch (error) {
+    console.error('Failed to check for updates:', error)
+    updateStatus.value = ''
+  }
+}
+
+// Define Settings object after the functions are declared
 const Settings = {
   General: {
     saveHistory: {
@@ -57,16 +121,12 @@ const Settings = {
     discordRich: {
       type: 'boolean',
     },
+    version: {
+      type: 'button',
+      buttonText: 'settings.checkUpdates',
+      action: handleUpdateCheck,
+    },
   },
-}
-
-const settingsStore = useSettingsStore()
-
-// Apply language change
-const handleSelectChange = (key, value) => {
-  if (key === 'language') {
-    i18n.global.locale.value = value
-  }
 }
 
 // Initialize language from settings on load
@@ -140,6 +200,11 @@ watch(
       border-radius: 50%;
     }
   }
+}
+
+.checking {
+  opacity: 0.7;
+  cursor: progress;
 }
 
 .select-input {

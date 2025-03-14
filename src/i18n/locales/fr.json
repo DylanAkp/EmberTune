@@ -25,6 +25,7 @@
   },
   "settings": {
     "title": "Paramètres",
+    "checkUpdates": "Vérifier les mises à jour",
     "sections": {
       "general": "Général",
       "advanced": "Avancé"
@@ -45,8 +46,16 @@
       "discordRich": {
         "label": "Activer Discord Rich Presence",
         "description": "Affiche la chanson en cours de lecture dans votre statut Discord."
+      },
+      "version": {
+        "label": "EmberTune",
+        "description": "Version {version}"
       }
     }
+  },
+  "updates": {
+    "upToDate": "EmberTune est à jour.",
+    "checkFailed": "Échec de la vérification des mises à jour. Veuillez réessayer plus tard."
   },
   "home": {
     "tagline": "Votre compagnon musical personnel",
