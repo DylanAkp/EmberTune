@@ -85,18 +85,18 @@ onMounted(() => {
 .loading {
   margin-top: 30px;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--secondary-text-color);
 }
 
 .no-lyrics {
   margin-top: 30px;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--secondary-text-color);
 }
 
 .lyrics-source {
   margin-top: 30px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--secondary-text-color);
 }
 </style>

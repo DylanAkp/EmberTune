@@ -88,7 +88,7 @@ const openGithubUser = () => {
 
 .tagline {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--secondary-text-color);
   margin-bottom: 2rem;
 }
 
