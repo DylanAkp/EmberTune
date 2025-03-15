@@ -1,15 +1,19 @@
 <template>
   <div class="main-layout">
-    <MainSidebar />
+    <TitleBar />
 
-    <div class="main-content">
-      <SearchBar />
-      <div class="router-view-container">
-        <router-view />
+    <div class="layout-content">
+      <MainSidebar />
+
+      <div class="main-content">
+        <SearchBar />
+        <div class="router-view-container">
+          <router-view />
+        </div>
       </div>
-    </div>
 
-    <PlayBar />
+      <PlayBar />
+    </div>
   </div>
 </template>
 
@@ -17,14 +21,22 @@
 import MainSidebar from 'src/widgets/MainSidebar.vue'
 import SearchBar from 'src/widgets/SearchBar.vue'
 import PlayBar from 'src/components/PlayBar.vue'
+import TitleBar from 'src/components/TitleBar.vue'
 </script>
 
 <style lang="scss" scoped>
 .main-layout {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+}
+
+.layout-content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
   overflow: hidden;
 
   .main-content {

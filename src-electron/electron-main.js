@@ -23,7 +23,7 @@ async function createWindow() {
     minWidth: 960,
     minHeight: 600,
     useContentSize: true,
-    autoHideMenuBar: true,
+    frame: false,
     title: 'EmberTune',
     webPreferences: {
       contextIsolation: true,
@@ -36,6 +36,14 @@ async function createWindow() {
         ),
       ),
     },
+  })
+
+  mainWindow.on('maximize', () => {
+    if (mainWindow) mainWindow.webContents.send('window:maximized-change', true)
+  })
+
+  mainWindow.on('unmaximize', () => {
+    if (mainWindow) mainWindow.webContents.send('window:maximized-change', false)
   })
 
   if (process.env.DEV) {
@@ -144,6 +152,31 @@ ipcMain.handle('discord:clear-presence', async () => {
 // Set up IPC handler for opening external links
 ipcMain.handle('shell:open-external', async (event, url) => {
   await shell.openExternal(url)
+})
+
+// Window control handlers for custom titlebar
+ipcMain.handle('window:minimize', () => {
+  if (mainWindow) mainWindow.minimize()
+  return true
+})
+
+ipcMain.handle('window:maximize', () => {
+  if (mainWindow) mainWindow.maximize()
+  return true
+})
+
+ipcMain.handle('window:restore', () => {
+  if (mainWindow) mainWindow.unmaximize()
+  return true
+})
+
+ipcMain.handle('window:close', () => {
+  if (mainWindow) mainWindow.close()
+  return true
+})
+
+ipcMain.handle('window:isMaximized', () => {
+  return mainWindow ? mainWindow.isMaximized() : false
 })
 
 app.on('window-all-closed', () => {

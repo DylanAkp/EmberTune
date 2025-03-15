@@ -61,3 +61,16 @@ contextBridge.exposeInMainWorld('deeplink', {
     })
   },
 })
+
+// Add window control functionality for custom titlebar
+contextBridge.exposeInMainWorld('windowControls', {
+  minimize: () => ipcRenderer.invoke('window:minimize'),
+  maximize: () => ipcRenderer.invoke('window:maximize'),
+  restore: () => ipcRenderer.invoke('window:restore'),
+  close: () => ipcRenderer.invoke('window:close'),
+  isMaximized: () => ipcRenderer.invoke('window:isMaximized'),
+  onMaximizeChange: (callback) => {
+    ipcRenderer.removeAllListeners('window:maximized-change')
+    ipcRenderer.on('window:maximized-change', (_, isMaximized) => callback(isMaximized))
+  },
+})
