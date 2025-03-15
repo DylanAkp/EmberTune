@@ -30,6 +30,7 @@ export const usePlayerStore = defineStore('player', {
         largeImageText: 'EmberTune',
         smallImageKey: 'embertune_logo',
         smallImageText: this.isPlaying ? 'Playing' : 'Paused',
+        startTimestamp: Date.now(),
         buttons: [
           {
             label: 'Listen on EmberTune',
