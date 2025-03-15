@@ -32,8 +32,8 @@ export const usePlayerStore = defineStore('player', {
         smallImageText: this.isPlaying ? 'Playing' : 'Paused',
         buttons: [
           {
-            label: 'Listen on YouTube Music',
-            url: `https://music.youtube.com/watch?v=${track.id}`,
+            label: 'Listen on EmberTune',
+            url: `embertune://play/${track.id}`,
           },
           {
             label: 'Download EmberTune',

@@ -46,3 +46,18 @@ contextBridge.exposeInMainWorld('discord', {
 contextBridge.exposeInMainWorld('shell', {
   openExternal: (url) => ipcRenderer.invoke('shell:open-external', url),
 })
+
+// Expose deeplink functionality
+contextBridge.exposeInMainWorld('deeplink', {
+  onPlayRequest: (callback) => {
+    ipcRenderer.removeAllListeners('deeplink:play')
+
+    ipcRenderer.on('deeplink:play', (event, songId) => {
+      if (callback && typeof callback === 'function') {
+        callback(songId)
+      } else {
+        console.error('Preload: Callback is not a function')
+      }
+    })
+  },
+})

@@ -55,10 +55,81 @@ async function createWindow() {
   })
 }
 
-// Initialize Discord RPC when the app is ready
+// Register the embertune:// protocol
+function registerProtocolHandler() {
+  try {
+    if (!app.isDefaultProtocolClient('embertune')) {
+      app.setAsDefaultProtocolClient('embertune')
+    }
+  } catch (error) {
+    console.error('Error registering protocol handler:', error)
+  }
+}
+
+// Call the registration function
+registerProtocolHandler()
+
+// Handle second instance with protocol activation
+const gotTheLock = app.requestSingleInstanceLock()
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine) => {
+    // Focus the main window
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+
+      const deepLinkArg = commandLine.find(
+        (arg) => arg.includes('embertune://') || arg.includes('embertune:/'),
+      )
+
+      if (deepLinkArg) {
+        handleDeepLink(deepLinkArg)
+      }
+    }
+  })
+}
+
+// MacOS Support
+app.on('open-url', (event, url) => {
+  event.preventDefault()
+  handleDeepLink(url)
+})
+
+// Parse deeplink and extract song ID
+function handleDeepLink(url) {
+  if (!url || typeof url !== 'string') return
+
+  try {
+    // Extract embertune://play/songId pattern
+    const match = url.match(/embertune:\/\/play\/([a-zA-Z0-9_-]+)/)
+
+    if (match && match[1]) {
+      const songId = match[1]
+      if (mainWindow) {
+        mainWindow.webContents.send('deeplink:play', songId)
+      }
+    }
+  } catch (error) {
+    console.error('Error processing deeplink:', error)
+  }
+}
+
+// Check for deeplink on startup
 app.whenReady().then(async () => {
   await createWindow()
   await initializeDiscordRPC()
+
+  const deepLinkArg = process.argv.find(
+    (arg) => arg.includes('embertune://') || arg.includes('embertune:/'),
+  )
+
+  if (deepLinkArg) {
+    setTimeout(() => {
+      handleDeepLink(deepLinkArg)
+    }, 500)
+  }
 })
 
 // Set up IPC handlers for Discord Rich Presence

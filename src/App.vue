@@ -12,12 +12,14 @@
 <script setup>
 import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { useSettingsStore } from './stores/settings'
+import { usePlayerStore } from './stores/player'
 import { version } from '../package.json'
 import UpdateDialog from './components/UpdateDialog.vue'
 import { i18n } from './boot/i18n'
 import { checkForUpdates } from './utils/updateChecker'
 
 const settings = useSettingsStore()
+const player = usePlayerStore()
 const showUpdateDialog = ref(false)
 const latestVersion = ref('')
 
@@ -83,8 +85,33 @@ watch(
   { immediate: true },
 )
 
+// Set up deeplink handler
+const setupDeeplinkHandler = () => {
+  if (window.deeplink) {
+    window.deeplink.onPlayRequest((songId) => {
+      if (songId && typeof songId === 'string') {
+        try {
+          setTimeout(() => {
+            player
+              .play(songId, true)
+              .then(() => console.log('Successfully started playback'))
+              .catch((err) => console.error('Error playing song:', err))
+          }, 1000)
+        } catch (error) {
+          console.error('Error in deeplink handler:', error)
+        }
+      } else {
+        console.error('Invalid song ID received:', songId)
+      }
+    })
+  } else {
+    console.error('Deeplink API not available')
+  }
+}
+
 onMounted(() => {
   setupDiscordPresence()
+  setupDeeplinkHandler()
   handleUpdateCheck()
   settings.applyTheme()
 })
