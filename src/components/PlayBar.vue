@@ -14,6 +14,7 @@ const showVolumeSlider = ref(false)
 const showAddToPlaylistDialog = ref(false)
 const router = useRouter()
 const playlistStore = usePlaylistStore()
+const imageLoading = ref(true)
 
 const isLiked = computed(() => {
   if (!player.currentTrack) return false
@@ -137,15 +138,21 @@ onUnmounted(() => {
     <div class="main-content">
       <!-- Left section with song info -->
       <div class="song-info">
-        <img
-          :src="
-            player.currentTrack.thumbnails.reduce((prev, current) =>
-              prev.width > current.width ? prev : current,
-            ).url
-          "
-          alt="Album Art"
-          class="album-art"
-        />
+        <div class="album-art-container">
+          <div v-if="imageLoading" class="artwork-loader"></div>
+          <img
+            v-show="!imageLoading"
+            :src="
+              player.currentTrack.thumbnails.reduce((prev, current) =>
+                prev.width > current.width ? prev : current,
+              ).url
+            "
+            alt="Album Art"
+            class="album-art"
+            @error="imageLoading = true"
+            @load="imageLoading = false"
+          />
+        </div>
         <div class="track-details">
           <div class="title">{{ player.currentTrack.title }}</div>
           <div class="artist">{{ player.currentTrack.artist }}</div>
@@ -294,6 +301,22 @@ onUnmounted(() => {
   gap: 12px;
   min-width: 0;
   max-width: 33%;
+
+  .album-art-container {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+
+    .artwork-loader {
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1s infinite;
+    }
+  }
 
   .album-art {
     width: 60px;
@@ -454,5 +477,14 @@ onUnmounted(() => {
 
 .text-accent {
   color: var(--accent-color);
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>
