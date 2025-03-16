@@ -1,5 +1,5 @@
-import { charts } from 'ytmusic_api_unofficial'
-import {addMusicsToCache, get, search} from './../utils/ytRequests.js';
+import { charts } from 'ytmusic_api_unofficial/dist/index.js'
+import { addMusicsToCache, get, search } from './../utils/ytRequests.js'
 import { ipcMain } from 'electron'
 
 ipcMain.handle('getCharts', async (event, country) => {
