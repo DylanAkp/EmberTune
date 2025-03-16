@@ -2,13 +2,14 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import { useSettingsStore } from './settings'
 import { usePlaylistStore } from './playlist'
 
+
 export const usePlayerStore = defineStore('player', {
   state: () => ({
     currentTrack: null,
     isPlaying: false,
     queue: [],
     currentIndex: -1,
-    audio: null,
+    audio: new Audio(),
     volume: 1,
   }),
 
@@ -49,27 +50,29 @@ export const usePlayerStore = defineStore('player', {
 
       await window.discord.updatePresence(activity)
     },
-    async play(id, newPlay = false) {
+    async play(music, newPlay = false) {
       try {
         if (newPlay) {
           this.queue = []
           this.currentIndex = -1
         }
-        // Get song details
-        const songDetails = await window.youtube.getSong(id)
-        const downloadDetails = await window.youtube.download(id)
+        let songDetails
+        if(typeof music === 'object'){
+          songDetails = music
+        }else songDetails = await window.youtube.getSong(music)
 
-        // Create track object
+        // Get song details
+        const downloadDetails = await window.youtube.download(songDetails.id)
+
+        // Create a track object
         const track = {
-          id,
-          title: songDetails.title,
+          ...songDetails,
           artist: this.formatArtists(songDetails.artists),
-          thumbnails: songDetails.thumbnails,
           url: downloadDetails.urlDecoded,
         }
 
         // Update queue and set current track
-        const trackIndex = this.queue.findIndex((t) => t.id === id)
+        const trackIndex = this.queue.findIndex((t) => t.id === track.id)
         if (trackIndex === -1) {
           this.queue.push(track)
           this.currentIndex = this.queue.length - 1
@@ -83,13 +86,11 @@ export const usePlayerStore = defineStore('player', {
         playlistStore.addSongToHistory(track)
 
         // Handle audio playback first
-        if (this.audio) {
+        if (this.audio?.src) {
           this.audio.pause()
-          this.audio = null
         }
 
-        this.audio = new Audio(track.url)
-        this.audio.volume = this.volume
+        this.audio.src = track.url
         await this.audio.play()
         this.isPlaying = true
 
@@ -107,7 +108,7 @@ export const usePlayerStore = defineStore('player', {
 
         // Fetch relatives after playback has started
         if (trackIndex === -1) {
-          this.fetchRelatives(id).catch((error) => {
+          this.fetchRelatives(track.id).catch((error) => {
             console.error('Error fetching recommendations:', error)
           })
         }
@@ -137,21 +138,14 @@ export const usePlayerStore = defineStore('player', {
       }
 
       if (relatives.length > 1) {
-        const recommendedTracks = relatives.map((song) => ({
-          id: song.id,
-          title: song.title,
-          artist: this.formatArtists(song.artists),
-          thumbnail: song.thumbnails,
-          url: null, // URL will be fetched when playing
-        }))
-        this.queue.push(...recommendedTracks)
+        this.queue.push(...relatives)
       } else {
         console.warn('Failed to fetch enough relatives after maximum retries')
       }
     },
 
     async pause() {
-      if (this.audio) {
+      if (this.audio?.src) {
         this.audio.pause()
       }
       this.isPlaying = false
@@ -162,7 +156,7 @@ export const usePlayerStore = defineStore('player', {
       if (!this.hasNext) return
       this.currentIndex++
       const nextTrack = this.queue[this.currentIndex]
-      await this.play(nextTrack.id)
+      await this.play(nextTrack)
       await this.updateDiscordPresence()
     },
 
@@ -170,7 +164,7 @@ export const usePlayerStore = defineStore('player', {
       if (!this.hasPrevious) return
       this.currentIndex--
       const prevTrack = this.queue[this.currentIndex]
-      await this.play(prevTrack.id)
+      await this.play(prevTrack)
     },
 
     async togglePlayPause() {
@@ -178,12 +172,12 @@ export const usePlayerStore = defineStore('player', {
 
       if (this.isPlaying) {
         await this.pause()
-      } else if (this.audio) {
+      } else if (this.audio?.src) {
         await this.audio.play()
         this.isPlaying = true
         await this.updateDiscordPresence()
       } else {
-        await this.play(this.currentTrack.id)
+        await this.play(this.currentTrack)
       }
     },
 
@@ -195,7 +189,7 @@ export const usePlayerStore = defineStore('player', {
     },
 
     seekTo(time) {
-      if (this.audio) {
+      if (this.audio?.src) {
         const newTime = parseFloat(time)
         if (!isNaN(newTime) && isFinite(newTime) && newTime >= 0) {
           this.audio.currentTime = newTime
@@ -206,17 +200,8 @@ export const usePlayerStore = defineStore('player', {
     },
 
     formatArtists(artists) {
-      if (!artists) return 'Unknown Artist'
-
-      // If artists is already a string, return it
-      if (typeof artists === 'string') return artists
-
-      // If it's an array of artist objects with name property
-      if (Array.isArray(artists) && artists.length > 0) {
-        return artists.map((artist) => artist.name || 'Unknown').join(', ')
-      }
-
-      return 'Unknown Artist'
+      if (!artists.length) return 'Unknown Artist'
+      return artists.map((artist) => artist.name).join(', ')
     },
 
     async playPlaylist(songs) {
@@ -226,15 +211,9 @@ export const usePlayerStore = defineStore('player', {
       this.queue = []
       this.currentIndex = -1
 
-      this.queue = songs.map((song) => ({
-        id: song.id,
-        title: song.title,
-        artist: this.formatArtists(song.artists || song.artist),
-        thumbnail: song.thumbnails,
-        url: null, // URL will be fetched when playing
-      }))
+      this.queue = songs
 
-      await this.play(this.queue[0].id)
+      await this.play(this.queue[0])
     },
   },
 })
