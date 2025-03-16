@@ -19,7 +19,27 @@ export const usePlayerStore = defineStore('player', {
   },
 
   actions: {
+    metadata () {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: this.currentTrack.title || 'Unknown',
+        artist: this.currentTrack.artist || 'Unknown',
+        artwork: [{ src: this.currentTrack.thumbnails[this.currentTrack.thumbnails.length-1].url, sizes: '512x512', type: 'image/png' }]
+      })
+      navigator.mediaSession.setActionHandler('play', function() {
+        usePlayerStore().togglePlayPause()
+      });
+      navigator.mediaSession.setActionHandler('pause', function() {
+        usePlayerStore().togglePlayPause()
+      });
+      navigator.mediaSession.setActionHandler('nexttrack', function() {
+        usePlayerStore().next()
+      });
+      navigator.mediaSession.setActionHandler("previoustrack", () => {
+        usePlayerStore().previous()
+      });
+    },
     async updateDiscordPresence() {
+      this.metadata()
       const settings = useSettingsStore()
       if (!settings.discordRich || !this.currentTrack) return
 
