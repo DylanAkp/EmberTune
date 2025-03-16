@@ -131,6 +131,17 @@ onUnmounted(() => {
     cleanupAudioListeners(previousAudio)
   }
 })
+
+const replayModeIcon = computed(() => {
+  switch (player.replayMode) {
+    case 'song':
+      return 'mdi-repeat-once'
+    case 'playlist':
+      return 'mdi-repeat'
+    default:
+      return 'mdi-repeat-off'
+  }
+})
 </script>
 
 <template>
@@ -162,6 +173,16 @@ onUnmounted(() => {
       <!-- Center section with controls -->
       <div class="controls">
         <q-icon
+          name="mdi-shuffle"
+          size="20px"
+          :class="{
+            clickable: true,
+            'text-accent': player.isShuffled,
+            'text-grey-6': !player.isShuffled,
+          }"
+          @click="player.toggleShuffle()"
+        />
+        <q-icon
           name="mdi-skip-previous"
           size="30px"
           class="clickable"
@@ -178,6 +199,16 @@ onUnmounted(() => {
           size="30px"
           class="clickable"
           @click="player.hasNext && player.next()"
+        />
+        <q-icon
+          :name="replayModeIcon"
+          size="20px"
+          :class="{
+            clickable: true,
+            'text-accent': player.replayMode !== 'disabled',
+            'text-grey-6': player.replayMode === 'disabled',
+          }"
+          @click="player.toggleReplayMode()"
         />
       </div>
 
