@@ -12,7 +12,7 @@
         "
         @error="loading = true"
         @load="loading = false"
-      />
+       alt="Music thumbnail"/>
       <div v-if="!skeleton" class="play-overlay">
         <q-icon name="mdi-play" size="48px" />
       </div>

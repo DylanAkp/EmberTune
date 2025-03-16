@@ -157,7 +157,7 @@ onUnmounted(() => {
         <q-icon
           name="mdi-skip-previous"
           size="30px"
-          class="clickable"
+          :class="player.hasPrevious? 'clickable':'disabled'"
           @click="player.hasPrevious && player.previous()"
         />
         <q-icon
@@ -169,7 +169,7 @@ onUnmounted(() => {
         <q-icon
           name="mdi-skip-next"
           size="30px"
-          class="clickable"
+          :class="player.hasNext? 'clickable':'disabled'"
           @click="player.hasNext && player.next()"
         />
       </div>
