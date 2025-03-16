@@ -18,7 +18,7 @@
   },
   "sidebar": {
     "home": "Accueil",
-    "likedSongs": "Titres Favoris",
+    "likedSongs": "Favoris",
     "playlists": "Playlists",
     "history": "Historique",
     "settings": "Paramètres"
@@ -59,7 +59,7 @@
   },
   "home": {
     "tagline": "Votre compagnon musical personnel",
-    "trending": "Musique Tendance",
+    "trending": "Musiques Tendances",
     "buttons": {
       "createPlaylists": "Créer des playlists",
       "configureApp": "Configurer EmberTune",
