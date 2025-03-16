@@ -1,21 +1,33 @@
 <template>
   <div class="search-page">
-    <div v-if="searchStore.loading" class="loading">Loading...</div>
-    <div v-else-if="searchStore.error" class="error">
+    <div v-if="searchStore.error" class="error">
       {{ searchStore.error.message }}
     </div>
-    <div v-else class="search-results">
-      <div v-if="searchStore.results.length === 0" class="no-results">No results found</div>
-      <div v-else class="results-list">
-        <div v-for="result in searchStore.results" :key="result.id">
-          <SongCard
-            :title="result.title"
-            :thumbnail="result.thumbnails"
-            :artist="result.artists[0].name"
-            :id="result.id"
-          />
-        </div>
-      </div>
+    <div class="results-list">
+      <template v-if="searchStore.loading">
+        <SongCard
+          v-for="n in 20"
+          :key="n"
+          skeleton
+          title=""
+          artist=""
+          :thumbnail="[{ url: '', width: 0 }]"
+          id=""
+        />
+      </template>
+      <template v-else-if="searchStore.results.length === 0">
+        <div class="no-results">No results found</div>
+      </template>
+      <template v-else>
+        <SongCard
+          v-for="result in searchStore.results"
+          :key="result.id"
+          :title="result.title"
+          :thumbnail="result.thumbnails"
+          :artist="result.artists[0].name"
+          :id="result.id"
+        />
+      </template>
     </div>
   </div>
 </template>
@@ -50,7 +62,6 @@ watch(
 .search-page {
   padding: 20px;
 
-  .loading,
   .error,
   .no-results {
     text-align: center;

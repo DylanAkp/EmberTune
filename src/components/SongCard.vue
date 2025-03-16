@@ -1,22 +1,27 @@
 <template>
   <div class="song-card no-select">
-    <div class="artwork-container" @click="handlePlay">
-      <div v-if="loading" class="artwork-loader"></div>
+    <div class="artwork-container" @click="handleClick">
+      <div v-if="skeleton || loading" class="artwork-loader"></div>
       <img
-        v-show="!loading"
+        v-show="!loading && !skeleton && thumbnail.length > 0"
         :src="
-          thumbnail.reduce((prev, current) => (prev.width > current.width ? prev : current)).url
+          thumbnail.reduce(
+            (prev, current) => (prev.width > current.width ? prev : current),
+            thumbnail[0],
+          ).url
         "
         @error="loading = true"
         @load="loading = false"
       />
-      <div class="play-overlay">
+      <div v-if="!skeleton" class="play-overlay">
         <q-icon name="mdi-play" size="48px" />
       </div>
     </div>
     <div class="song-card-title">
-      <h3>{{ title }}</h3>
-      <p>{{ artist }}</p>
+      <div v-if="skeleton" class="skeleton-text"></div>
+      <h3 v-else>{{ title }}</h3>
+      <div v-if="skeleton" class="skeleton-text"></div>
+      <p v-else>{{ artist }}</p>
     </div>
   </div>
 </template>
@@ -45,10 +50,20 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  skeleton: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const handlePlay = async () => {
   await player.play(props.id, true)
+}
+
+const handleClick = () => {
+  if (!props.skeleton) {
+    handlePlay()
+  }
 }
 </script>
 
@@ -72,6 +87,19 @@ const handlePlay = async () => {
     width: 100%;
     text-align: center;
     box-sizing: border-box;
+
+    .skeleton-text {
+      height: 16px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1s infinite;
+      border-radius: 20px;
+
+      &:last-child {
+        width: 70%;
+        margin: 0 auto;
+      }
+    }
 
     h3 {
       font-size: 16px;

@@ -2,17 +2,29 @@
   <div class="welcome-container">
     <div class="charts-container">
       <h2 class="section-title">{{ t('home.trending') }}</h2>
-      <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
-      <div v-else-if="error" class="error">{{ error }}</div>
-      <div v-else class="charts-grid">
-        <div v-for="song in chartMusic" :key="song.id">
+      <div v-if="error" class="error">{{ error }}</div>
+      <div class="charts-grid">
+        <template v-if="loading">
           <SongCard
+            v-for="n in 100"
+            :key="n"
+            skeleton
+            title=""
+            artist=""
+            :thumbnail="[{ url: '', width: 0 }]"
+            id=""
+          />
+        </template>
+        <template v-else>
+          <SongCard
+            v-for="song in chartMusic"
+            :key="song.id"
             :title="song.title"
             :thumbnail="song.thumbnails"
             :artist="song.artists[0].name"
             :id="song.id"
           />
-        </div>
+        </template>
       </div>
     </div>
   </div>
