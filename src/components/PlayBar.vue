@@ -297,7 +297,7 @@ const replayModeIcon = computed(() => {
         id: player.currentTrack?.id,
         title: player.currentTrack?.title,
         artist: player.currentTrack?.artist,
-        thumbnails: player.currentTrack?.thumbnail,
+        thumbnails: player.currentTrack?.thumbnails,
       }"
     />
   </div>
