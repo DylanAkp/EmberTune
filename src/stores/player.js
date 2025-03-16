@@ -58,7 +58,7 @@ export const usePlayerStore = defineStore('player', {
         largeImageText: 'EmberTune',
         smallImageKey: 'embertune_logo',
         smallImageText: this.isPlaying ? 'Playing' : 'Paused',
-        startTimestamp: Date.now(),
+        startTimestamp: this.isPlaying ? Date.now() : undefined,
         buttons: [
           {
             label: 'Listen on EmberTune',
@@ -69,10 +69,6 @@ export const usePlayerStore = defineStore('player', {
             url: 'https://github.com/DylanAkp/EmberTune',
           },
         ],
-      }
-
-      if (this.isPlaying) {
-        activity.startTimestamp = Date.now()
       }
 
       await window.discord.updatePresence(activity)

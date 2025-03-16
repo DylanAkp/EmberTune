@@ -1,14 +1,13 @@
 import { Client } from 'discord-rpc/src/index.js'
 
-const clientId = process.env.DISCORD_CLIENT_ID
+const applicationId = process.env.DISCORD_CLIENT_ID
 const rpc = new Client({ transport: 'ipc' })
 
 let isInitialized = false
-let activity = {}
 
 export async function initializeDiscordRPC() {
   try {
-    await rpc.login({ clientId })
+    await rpc.login({ clientId: applicationId })
     isInitialized = true
   } catch (error) {
     console.error('Failed to initialize Discord RPC:', error)
@@ -22,8 +21,35 @@ export async function updatePresence(newActivity) {
   }
 
   try {
-    activity = { ...activity, ...newActivity }
-    await rpc.setActivity(activity)
+    const activity = {
+      application_id: applicationId,
+      name: 'EmberTune',
+      details: newActivity.details,
+      state: newActivity.state,
+      assets: {
+        large_image: newActivity.largeImageKey,
+        large_text: newActivity.largeImageText,
+        small_image: newActivity.smallImageKey,
+        small_text: newActivity.smallImageText,
+      },
+      buttons: newActivity.buttons,
+      timestamps: newActivity.startTimestamp
+        ? {
+            start: newActivity.startTimestamp,
+          }
+        : undefined,
+      activity_type: 2,
+      created_at: Date.now(),
+    }
+
+    await rpc.request('SET_ACTIVITY', {
+      pid: process.pid,
+      activity: {
+        ...activity,
+        type: 2,
+        flags: 48,
+      },
+    })
   } catch (error) {
     console.error('Failed to update Discord presence:', error)
     if (error.message?.includes('Cannot read properties of null')) {
