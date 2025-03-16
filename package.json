@@ -25,6 +25,7 @@
     "vue": "^3.4.18",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.0",
+    "node-cache": "^5.1.2",
     "ytmusic_api_unofficial": "^2.0.25"
   },
   "devDependencies": {
