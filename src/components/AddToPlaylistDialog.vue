@@ -12,9 +12,6 @@
         <div v-if="playlists.length === 0" class="empty-state">
           <q-icon name="mdi-playlist-music" size="48px" class="icon" />
           <p>{{ t('dialogs.addToPlaylist.noPlaylists') }}</p>
-          <button class="btn-create" @click="showCreateDialog = true">
-            {{ t('playlists.create') }}
-          </button>
         </div>
 
         <div v-else class="playlists-list">
@@ -48,7 +45,7 @@
 
         <div class="create-new" @click="showCreateDialog = true">
           <q-icon name="mdi-plus" size="20px" />
-          <span>{{ t('dialogs.addToPlaylist.createNew') }}</span>
+          <span>{{ t('playlists.create') }}</span>
         </div>
       </div>
     </div>
