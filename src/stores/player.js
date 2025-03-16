@@ -252,8 +252,16 @@ export const usePlayerStore = defineStore('player', {
       this.queue = []
       this.currentIndex = -1
 
+      let firstSong
+      if (typeof songs[0] === 'object') {
+        firstSong = await window.youtube.getSong(songs[0].id)
+      } else {
+        firstSong = await window.youtube.getSong(songs)
+      }
+
       this.queue = songs
-      await this.play(this.queue[0])
+
+      await this.play(firstSong)
     },
 
     toggleReplayMode() {
