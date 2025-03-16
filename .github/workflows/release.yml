@@ -38,15 +38,29 @@ jobs:
       - name: Install Quasar CLI
         run: yarn global add @quasar/cli
 
-      - name: Build Electron App
-        run: yarn build:electron
-
       - name: Get version from package.json
         id: package-version
         shell: bash
         run: |
           VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Build for both architectures on macOS
+      - name: Build Electron App
+        if: matrix.os != 'macos-latest'
+        run: yarn build:electron
+
+      - name: Build Electron App for macOS (Universal)
+        if: matrix.os == 'macos-latest'
+        run: |
+          # Create temp directory for builds
+          mkdir -p temp_builds
+          # Build arm64
+          yarn build:electron --arch=arm64
+          cp "./dist/electron/Packaged/EmberTune-${{ env.VERSION }}-arm64.dmg" "./temp_builds/"
+          # Build x64
+          yarn build:electron --arch=x64
+          cp "./dist/electron/Packaged/EmberTune-${{ env.VERSION }}.dmg" "./temp_builds/EmberTune-${{ env.VERSION }}-x64.dmg"
 
       # Create release and upload Linux artifacts
       - name: Create Release and Upload Linux Artifacts
@@ -84,4 +98,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload "v${{ env.VERSION }}" "./dist/electron/Packaged/EmberTune-${{ env.VERSION }}-arm64.dmg"
+          gh release upload "v${{ env.VERSION }}" "./temp_builds/EmberTune-${{ env.VERSION }}-arm64.dmg" --clobber
+          gh release upload "v${{ env.VERSION }}" "./temp_builds/EmberTune-${{ env.VERSION }}-x64.dmg" --clobber
