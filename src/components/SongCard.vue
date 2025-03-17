@@ -90,7 +90,12 @@ const handleClick = () => {
 
     .skeleton-text {
       height: 16px;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background: linear-gradient(
+        90deg,
+        var(--primary-bg) 25%,
+        var(--secondary-bg) 50%,
+        var(--tertiary-bg) 75%
+      );
       background-size: 200% 100%;
       animation: loading 1s infinite;
       border-radius: 20px;
@@ -155,7 +160,12 @@ const handleClick = () => {
       width: 140px;
       height: 140px;
       border-radius: 5px;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background: linear-gradient(
+        90deg,
+        var(--primary-bg) 25%,
+        var(--secondary-bg) 50%,
+        var(--tertiary-bg) 75%
+      );
       background-size: 200% 100%;
       animation: loading 1s infinite;
     }
