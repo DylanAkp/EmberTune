@@ -132,24 +132,14 @@ const replayModeIcon = computed(() => {
           }"
           @click="player.toggleShuffle()"
         />
-        <q-icon
-          name="mdi-skip-previous"
-          size="30px"
-          class="clickable"
-          @click="player.hasPrevious && player.previous()"
-        />
+        <q-icon name="mdi-skip-previous" size="30px" class="clickable" @click="player.previous()" />
         <q-icon
           :name="player.isPlaying ? 'mdi-pause' : 'mdi-play'"
           size="35px"
           class="clickable"
           @click="player.togglePlayPause()"
         />
-        <q-icon
-          name="mdi-skip-next"
-          size="30px"
-          class="clickable"
-          @click="player.hasNext && player.next()"
-        />
+        <q-icon name="mdi-skip-next" size="30px" class="clickable" @click="player.next()" />
         <q-icon
           :name="replayModeIcon"
           size="20px"
