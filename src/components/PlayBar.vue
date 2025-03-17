@@ -1,6 +1,6 @@
 <script setup>
 import { usePlayerStore } from '../stores/player'
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import AddToPlaylistDialog from './AddToPlaylistDialog.vue'
 import { usePlaylistStore } from '../stores/playlist'
@@ -21,13 +21,6 @@ const isLiked = computed(() => {
   const likedPlaylist = playlistStore.playlists.find((p) => p.id === 'liked-songs')
   return likedPlaylist?.songs.some((song) => song.id === player.currentTrack.id) || false
 })
-
-const updateTime = () => {
-  if (player.audio) {
-    currentTime.value = Math.floor(player.audio.currentTime)
-    duration.value = Math.floor(player.audio.duration)
-  }
-}
 
 const handleSeek = () => {
   player.seekTo(currentTime.value)
@@ -72,64 +65,21 @@ const toggleVolumeSlider = () => {
   showVolumeSlider.value = !showVolumeSlider.value
 }
 
-// Add event listeners to sync playback state when controlled by external media keys
-const syncPlaybackState = () => {
+const updateTimeAndState = () => {
   if (player.audio) {
-    player.isPlaying = !player.audio.paused
-  }
-}
-
-// Set up audio event listeners
-const setupAudioListeners = (audio) => {
-  if (audio) {
-    audio.addEventListener('play', syncPlaybackState)
-    audio.addEventListener('pause', syncPlaybackState)
-  }
-}
-
-// Remove audio event listeners
-const cleanupAudioListeners = (audio) => {
-  if (audio) {
-    audio.removeEventListener('play', syncPlaybackState)
-    audio.removeEventListener('pause', syncPlaybackState)
+    currentTime.value = Math.floor(player.audio.currentTime)
+    duration.value = Math.floor(player.audio.duration) || 0
   }
 }
 
 let timeUpdateInterval
-let previousAudio = null
-
-// Watch for audio changes
-watch(
-  () => player.audio,
-  (newAudio, oldAudio) => {
-    if (oldAudio) {
-      cleanupAudioListeners(oldAudio)
-    }
-    if (newAudio) {
-      setupAudioListeners(newAudio)
-      previousAudio = newAudio
-    }
-  },
-  { immediate: true },
-)
 
 onMounted(() => {
-  timeUpdateInterval = setInterval(updateTime, 1000)
-
-  if (player.audio) {
-    setupAudioListeners(player.audio)
-    previousAudio = player.audio
-  }
+  timeUpdateInterval = setInterval(updateTimeAndState, 1000)
 })
 
 onUnmounted(() => {
-  if (timeUpdateInterval) {
-    clearInterval(timeUpdateInterval)
-  }
-
-  if (previousAudio) {
-    cleanupAudioListeners(previousAudio)
-  }
+  clearInterval(timeUpdateInterval)
 })
 
 const replayModeIcon = computed(() => {
@@ -229,7 +179,6 @@ const replayModeIcon = computed(() => {
                 v-model="volume"
                 min="0"
                 max="100"
-                orient="vertical"
                 class="volume-slider"
                 @input="updateVolume"
               />
@@ -280,12 +229,15 @@ const replayModeIcon = computed(() => {
           type="range"
           v-model="currentTime"
           :min="0"
-          :max="duration"
+          :max="duration || 1"
           :step="1"
-          @change="handleSeek"
+          @input="handleSeek"
           class="progress-slider"
         />
-        <div class="progress-bar" :style="{ width: `${(currentTime / duration) * 100}%` }"></div>
+        <div
+          class="progress-bar"
+          :style="{ width: `${(currentTime / (duration || 1)) * 100}%` }"
+        ></div>
       </div>
       <div class="time">{{ formatTime(duration) }}</div>
     </div>
@@ -421,7 +373,8 @@ const replayModeIcon = computed(() => {
 
         .volume-slider {
           position: absolute;
-          -webkit-appearance: slider-vertical;
+          writing-mode: vertical-lr;
+          direction: rtl;
           width: 4px;
           height: 80px;
           background: var(--tertiary-bg);
