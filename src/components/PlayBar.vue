@@ -1,13 +1,11 @@
 <script setup>
 import { usePlayerStore } from '../stores/player'
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import AddToPlaylistDialog from './AddToPlaylistDialog.vue'
 import { usePlaylistStore } from '../stores/playlist'
 
 const player = usePlayerStore()
-const currentTime = ref(0)
-const duration = ref(0)
 const volume = ref(player.volume * 100)
 const copyStatus = ref('initial')
 const showVolumeSlider = ref(false)
@@ -23,7 +21,7 @@ const isLiked = computed(() => {
 })
 
 const handleSeek = () => {
-  player.seekTo(currentTime.value)
+  player.seekTo(player.currentTime)
 }
 
 const updateVolume = () => {
@@ -64,23 +62,6 @@ const formatTime = (seconds) => {
 const toggleVolumeSlider = () => {
   showVolumeSlider.value = !showVolumeSlider.value
 }
-
-const updateTimeAndState = () => {
-  if (player.audio) {
-    currentTime.value = Math.floor(player.audio.currentTime)
-    duration.value = Math.floor(player.audio.duration) || 0
-  }
-}
-
-let timeUpdateInterval
-
-onMounted(() => {
-  timeUpdateInterval = setInterval(updateTimeAndState, 1000)
-})
-
-onUnmounted(() => {
-  clearInterval(timeUpdateInterval)
-})
 
 const replayModeIcon = computed(() => {
   switch (player.replayMode) {
@@ -213,23 +194,23 @@ const replayModeIcon = computed(() => {
 
     <!-- Progress bar -->
     <div class="progress-container">
-      <div class="time">{{ formatTime(currentTime) }}</div>
+      <div class="time">{{ formatTime(player.currentTime) }}</div>
       <div class="progress-bar-wrapper">
         <input
           type="range"
-          v-model="currentTime"
+          v-model="player.currentTime"
           :min="0"
-          :max="duration || 1"
+          :max="player.currentTrack.duration.duration || 1"
           :step="1"
           @input="handleSeek"
           class="progress-slider"
         />
         <div
           class="progress-bar"
-          :style="{ width: `${(currentTime / (duration || 1)) * 100}%` }"
+          :style="{ width: `${(player.currentTime / (player.currentTrack.duration.duration || 1)) * 100}%` }"
         ></div>
       </div>
-      <div class="time">{{ formatTime(duration) }}</div>
+      <div class="time">{{ formatTime(player.currentTrack.duration.duration) }}</div>
     </div>
 
     <!-- Add to Playlist Dialog -->

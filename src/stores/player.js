@@ -1,18 +1,28 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { useSettingsStore } from './settings'
 import { usePlaylistStore } from './playlist'
+import { ref } from 'vue'
 
 export const usePlayerStore = defineStore('player', {
-  state: () => ({
-    currentTrack: null,
-    isPlaying: false,
-    queue: [],
-    currentIndex: -1,
-    audio: new Audio(),
-    volume: 1,
-    replayMode: 'disabled',
-    isShuffled: false,
-  }),
+
+  state: () => {
+    const player =  {
+      currentTrack: null,
+      isPlaying: false,
+      queue: [],
+      currentIndex: -1,
+      audio: new Audio(),
+      currentTime: ref(0),
+      volume: 1,
+      replayMode: 'disabled',
+      isShuffled: false,
+    }
+    player.audio.addEventListener("timeupdate", () => {
+      player.currentTime.value = player.audio.currentTime
+    })
+    return player
+  },
+
 
   getters: {
     hasNext: (state) => state.currentIndex < state.queue.length - 1,
