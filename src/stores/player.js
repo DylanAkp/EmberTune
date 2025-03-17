@@ -184,7 +184,20 @@ export const usePlayerStore = defineStore('player', {
     },
 
     async next() {
-      if (!this.hasNext) return
+      if (this.replayMode === 'song') {
+        this.seekTo(0)
+        await this.audio.play()
+        return
+      }
+
+      if (!this.hasNext) {
+        if (this.replayMode === 'playlist') {
+          this.currentIndex = -1
+        } else {
+          return
+        }
+      }
+
       if (this.isShuffled) {
         const remainingIndices = Array.from({ length: this.queue.length }, (_, i) => i).filter(
           (i) => i !== this.currentIndex,
@@ -204,7 +217,20 @@ export const usePlayerStore = defineStore('player', {
     },
 
     async previous() {
-      if (!this.hasPrevious) return
+      if (this.replayMode === 'song') {
+        this.seekTo(0)
+        await this.audio.play()
+        return
+      }
+
+      if (!this.hasPrevious) {
+        if (this.replayMode === 'playlist') {
+          this.currentIndex = this.queue.length
+        } else {
+          return
+        }
+      }
+
       this.currentIndex--
       const prevTrack = this.queue[this.currentIndex]
       await this.play(prevTrack)
