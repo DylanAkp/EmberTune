@@ -81,8 +81,10 @@ export const usePlayerStore = defineStore('player', {
         }
         let songDetails
         if (typeof music === 'object') {
-          songDetails = music
-        } else songDetails = await window.youtube.getSong(music)
+          songDetails = await window.youtube.getSong(music.id)
+        } else {
+          songDetails = await window.youtube.getSong(music)
+        }
 
         // Get song details
         const downloadDetails = await window.youtube.download(songDetails.id)
@@ -252,16 +254,9 @@ export const usePlayerStore = defineStore('player', {
       this.queue = []
       this.currentIndex = -1
 
-      let firstSong
-      if (typeof songs[0] === 'object') {
-        firstSong = await window.youtube.getSong(songs[0].id)
-      } else {
-        firstSong = await window.youtube.getSong(songs)
-      }
-
       this.queue = songs
 
-      await this.play(firstSong)
+      await this.play(this.queue[0])
     },
 
     toggleReplayMode() {
