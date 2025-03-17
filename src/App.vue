@@ -114,6 +114,14 @@ onMounted(() => {
   setupDeeplinkHandler()
   handleUpdateCheck()
   settings.applyTheme()
+  document.addEventListener('keydown', (e) => {
+    if(e.code ==='Space'){
+      if(e.target.tagName !== 'INPUT') {
+        e.preventDefault()
+        player.togglePlayPause()
+      }
+    }
+  })
 })
 
 onUnmounted(() => {
