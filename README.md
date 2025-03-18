@@ -33,6 +33,26 @@ Let Quasar launch the development app
 yarn quasar dev -m electron
 ```
 
+# 🤝 Contributing
+
+We welcome contributions to EmberTune! When submitting changes, please follow these guidelines for commit messages:
+
+## Commit Message Format
+
+Each commit message should follow this format:
+
+1. **Headline**: A one-line summary of the change (50 characters maximum)
+
+   - Use prefixes to describe the area changed (e.g., UI, API, Settings)
+   - Example: `UI: Adjust PlayBar position`
+
+2. **Body**: If needed, a detailed description that hard-wraps at 72 characters
+   - Explain what issue the change solves and how
+   - Include any important assumptions or background information
+   - This helps other contributors understand the context
+
+For more information on writing good commit messages, check out [How to Write a Git Commit Message](https://cbea.ms/git-commit/).
+
 # 🙌 Credits
 
 - [Alexis06030631](https://github.com/Alexis06030631/) for his [YouTube Music API](https://github.com/Alexis06030631/yt_music_api)
