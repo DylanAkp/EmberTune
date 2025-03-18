@@ -80,7 +80,7 @@ const loadLyrics = async (track) => {
 const formatLyrics = (text) => text?.replace(/\n/g, '<br>') || ''
 const seekTo = (time) => player.seekTo(time)
 
-watch(() => player.currentTime, scrollToCurrentLine)
+watch(() => currentLineIndex.value, scrollToCurrentLine)
 watch(() => player.currentTrack, loadLyrics, { immediate: true })
 
 onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
