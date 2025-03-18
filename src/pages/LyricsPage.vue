@@ -59,12 +59,7 @@ const loadLyrics = async (track) => {
 
     const syncedLyricsContent = await lyricsService.getSyncedLyrics(track.title, track.artist)
     if (syncedLyricsContent) {
-      const parsedLyrics = lyricsService.parseLRC(syncedLyricsContent)
-      if (parsedLyrics.length > 0) {
-        syncedLyrics.value = parsedLyrics
-      } else {
-        lyrics.value = await window.youtube.getLyrics(track.id)
-      }
+      syncedLyrics.value = lyricsService.parseLRC(syncedLyricsContent)
     } else {
       lyrics.value = await window.youtube.getLyrics(track.id)
     }
