@@ -65,6 +65,7 @@ For more information on writing good commit messages, check out [How to Write a 
 - **MaterialDesignIcons**: [MIT License/Apache 2.0](https://pictogrammers.com/docs/general/license/)
 - **Fedoka Font**: [SIL OFL 1.1](https://openfontlicense.org/)
 - **EmberTune**: [MIT License](https://opensource.org/license/mit)
+- **LRCLib**: [MIT License](https://github.com/tranxuanthang/lrclib/blob/main/LICENSE)
 
 ---
 

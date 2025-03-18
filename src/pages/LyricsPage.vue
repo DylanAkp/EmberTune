@@ -5,65 +5,85 @@
 
     <div v-if="loading" class="loading">Loading lyrics...</div>
 
-    <div v-else-if="lyrics" class="lyrics-content">
-      <div v-if="lyrics.lyrics" v-html="formatLyrics(lyrics.lyrics)"></div>
-      <div v-else class="no-lyrics">No lyrics available for this track</div>
+    <div v-else-if="syncedLyrics.length > 0" class="lyrics-content">
+      <div
+        v-for="(line, index) in syncedLyrics"
+        :key="index"
+        :class="['lyric-line', { active: currentLineIndex === index }]"
+        @click="seekTo(line.time)"
+        :id="'line-' + index"
+      >
+        {{ line.text }}
+      </div>
+    </div>
 
+    <div v-else-if="lyrics">
+      <div v-if="lyrics.lyrics" class="lyrics-content" v-html="formatLyrics(lyrics.lyrics)"></div>
+      <div v-else class="lyrics-content">No lyrics available for this track</div>
       <div v-if="lyrics.source" class="lyrics-source">Source: {{ lyrics.source }}</div>
     </div>
 
-    <div v-else class="no-lyrics">
-      <p>No lyrics available</p>
-    </div>
+    <div v-else class="lyrics-content">No lyrics available</div>
   </div>
 </template>
 
 <script setup>
 import { usePlayerStore } from '../stores/player'
-import { ref, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
+import { lyricsService } from '../services/lyrics'
 
 const player = usePlayerStore()
 const lyrics = ref(null)
+const syncedLyrics = ref([])
 const loading = ref(false)
 
-const loadLyrics = async (trackId) => {
-  if (!trackId) return
+const currentLineIndex = computed(() => {
+  if (!player.currentTime) return -1
+  return syncedLyrics.value.findIndex((line) => line.time > player.currentTime) - 1
+})
+
+const scrollToCurrentLine = () => {
+  if (currentLineIndex.value >= 0) {
+    const element = document.getElementById(`line-${currentLineIndex.value}`)
+    element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+}
+
+const loadLyrics = async (track) => {
+  if (!track) return
 
   try {
     loading.value = true
     lyrics.value = null
-    const result = await window.youtube.getLyrics(trackId)
-    lyrics.value = result
+    syncedLyrics.value = []
+
+    const syncedLyricsContent = await lyricsService.getSyncedLyrics(track.title, track.artist)
+    if (syncedLyricsContent) {
+      const parsedLyrics = lyricsService.parseLRC(syncedLyricsContent)
+      if (parsedLyrics.length > 0) {
+        syncedLyrics.value = parsedLyrics
+      } else {
+        lyrics.value = await window.youtube.getLyrics(track.id)
+      }
+    } else {
+      lyrics.value = await window.youtube.getLyrics(track.id)
+    }
   } catch (error) {
     console.error('Failed to load lyrics:', error)
     lyrics.value = null
+    syncedLyrics.value = []
   } finally {
     loading.value = false
   }
 }
 
-const formatLyrics = (text) => {
-  if (!text) return ''
-  return text.replace(/\n/g, '<br>')
-}
+const formatLyrics = (text) => text?.replace(/\n/g, '<br>') || ''
+const seekTo = (time) => player.seekTo(time)
 
-watch(
-  () => player.currentTrack?.id,
-  (newTrackId) => {
-    if (newTrackId) {
-      loadLyrics(newTrackId)
-    } else {
-      lyrics.value = null
-    }
-  },
-  { immediate: true },
-)
+watch(() => player.currentTime, scrollToCurrentLine)
+watch(() => player.currentTrack, loadLyrics, { immediate: true })
 
-onMounted(() => {
-  if (player.currentTrack?.id) {
-    loadLyrics(player.currentTrack.id)
-  }
-})
+onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
 </script>
 
 <style lang="scss" scoped>
@@ -71,6 +91,12 @@ onMounted(() => {
   background-color: var(--tertiary-bg);
   padding: 20px;
   border-radius: 10px;
+  text-align: center;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
   h1 {
     line-height: 1;
   }
@@ -78,25 +104,51 @@ onMounted(() => {
 
 .lyrics-content {
   white-space: pre-wrap;
-  font-size: 16px;
+  font-size: 24px;
   margin-top: 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px;
+  scroll-behavior: smooth;
+}
+
+.lyric-line {
+  padding: 12px 0;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.5;
+  text-align: center;
+  font-size: 24px;
+  transform: scale(1);
+  color: var(--text-color);
+
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+
+  &.active {
+    opacity: 1;
+    font-weight: 600;
+    color: var(--primary);
+    transform: scale(1.05);
+  }
 }
 
 .loading {
   margin-top: 30px;
   font-size: 16px;
   color: var(--secondary-text-color);
-}
-
-.no-lyrics {
-  margin-top: 30px;
-  font-size: 16px;
-  color: var(--secondary-text-color);
+  text-align: center;
 }
 
 .lyrics-source {
   margin-top: 30px;
   font-size: 12px;
   color: var(--secondary-text-color);
+  text-align: center;
 }
 </style>
