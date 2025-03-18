@@ -7,7 +7,8 @@ export const useSettingsStore = defineStore(
     const discordRich = ref(true)
     const saveHistory = ref(true)
     const language = ref('en')
-    const darkMode = ref(true) // Default to dark theme
+    const darkMode = ref(true)
+    const contentLanguage = ref('ZZ')
 
     function toggleDiscordRich() {
       discordRich.value = !discordRich.value
@@ -19,6 +20,10 @@ export const useSettingsStore = defineStore(
 
     function setLanguage(lang) {
       language.value = lang
+    }
+
+    function setContentLanguage(lang) {
+      contentLanguage.value = lang
     }
 
     function toggleDarkMode() {
@@ -50,6 +55,8 @@ export const useSettingsStore = defineStore(
       toggleDarkMode,
       setDarkMode,
       applyTheme,
+      contentLanguage,
+      setContentLanguage,
     }
   },
   {

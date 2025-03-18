@@ -30,12 +30,12 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('youtube', {
-  searchSongs: (query) => ipcRenderer.invoke('searchSongs', query),
+  searchSongs: (query, country) => ipcRenderer.invoke('searchSongs', query, country),
   download: (id) => ipcRenderer.invoke('download', id),
   getSong: (id) => ipcRenderer.invoke('getSong', id),
   getRelatives: (id) => ipcRenderer.invoke('getRelatives', id),
   getLyrics: (id) => ipcRenderer.invoke('getLyrics', id),
-  getCharts: () => ipcRenderer.invoke('getCharts'),
+  getCharts: (country) => ipcRenderer.invoke('getCharts', country),
 })
 
 contextBridge.exposeInMainWorld('discord', {

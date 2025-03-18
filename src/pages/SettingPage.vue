@@ -21,7 +21,7 @@
           @change="handleSelectChange(key, settingsStore[key])"
         >
           <option v-for="option in setting.options" :key="option.value" :value="option.value">
-            {{ option.label }}
+            {{ setting.getValue ? setting.getValue(option.value) : option.label }}
           </option>
         </select>
         <StyledButton
@@ -59,6 +59,7 @@ import { version } from '../../package.json'
 import StyledButton from 'src/components/StyledButton.vue'
 import UpdateDialog from 'src/components/UpdateDialog.vue'
 import { checkForUpdates } from 'src/utils/updateChecker'
+import { AvailableCountries, AvailableCountriesCodes } from 'src/utils/countries'
 
 const { t } = useI18n()
 const showUpdateDialog = ref(false)
@@ -70,6 +71,8 @@ const updateStatus = ref('') // 'upToDate', 'checking', or empty
 const handleSelectChange = (key, value) => {
   if (key === 'language') {
     i18n.global.locale.value = value
+  } else if (key === 'contentLanguage') {
+    settingsStore.setContentLanguage(value)
   }
 }
 
@@ -112,6 +115,17 @@ const Settings = {
         { value: 'en', label: 'English' },
         { value: 'fr', label: 'Français' },
       ],
+    },
+    contentLanguage: {
+      type: 'select',
+      options: AvailableCountries.map((country, index) => ({
+        value: AvailableCountriesCodes[index],
+        label: country,
+      })),
+      getValue: (code) => {
+        const index = AvailableCountriesCodes.indexOf(code)
+        return index !== -1 ? AvailableCountries[index] : 'GLOBAL'
+      },
     },
     darkMode: {
       type: 'boolean',

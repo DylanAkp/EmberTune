@@ -4,7 +4,7 @@ import { ipcMain } from 'electron'
 
 ipcMain.handle('getCharts', async (event, country) => {
   try {
-    if (!country) {
+    if (!country || country === 'ZZ') {
       country = 'US'
     }
     const results = await charts(country)
@@ -14,9 +14,13 @@ ipcMain.handle('getCharts', async (event, country) => {
     throw error
   }
 })
-ipcMain.handle('searchSongs', async (event, query) => {
+
+ipcMain.handle('searchSongs', async (event, query, country) => {
   try {
-    const response = await search(query, 'SONG')
+    const response = await search(query, 'SONG', {
+      country: country,
+      fetch: false,
+    })
     return JSON.parse(JSON.stringify(response))
   } catch (error) {
     console.error('Search Error:', error)

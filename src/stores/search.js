@@ -11,14 +11,13 @@ export const useSearchStore = defineStore('search', {
   getters: {},
 
   actions: {
-    async search(query) {
+    async search(query, country) {
       try {
         this.loading = true
-        this.error = null // Clear any previous errors
-        const results = await window.youtube.searchSongs(query)
+        this.error = null
+        const results = await window.youtube.searchSongs(query, country)
         this.results = results.content
       } catch (error) {
-        // Only set error state for non-"no results" errors
         if (error.code !== 1002) {
           this.error = error
         } else {

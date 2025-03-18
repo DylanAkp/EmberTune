@@ -34,15 +34,17 @@
 import SongCard from '../components/SongCard.vue'
 import { useI18n } from 'vue-i18n'
 import { ref, onMounted } from 'vue'
+import { useSettingsStore } from '../stores/settings'
 
 const { t } = useI18n()
+const settingsStore = useSettingsStore()
 const chartMusic = ref([])
 const loading = ref(true)
 const error = ref(null)
 
 onMounted(async () => {
   try {
-    const charts = await window.youtube.getCharts()
+    const charts = await window.youtube.getCharts(settingsStore.contentLanguage)
     chartMusic.value = charts.musics
   } catch (err) {
     error.value = err.message || 'Failed to load charts'

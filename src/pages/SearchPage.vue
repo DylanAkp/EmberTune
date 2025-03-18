@@ -37,12 +37,15 @@ import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSearchStore } from 'src/stores/search'
 import SongCard from 'src/components/SongCard.vue'
+import { useSettingsStore } from 'src/stores/settings'
+
 const route = useRoute()
 const searchStore = useSearchStore()
+const settingsStore = useSettingsStore()
 
 const performSearch = async (query) => {
   if (query) {
-    await searchStore.search(query)
+    await searchStore.search(query, settingsStore.contentLanguage)
   }
 }
 

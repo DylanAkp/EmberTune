@@ -39,6 +39,10 @@
         "label": "Language",
         "description": "Select your preferred language for the application interface."
       },
+      "contentLanguage": {
+        "label": "Content Region",
+        "description": "Select your preferred region for music content and recommendations."
+      },
       "darkMode": {
         "label": "Dark Mode",
         "description": "Toggle between dark and light app themes."
