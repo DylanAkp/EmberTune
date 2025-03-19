@@ -16,6 +16,9 @@
       <div v-if="!skeleton" class="play-overlay">
         <q-icon name="mdi-play" size="48px" />
       </div>
+      <div v-if="!skeleton" class="add-to-playlist" @click.stop="showPlaylistDialog = true">
+        <q-icon name="mdi-playlist-plus" size="20px" />
+      </div>
     </div>
     <div class="song-card-title">
       <div v-if="skeleton" class="skeleton-text"></div>
@@ -23,15 +26,18 @@
       <div v-if="skeleton" class="skeleton-text"></div>
       <p v-else>{{ artist }}</p>
     </div>
+    <AddToPlaylistDialog v-model="showPlaylistDialog" :song="songData" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { usePlayerStore } from '../stores/player'
+import AddToPlaylistDialog from './AddToPlaylistDialog.vue'
 
 const loading = ref(true)
 const player = usePlayerStore()
+const showPlaylistDialog = ref(false)
 
 const props = defineProps({
   title: {
@@ -56,6 +62,13 @@ const props = defineProps({
   },
 })
 
+const songData = computed(() => ({
+  id: props.id,
+  title: props.title,
+  artist: props.artist,
+  thumbnails: props.thumbnail,
+}))
+
 const handlePlay = async () => {
   await player.play(props.id, true)
 }
@@ -79,6 +92,7 @@ const handleClick = () => {
   height: 215px;
   padding: 10px;
   box-sizing: border-box;
+  position: relative;
 
   .song-card-title {
     display: flex;
@@ -137,9 +151,32 @@ const handleClick = () => {
         opacity: 1;
       }
 
+      .add-to-playlist {
+        opacity: 1;
+      }
+
       img {
         filter: brightness(0.7);
       }
+    }
+
+    .add-to-playlist {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      background-color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+      z-index: 10;
+      opacity: 0;
     }
 
     .play-overlay {
