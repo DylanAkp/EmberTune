@@ -1,7 +1,7 @@
 # <img src="res/icon.png" alt="EmberTune Icon" width="35" height="35" style="vertical-align: middle;"> EmberTune
 
 <div align="center">
-    <img src="res/screenshot.png" alt="EmberTune Screenshot" width="700">
+    <img src="res/screenshot.png" alt="EmberTune Screenshot">
 </div>
 
 EmberTune is a desktop music player with a focus on design and functionality, EmberTune aims to be a solid alternative to your streaming services without any ads.
