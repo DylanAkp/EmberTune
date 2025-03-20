@@ -128,7 +128,7 @@ onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
   &.active {
     opacity: 1;
     font-weight: 600;
-    color: var(--primary);
+    color: var(--accent-color);
     transform: scale(1.05);
   }
 }
