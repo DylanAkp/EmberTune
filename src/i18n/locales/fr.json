@@ -81,6 +81,13 @@
     "emptySuggestion": "Ajoutez des titres pendant l'écoute",
     "clearHistory": "Effacer l'Historique"
   },
+  "lyrics": {
+    "title": "Paroles",
+    "noTrack": "Aucune chanson en lecture",
+    "noLyrics": "Nous n'avons pas trouvé les paroles pour cette chanson.",
+    "source": "Source",
+    "loading": "Chargement des paroles..."
+  },
   "dialogs": {
     "update": {
       "title": "Mise à jour disponible",

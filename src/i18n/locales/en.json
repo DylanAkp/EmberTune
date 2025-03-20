@@ -81,6 +81,13 @@
     "emptySuggestion": "Add songs while playing music",
     "clearHistory": "Clear History"
   },
+  "lyrics": {
+    "title": "Lyrics",
+    "noTrack": "No track playing",
+    "noLyrics": "We couldn't find the lyrics for this song.",
+    "source": "Source",
+    "loading": "Loading lyrics..."
+  },
   "dialogs": {
     "update": {
       "title": "Update Available",

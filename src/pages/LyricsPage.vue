@@ -1,9 +1,9 @@
 <template>
   <div class="lyrics-container">
-    <h1>{{ player.currentTrack?.title || 'No Track Playing' }}</h1>
+    <h1>{{ player.currentTrack?.title || $t('lyrics.noTrack') }}</h1>
     <h2 v-if="player.currentTrack">{{ player.currentTrack.artist }}</h2>
 
-    <div v-if="loading" class="loading">Loading lyrics...</div>
+    <div v-if="loading || !player.currentTrack" class="loading">{{ $t('lyrics.loading') }}</div>
 
     <div v-else-if="syncedLyrics.length > 0" class="lyrics-content">
       <div
@@ -19,11 +19,13 @@
 
     <div v-else-if="lyrics">
       <div v-if="lyrics.lyrics" class="lyrics-content" v-html="formatLyrics(lyrics.lyrics)"></div>
-      <div v-else class="lyrics-content">No lyrics available for this track</div>
-      <div v-if="lyrics.source" class="lyrics-source">Source: {{ lyrics.source }}</div>
+      <div v-else class="lyrics-content">{{ $t('lyrics.noLyrics') }}</div>
+      <div v-if="lyrics.source" class="lyrics-source">
+        {{ $t('lyrics.source') }}: {{ lyrics.source }}
+      </div>
     </div>
 
-    <div v-else class="lyrics-content">No lyrics available</div>
+    <div v-else class="lyrics-content">{{ $t('lyrics.noLyrics') }}</div>
   </div>
 </template>
 
