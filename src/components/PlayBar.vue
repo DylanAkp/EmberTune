@@ -165,7 +165,7 @@ const replayModeIcon = computed(() => {
             'text-accent': $route.path === '/lyrics',
             'text-grey-6': $route.path !== '/lyrics',
           }"
-          @click="router.push('/lyrics')"
+          @click="$route.path === '/lyrics' ? router.back() : router.push('/lyrics')"
         />
         <q-icon
           :name="copyStatus === 'copied' ? 'mdi-check' : 'mdi-link'"
@@ -207,7 +207,9 @@ const replayModeIcon = computed(() => {
         />
         <div
           class="progress-bar"
-          :style="{ width: `${(player.currentTime / (player.currentTrack.duration.duration || 1)) * 100}%` }"
+          :style="{
+            width: `${(player.currentTime / (player.currentTrack.duration.duration || 1)) * 100}%`,
+          }"
         ></div>
       </div>
       <div class="time">{{ formatTime(player.currentTrack.duration.duration) }}</div>
