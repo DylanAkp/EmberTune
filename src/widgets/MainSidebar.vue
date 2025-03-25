@@ -53,7 +53,6 @@ const bottomRoutes = computed(() => [
 
 <style lang="scss" scoped>
 .sidebar {
-  font-family: 'Fredoka', sans-serif;
   display: flex;
   background-color: var(--secondary-bg);
   flex-direction: column;
@@ -75,6 +74,7 @@ const bottomRoutes = computed(() => [
     display: flex;
     align-items: center;
     .brand-name {
+      font-family: 'Fredoka', sans-serif;
       margin-top: 10px;
       font-size: 35px;
       margin-left: 10px;
