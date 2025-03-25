@@ -90,7 +90,7 @@
                 alt="Song Thumbnail"
               />
               <q-icon v-else name="mdi-music" size="24px" class="default-icon" />
-              {{ song.title }}
+              <span class="text">{{ song.title }}</span>
             </div>
             <div class="artist">{{ formatArtists(song) }}</div>
             <div class="actions">
@@ -344,18 +344,29 @@ function clearHistory() {
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 0;
 
             img {
               width: 40px;
               height: 40px;
               border-radius: 5px;
               object-fit: cover;
+              flex-shrink: 0;
+            }
+
+            .text {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
           }
 
           .artist {
             color: var(--text-color);
             opacity: 0.7;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           .actions {
