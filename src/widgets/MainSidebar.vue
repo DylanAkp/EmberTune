@@ -53,6 +53,7 @@ const bottomRoutes = computed(() => [
 
 <style lang="scss" scoped>
 .sidebar {
+  font-family: 'Fredoka', sans-serif;
   display: flex;
   background-color: var(--secondary-bg);
   flex-direction: column;
