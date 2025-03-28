@@ -62,7 +62,7 @@ const bottomRoutes = computed(() => [
   justify-content: space-between;
   border-radius: 0 20px 20px 0;
   width: var(--sidebar-width);
-  max-width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
   .top-section {
     display: flex;
     flex-direction: column;
@@ -81,8 +81,9 @@ const bottomRoutes = computed(() => [
       font-weight: 400;
     }
     .logo {
-      width: 70px;
-      height: 70px;
+      margin-top: 10px;
+      width: 50px;
+      height: 50px;
     }
   }
   .navigation {

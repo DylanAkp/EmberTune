@@ -233,7 +233,7 @@ const replayModeIcon = computed(() => {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: calc(100% - var(--sidebar-width) - 20px);
+  width: calc(100% - var(--sidebar-width) - 40px);
   background: var(--secondary-bg);
   display: flex;
   flex-direction: column;
