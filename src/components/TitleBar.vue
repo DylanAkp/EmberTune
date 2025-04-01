@@ -1,6 +1,9 @@
 <template>
   <div class="title-bar" :class="{ 'title-bar-maximized': isMaximized }">
     <div class="title-bar-drag-region">
+      <button class="title-bar-btn back-btn" @click="goBack">
+        <q-icon name="mdi-chevron-left" size="14px" />
+      </button>
       <div class="title-bar-title">
         <img :src="EmberTuneLogo" alt="EmberTune" class="title-bar-app-logo" />
         <span class="title-bar-app-name">EmberTune</span>
@@ -22,8 +25,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import EmberTuneLogo from 'src/assets/EmberTune.svg'
 
+const router = useRouter()
 const isMaximized = ref(false)
 
 // Initialize window state
@@ -59,6 +64,10 @@ const closeWindow = () => {
   if (window.windowControls) {
     window.windowControls.close()
   }
+}
+
+const goBack = () => {
+  router.back()
 }
 </script>
 
@@ -124,6 +133,10 @@ const closeWindow = () => {
     &.close-btn:hover {
       background-color: var(--error-color);
       color: white;
+    }
+
+    &.back-btn {
+      border-radius: 0 0 8px 0;
     }
   }
 }
