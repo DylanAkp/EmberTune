@@ -14,12 +14,8 @@
   --error-color: #ff0000;
 
   --titlebar-height: 32px;
-  --sidebar-width: 300px;
-  --playbar-safe-height: 50px;
-  --content-padding: 20px;
-  --search-bar-height: 50px;
-  --search-bar-total-height: calc(var(--search-bar-height) + 10px);
-  --search-bar-spacing: calc(var(--search-bar-total-height) + var(--content-padding) * 2);
+  --sidebar-width: 225px;
+  --search-bar-height: 40px;
 }
 
 /* Light theme */

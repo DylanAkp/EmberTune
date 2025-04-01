@@ -27,7 +27,7 @@ defineProps({
   variant: {
     type: String,
     default: 'default',
-    validator: (value) => ['accent', 'default', 'light', 'success'].includes(value),
+    validator: (value) => ['accent', 'default', 'light', 'success', 'nav'].includes(value),
   },
   active: {
     type: Boolean,
@@ -54,6 +54,22 @@ defineEmits(['click'])
 
   &.variant-default {
     background-color: var(--primary-bg);
+    width: 100%;
+
+    &.active {
+      background-color: var(--tertiary-bg);
+      color: var(--accent-color);
+    }
+
+    &:hover:not(.active) {
+      background-color: var(--tertiary-bg);
+      opacity: 0.8;
+    }
+  }
+
+  &.variant-nav {
+    background-color: transparent;
+    border-radius: 0 25px 25px 0;
     width: 100%;
 
     &.active {

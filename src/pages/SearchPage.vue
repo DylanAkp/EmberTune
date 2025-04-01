@@ -63,8 +63,6 @@ watch(
 
 <style lang="scss" scoped>
 .search-page {
-  padding: 20px;
-
   .error,
   .no-results {
     text-align: center;

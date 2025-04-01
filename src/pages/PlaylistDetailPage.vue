@@ -211,8 +211,6 @@ function clearHistory() {
 
 <style lang="scss" scoped>
 .playlist-detail {
-  padding: 20px;
-
   .header {
     display: flex;
     justify-content: space-between;

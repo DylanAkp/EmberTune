@@ -2,6 +2,7 @@
   <div class="title-bar" :class="{ 'title-bar-maximized': isMaximized }">
     <div class="title-bar-drag-region">
       <div class="title-bar-title">
+        <img :src="EmberTuneLogo" alt="EmberTune" class="title-bar-app-logo" />
         <span class="title-bar-app-name">EmberTune</span>
       </div>
     </div>
@@ -21,6 +22,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import EmberTuneLogo from 'src/assets/EmberTune.svg'
 
 const isMaximized = ref(false)
 
@@ -64,7 +66,6 @@ const closeWindow = () => {
 .title-bar {
   height: var(--titlebar-height);
   width: 100%;
-  background-color: var(--primary-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -84,6 +85,11 @@ const closeWindow = () => {
     display: flex;
     align-items: center;
     padding-left: 16px;
+    gap: 10px;
+    img {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   &-app-name {
@@ -112,7 +118,7 @@ const closeWindow = () => {
     transition: all 0.2s ease;
 
     &:hover {
-      background-color: var(--secondary-bg);
+      background-color: var(--tertiary-bg);
     }
 
     &.close-btn:hover {

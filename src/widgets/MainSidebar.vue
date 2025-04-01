@@ -1,5 +1,4 @@
 <script setup>
-import logoImage from '../assets/EmberTune.svg'
 import StyledButton from '../components/StyledButton.vue'
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
@@ -21,17 +20,13 @@ const bottomRoutes = computed(() => [
 <template>
   <div class="sidebar no-select">
     <div class="top-section">
-      <div class="header">
-        <img class="logo" alt="EmberTune Logo" :src="logoImage" />
-        <div class="brand-name">{{ t('app.name') }}</div>
-      </div>
       <div class="navigation">
         <StyledButton
           v-for="(route, index) in routes"
           :key="index"
           :icon="route.icon"
           :text="route.name"
-          variant="default"
+          variant="nav"
           :active="$route.path === route.path"
           @click="$router.push(route.path)"
         />
@@ -43,7 +38,7 @@ const bottomRoutes = computed(() => [
         :key="index"
         :icon="route.icon"
         :text="route.name"
-        variant="default"
+        variant="nav"
         :active="$route.path === route.path"
         @click="$router.push(route.path)"
       />
@@ -54,42 +49,25 @@ const bottomRoutes = computed(() => [
 <style lang="scss" scoped>
 .sidebar {
   display: flex;
-  background-color: var(--secondary-bg);
   flex-direction: column;
-  align-items: center;
-  padding: 15px;
   height: 100%;
+  padding: 15px 15px 15px 0;
   justify-content: space-between;
   border-radius: 0 20px 20px 0;
   width: var(--sidebar-width);
   min-width: var(--sidebar-width);
+  background-color: var(--secondary-bg);
   .top-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-    gap: 20px;
-  }
-  .header {
-    display: flex;
-    align-items: center;
-    .brand-name {
-      font-family: 'Fredoka', sans-serif;
-      margin-top: 10px;
-      font-size: 35px;
-      margin-left: 10px;
-      font-weight: 400;
-    }
-    .logo {
-      margin-top: 10px;
-      width: 50px;
-      height: 50px;
-    }
+    gap: 10px;
   }
   .navigation {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     gap: 10px;
   }

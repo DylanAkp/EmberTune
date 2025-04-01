@@ -85,8 +85,6 @@ onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
 
 <style lang="scss" scoped>
 .lyrics-container {
-  background-color: var(--tertiary-bg);
-  padding: 20px;
   border-radius: 10px;
   text-align: center;
   height: 100%;
@@ -102,6 +100,7 @@ onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
 .lyrics-content {
   white-space: pre-wrap;
   font-size: 24px;
+  overflow: hidden;
   margin-top: 20px;
   max-width: 800px;
   margin-left: auto;
@@ -110,6 +109,9 @@ onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
   overflow-y: auto;
   padding: 0 20px;
   scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .lyric-line {

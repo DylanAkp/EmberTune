@@ -61,13 +61,12 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
-  padding: 1.5rem;
 }
 
 .charts-container {
   width: 100%;
   max-width: 1200px;
+  padding-bottom: 10px;
 }
 
 .section-title {

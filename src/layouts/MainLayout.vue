@@ -10,9 +10,8 @@
         <div class="router-view-container">
           <router-view />
         </div>
+        <PlayBar />
       </div>
-
-      <PlayBar />
     </div>
   </div>
 </template>
@@ -26,6 +25,7 @@ import TitleBar from 'src/components/TitleBar.vue'
 
 <style lang="scss" scoped>
 .main-layout {
+  background-color: var(--secondary-bg);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -38,19 +38,19 @@ import TitleBar from 'src/components/TitleBar.vue'
   flex-direction: row;
   flex: 1;
   overflow: hidden;
-
   .main-content {
-    padding: var(--content-padding);
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    overflow-y: auto;
-    padding-bottom: 90px;
-
+    overflow-y: hidden;
     .router-view-container {
-      margin-top: var(--search-bar-spacing);
-      margin-bottom: var(--playbar-safe-height);
+      flex: 1;
+      overflow-y: auto;
+      margin-top: 20px;
+      border-radius: 20px;
+      background-color: var(--primary-bg);
+      padding: 20px;
     }
   }
 }

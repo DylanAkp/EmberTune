@@ -34,20 +34,9 @@ const handleSearch = () => {
 
 <style lang="scss" scoped>
 .search-bar {
-  position: fixed;
-  top: calc(var(--titlebar-height) + var(--content-padding));
-  left: calc(var(--sidebar-width) + (100% - var(--sidebar-width)) / 2);
-  transform: translateX(-50%);
-  z-index: 50;
-  background-color: var(--secondary-bg);
   width: fit-content;
-  max-width: calc(100% - var(--sidebar-width) - 40px);
-  border-radius: calc(var(--search-bar-total-height) / 2);
-  padding: 5px;
   display: flex;
   gap: 10px;
-  justify-content: center;
-  align-items: center;
 
   .search-input {
     width: 300px;

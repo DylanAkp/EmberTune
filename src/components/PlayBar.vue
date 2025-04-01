@@ -230,24 +230,18 @@ const replayModeIcon = computed(() => {
 
 <style lang="scss" scoped>
 .playbar {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: calc(100% - var(--sidebar-width) - 40px);
-  background: var(--secondary-bg);
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding: 10px;
   border-radius: 20px;
-  z-index: 1000;
 }
 
 .main-content {
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 10%;
 }
 
 .song-info {
@@ -322,6 +316,7 @@ const replayModeIcon = computed(() => {
   justify-content: flex-end;
   flex: 1;
   flex-shrink: 0;
+  margin-right: 10px;
 
   .volume-control {
     position: relative;

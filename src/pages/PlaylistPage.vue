@@ -73,8 +73,6 @@ function openPlaylist(playlist) {
 
 <style lang="scss" scoped>
 .playlist-page {
-  padding: 20px;
-
   .header {
     display: flex;
     justify-content: space-between;
