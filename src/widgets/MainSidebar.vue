@@ -11,30 +11,13 @@ const routes = computed(() => [
   { name: t('sidebar.playlists'), icon: 'mdi-playlist-music', path: '/playlists' },
   { name: t('sidebar.history'), icon: 'mdi-history', path: '/playlists/history' },
 ])
-
-const bottomRoutes = computed(() => [
-  { name: t('sidebar.settings'), icon: 'mdi-cog', path: '/settings' },
-])
 </script>
 
 <template>
   <div class="sidebar no-select">
-    <div class="top-section">
-      <div class="navigation">
-        <StyledButton
-          v-for="(route, index) in routes"
-          :key="index"
-          :icon="route.icon"
-          :text="route.name"
-          variant="nav"
-          :active="$route.path === route.path"
-          @click="$router.push(route.path)"
-        />
-      </div>
-    </div>
     <div class="navigation">
       <StyledButton
-        v-for="(route, index) in bottomRoutes"
+        v-for="(route, index) in routes"
         :key="index"
         :icon="route.icon"
         :text="route.name"
@@ -57,13 +40,6 @@ const bottomRoutes = computed(() => [
   width: var(--sidebar-width);
   min-width: var(--sidebar-width);
   background-color: var(--secondary-bg);
-  .top-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    gap: 10px;
-  }
   .navigation {
     display: flex;
     flex-direction: column;

@@ -6,7 +6,15 @@
       <MainSidebar />
 
       <div class="main-content">
-        <SearchBar />
+        <div class="top-section">
+          <SearchBar />
+          <q-icon
+            class="settings-icon"
+            name="mdi-cog"
+            size="22px"
+            @click="$router.push('/settings')"
+          />
+        </div>
         <div class="router-view-container">
           <router-view />
         </div>
@@ -44,6 +52,18 @@ import TitleBar from 'src/components/TitleBar.vue'
     width: 100%;
     height: 100%;
     overflow-y: hidden;
+    .top-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .settings-icon {
+        padding-right: 20px;
+        padding-top: 10px;
+        color: var(--text-color);
+        cursor: pointer;
+      }
+    }
     .router-view-container {
       flex: 1;
       overflow-y: auto;
