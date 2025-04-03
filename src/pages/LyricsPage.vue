@@ -88,7 +88,6 @@ onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
   border-radius: 10px;
   text-align: center;
   height: 100%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 
@@ -100,7 +99,6 @@ onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
 .lyrics-content {
   white-space: pre-wrap;
   font-size: 24px;
-  overflow: hidden;
   margin-top: 20px;
   max-width: 800px;
   margin-left: auto;
