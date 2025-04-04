@@ -38,12 +38,12 @@ ipcMain.handle('download', async (event, id) => {
   }
 })
 
-ipcMain.handle('getSong', async (event, id) => {
+ipcMain.handle('getObject', async (event, id) => {
   try {
-    const song = await get(id)
-    return JSON.parse(JSON.stringify(song))
+    const object = await get(id)
+    return JSON.parse(JSON.stringify(object))
   } catch (error) {
-    console.error('Get Song Error:', error)
+    console.error('Get Object Error:', error)
     throw error
   }
 })

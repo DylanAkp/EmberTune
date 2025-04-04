@@ -4,9 +4,8 @@ import { usePlaylistStore } from './playlist'
 import { ref } from 'vue'
 
 export const usePlayerStore = defineStore('player', {
-
   state: () => {
-    const player =  {
+    const player = {
       currentTrack: null,
       isPlaying: false,
       queue: [],
@@ -17,12 +16,11 @@ export const usePlayerStore = defineStore('player', {
       replayMode: 'disabled',
       isShuffled: false,
     }
-    player.audio.addEventListener("timeupdate", () => {
+    player.audio.addEventListener('timeupdate', () => {
       player.currentTime.value = player.audio.currentTime
     })
     return player
   },
-
 
   getters: {
     hasNext: (state) => state.currentIndex < state.queue.length - 1,
@@ -91,9 +89,9 @@ export const usePlayerStore = defineStore('player', {
         }
         let songDetails
         if (typeof music === 'object') {
-          songDetails = await window.youtube.getSong(music.id)
+          songDetails = await window.youtube.getObject(music.id)
         } else {
-          songDetails = await window.youtube.getSong(music)
+          songDetails = await window.youtube.getObject(music)
         }
 
         // Get song details
