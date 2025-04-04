@@ -15,13 +15,17 @@ ipcMain.handle('getCharts', async (event, country) => {
   }
 })
 
-ipcMain.handle('searchSongs', async (event, query, country) => {
+ipcMain.handle('search', async (event, query, country) => {
   try {
-    const response = await search(query, 'SONG', {
+    const results = {
+      songs: [],
+    }
+    const songs = await search(query, 'SONG', {
       country: country,
       fetch: false,
     })
-    return JSON.parse(JSON.stringify(response))
+    results.songs = songs.content
+    return JSON.parse(JSON.stringify(results))
   } catch (error) {
     console.error('Search Error:', error)
     throw error

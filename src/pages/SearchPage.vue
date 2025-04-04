@@ -15,12 +15,12 @@
           id=""
         />
       </template>
-      <template v-else-if="searchStore.results.length === 0">
+      <template v-else-if="!searchStore.results?.songs?.length">
         <div class="no-results">No results found</div>
       </template>
       <template v-else>
         <SongCard
-          v-for="result in searchStore.results"
+          v-for="result in searchStore.results.songs"
           :key="result.id"
           :title="result.title"
           :thumbnail="result.thumbnails"

@@ -2,7 +2,9 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 
 export const useSearchStore = defineStore('search', {
   state: () => ({
-    results: [],
+    results: {
+      songs: [],
+    },
     query: '',
     loading: false,
     error: null,
@@ -15,14 +17,11 @@ export const useSearchStore = defineStore('search', {
       try {
         this.loading = true
         this.error = null
-        const results = await window.youtube.searchSongs(query, country)
-        this.results = results.content
+        const results = await window.youtube.search(query, country)
+        this.results = results
       } catch (error) {
-        if (error.code !== 1002) {
-          this.error = error
-        } else {
-          this.results = []
-        }
+        console.error('Search error:', error)
+        this.results = { songs: [] }
       } finally {
         this.loading = false
       }
