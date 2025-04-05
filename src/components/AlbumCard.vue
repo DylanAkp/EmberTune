@@ -72,7 +72,7 @@ defineProps({
   .album-card-title {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
     text-align: center;
     box-sizing: border-box;
@@ -108,7 +108,6 @@ defineProps({
     p {
       font-size: 14px;
       margin: 0;
-      line-height: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
