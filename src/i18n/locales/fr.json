@@ -110,5 +110,13 @@
       "confirmMessage": "Êtes-vous sûr de vouloir supprimer",
       "warning": "Cette action ne peut pas être annulée."
     }
+  },
+  "search": {
+    "noResults": "Aucun résultat trouvé",
+    "artists": "Artistes",
+    "songs": "Chansons"
+  },
+  "artistCard": {
+    "followers": "Abonnés"
   }
 }

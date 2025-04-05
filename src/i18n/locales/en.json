@@ -110,5 +110,13 @@
       "confirmMessage": "Are you sure you want to delete",
       "warning": "This action cannot be undone."
     }
+  },
+  "search": {
+    "noResults": "No results found",
+    "artists": "Artists",
+    "songs": "Songs"
+  },
+  "artistCard": {
+    "followers": "Followers"
   }
 }
