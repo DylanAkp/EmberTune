@@ -39,6 +39,21 @@
             />
           </div>
         </div>
+        <div v-if="searchStore.results.albums?.length" class="section albums-section">
+          <h3>
+            {{ $t('search.albums') }}
+          </h3>
+          <div class="cards-row">
+            <AlbumCard
+              v-for="result in searchStore.results.albums"
+              :key="result.id"
+              :title="result.name"
+              :thumbnail="result.thumbnails"
+              :artist="result.artists[0].name"
+              :id="result.id"
+            />
+          </div>
+        </div>
         <div v-if="searchStore.results.songs?.length" class="section">
           <h3>
             {{ $t('search.songs') }}
@@ -65,6 +80,7 @@ import { useRoute } from 'vue-router'
 import { useSearchStore } from 'src/stores/search'
 import SongCard from 'src/components/SongCard.vue'
 import ArtistCard from 'src/components/ArtistCard.vue'
+import AlbumCard from 'src/components/AlbumCard.vue'
 import { useSettingsStore } from 'src/stores/settings'
 
 const route = useRoute()
@@ -103,6 +119,14 @@ watch(
       color: var(--text-color);
       font-weight: 600;
       font-size: 20px;
+    }
+
+    &.albums-section {
+      .cards-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 15px;
+      }
     }
   }
 

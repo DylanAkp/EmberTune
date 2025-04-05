@@ -114,7 +114,8 @@
   "search": {
     "noResults": "Aucun résultat trouvé",
     "artists": "Artistes",
-    "songs": "Chansons"
+    "songs": "Chansons",
+    "albums": "Albums"
   },
   "artistCard": {
     "followers": "Abonnés"
