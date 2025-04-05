@@ -18,6 +18,9 @@ ipcMain.handle('getCharts', async (event, country) => {
 ipcMain.handle('search', async (event, query, country) => {
   const results = {
     songs: [],
+    artists: [],
+    albums: [],
+    playlists: [],
   }
   try {
     const songs = await search(query, 'SONG', {
@@ -38,6 +41,26 @@ ipcMain.handle('search', async (event, query, country) => {
   } catch (error) {
     console.error('Search Error:', error)
     results.artists = []
+  }
+  try {
+    const albums = await search(query, 'ALBUM', {
+      country: country,
+      fetch: false,
+    })
+    results.albums = albums.content
+  } catch (error) {
+    console.error('Search Error:', error)
+    results.albums = []
+  }
+  try {
+    const playlists = await search(query, 'PLAYLIST', {
+      country: country,
+      fetch: false,
+    })
+    results.playlists = playlists.content
+  } catch (error) {
+    console.error('Search Error:', error)
+    results.playlists = []
   }
   return JSON.parse(JSON.stringify(results))
 })

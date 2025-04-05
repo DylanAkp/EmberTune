@@ -5,6 +5,8 @@ export const useSearchStore = defineStore('search', {
     results: {
       songs: [],
       artists: [],
+      albums: [],
+      playlists: [],
     },
     query: '',
     loading: false,
@@ -22,7 +24,7 @@ export const useSearchStore = defineStore('search', {
         this.results = results
       } catch (error) {
         console.error('Search error:', error)
-        this.results = { songs: [], artists: [] }
+        this.results = { songs: [], artists: [], albums: [], playlists: [] }
       } finally {
         this.loading = false
       }
