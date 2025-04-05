@@ -12,7 +12,7 @@
           />
           <img
             v-else-if="playlist.songs.length > 0"
-            :src="playlist.songs[0].thumbnails[0].url"
+            :src="getOptimalThumbnail(playlist.songs[0].thumbnails, 200)"
             alt="Playlist Cover"
           />
           <q-icon v-else name="mdi-music" size="96px" class="default-icon" />
@@ -86,7 +86,7 @@
             <div class="title">
               <img
                 v-if="song.thumbnails && song.thumbnails.length > 0"
-                :src="song.thumbnails[0].url"
+                :src="getOptimalThumbnail(song.thumbnails, 40)"
                 alt="Song Thumbnail"
               />
               <q-icon v-else name="mdi-music" size="24px" class="default-icon" />
@@ -125,6 +125,7 @@ import { usePlaylistStore } from '../stores/playlist'
 import { usePlayerStore } from '../stores/player'
 import { useI18n } from 'vue-i18n'
 import DeletePlaylistDialog from '../components/DeletePlaylistDialog.vue'
+import { getOptimalThumbnail } from '../utils/thumbnail'
 
 const route = useRoute()
 const router = useRouter()

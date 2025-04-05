@@ -35,7 +35,7 @@ ipcMain.handle('search', async (event, query, country) => {
   try {
     const artists = await search(query, 'ARTIST', {
       country: country,
-      fetch: false,
+      fetch: true,
     })
     results.artists = artists.content
   } catch (error) {
