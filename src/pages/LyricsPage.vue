@@ -19,13 +19,13 @@
 
     <div v-else-if="lyrics">
       <div v-if="lyrics.lyrics" class="lyrics-content" v-html="formatLyrics(lyrics.lyrics)"></div>
-      <div v-else class="lyrics-content">{{ $t('lyrics.noLyrics') }}</div>
+      <div v-else class="lyrics-content no-lyrics">{{ $t('lyrics.noLyrics') }}</div>
       <div v-if="lyrics.source" class="lyrics-source">
         {{ $t('lyrics.source') }}: {{ lyrics.source }}
       </div>
     </div>
 
-    <div v-else class="lyrics-content">{{ $t('lyrics.noLyrics') }}</div>
+    <div v-else class="lyrics-content no-lyrics">{{ $t('lyrics.noLyrics') }}</div>
   </div>
 </template>
 
@@ -109,6 +109,15 @@ onMounted(() => player.currentTrack && loadLyrics(player.currentTrack))
   scroll-behavior: smooth;
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  &.no-lyrics {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 20px;
+    color: var(--secondary-text-color);
   }
 }
 
