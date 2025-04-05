@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import AddToPlaylistDialog from './AddToPlaylistDialog.vue'
 import { usePlaylistStore } from '../stores/playlist'
+import { getOptimalThumbnail } from '../utils/thumbnail'
 
 const player = usePlayerStore()
 const volume = ref(player.volume * 100)
@@ -84,11 +85,7 @@ const replayModeIcon = computed(() => {
           <div v-if="imageLoading" class="artwork-loader"></div>
           <img
             v-show="!imageLoading"
-            :src="
-              player.currentTrack.thumbnails.reduce((prev, current) =>
-                prev.width > current.width ? prev : current,
-              ).url
-            "
+            :src="getOptimalThumbnail(player.currentTrack.thumbnails, 60)"
             alt="Album Art"
             class="album-art"
             @error="imageLoading = true"

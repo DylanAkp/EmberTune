@@ -4,12 +4,7 @@
       <div v-if="skeleton || loading" class="artwork-loader"></div>
       <img
         v-show="!loading && !skeleton && thumbnail.length > 0"
-        :src="
-          thumbnail.reduce(
-            (prev, current) => (prev.width > current.width ? prev : current),
-            thumbnail[0],
-          ).url
-        "
+        :src="getOptimalThumbnail(thumbnail, 140)"
         @error="loading = true"
         @load="loading = false"
       />
@@ -28,6 +23,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { getOptimalThumbnail } from '../utils/thumbnail'
 
 const loading = ref(true)
 
