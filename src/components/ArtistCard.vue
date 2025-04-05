@@ -62,25 +62,27 @@ const formatFollowers = computed(() => {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   background-color: var(--secondary-bg);
-  border-radius: 15px;
-  width: 300px;
-  height: 100px;
-  padding: 10px;
+  border-radius: 50px;
+  width: fit-content;
+  height: 80px;
+  padding: 8px;
+  padding-right: 16px;
   box-sizing: border-box;
   position: relative;
 
   .artist-card-title {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     flex: 1;
     text-align: left;
     box-sizing: border-box;
+    min-width: 0;
 
     .skeleton-text {
-      height: 16px;
+      height: 14px;
       background: linear-gradient(
         90deg,
         var(--primary-bg) 25%,
@@ -97,33 +99,35 @@ const formatFollowers = computed(() => {
     }
 
     h3 {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       margin: 0;
       line-height: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      max-width: 180px;
     }
 
     p {
-      font-size: 14px;
+      font-size: 13px;
       margin: 0;
       line-height: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      max-width: 140px;
     }
   }
 
   .artwork-container {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
 
     .artwork-loader {
-      width: 80px;
-      height: 80px;
+      width: 64px;
+      height: 64px;
       border-radius: 5px;
       background: linear-gradient(
         90deg,
@@ -136,10 +140,10 @@ const formatFollowers = computed(() => {
     }
 
     img {
-      width: 80px;
-      height: 80px;
+      width: 64px;
+      height: 64px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 50px;
     }
   }
 }
