@@ -1,5 +1,5 @@
 <template>
-  <div class="artist-card no-select">
+  <div class="artist-card no-select" @click="navigateToArtist">
     <div class="artwork-container">
       <div v-if="skeleton || loading" class="artwork-loader"></div>
       <img
@@ -13,7 +13,7 @@
       <div v-if="skeleton" class="skeleton-text"></div>
       <h3 v-else>{{ artist }}</h3>
       <div v-if="skeleton" class="skeleton-text"></div>
-      <p v-else>{{ formatFollowers }} {{ $t('artistCard.followers') }}</p>
+      <p v-else-if="followers">{{ formatFollowers }} {{ $t('artistCard.followers') }}</p>
     </div>
   </div>
 </template>
@@ -21,7 +21,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { getOptimalThumbnail } from '../utils/thumbnail'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const loading = ref(true)
 
 const props = defineProps({
@@ -41,7 +43,17 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  id: {
+    type: String,
+    required: true,
+  },
 })
+
+const navigateToArtist = () => {
+  if (!props.skeleton) {
+    router.push(`/artist/${props.id}`)
+  }
+}
 
 const formatFollowers = computed(() => {
   if (props.followers >= 1000000) {
@@ -67,6 +79,7 @@ const formatFollowers = computed(() => {
   padding-right: 16px;
   box-sizing: border-box;
   position: relative;
+  cursor: pointer;
 
   .artist-card-title {
     display: flex;

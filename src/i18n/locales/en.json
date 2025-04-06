@@ -16,6 +16,10 @@
     "close": "Close",
     "later": "Maybe Later"
   },
+  "artist": {
+    "albums": "Albums",
+    "songs": "Songs"
+  },
   "sidebar": {
     "home": "Home",
     "likedSongs": "Liked Songs",

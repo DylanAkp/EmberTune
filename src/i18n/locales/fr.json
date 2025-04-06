@@ -16,6 +16,10 @@
     "close": "Fermer",
     "later": "Plus tard"
   },
+  "artist": {
+    "albums": "Albums",
+    "songs": "Titres"
+  },
   "sidebar": {
     "home": "Accueil",
     "likedSongs": "Favoris",

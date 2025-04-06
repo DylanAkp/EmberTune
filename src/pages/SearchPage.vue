@@ -33,6 +33,7 @@
             <ArtistCard
               v-for="result in searchStore.results.artists"
               :key="result.id"
+              :id="result.id"
               :artist="result.name"
               :thumbnail="result.thumbnails"
               :followers="result.followers"
