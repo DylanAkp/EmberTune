@@ -66,14 +66,9 @@
     "checkFailed": "Échec de la vérification des mises à jour. Veuillez réessayer plus tard."
   },
   "home": {
-    "tagline": "Votre compagnon musical personnel",
     "trending": "Musiques Tendances",
-    "buttons": {
-      "createPlaylists": "Créer des playlists",
-      "configureApp": "Configurer EmberTune",
-      "seeOnGithub": "Voir sur Github",
-      "discoverProjects": "Découvrir d'autres projets"
-    }
+    "recentlyPlayed": "Récemment Joués",
+    "favorites": "Favoris"
   },
   "playlists": {
     "title": "Vos Playlists",

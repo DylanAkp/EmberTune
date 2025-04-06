@@ -66,14 +66,9 @@
     "checkFailed": "Failed to check for updates. Please try again later."
   },
   "home": {
-    "tagline": "Your personal music companion",
     "trending": "Trending Music",
-    "buttons": {
-      "createPlaylists": "Create custom playlists",
-      "configureApp": "Configure EmberTune",
-      "seeOnGithub": "See on Github",
-      "discoverProjects": "Discover other projects"
-    }
+    "recentlyPlayed": "Recently Played",
+    "favorites": "Favorites"
   },
   "playlists": {
     "title": "Your Playlists",
