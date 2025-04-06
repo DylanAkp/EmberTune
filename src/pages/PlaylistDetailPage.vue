@@ -93,7 +93,6 @@
             <div class="song-actions">
               <q-btn flat round icon="mdi-play" size="sm" @click="playSong(song)" />
               <q-btn
-                v-if="!playlist.isDefault"
                 flat
                 round
                 icon="mdi-delete"
