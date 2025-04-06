@@ -30,7 +30,12 @@ const displayTrack = computed(() => {
   if (playerStore.replayMode === 'song' && playerStore.currentTrack) {
     return playerStore.currentTrack
   }
-  if (!playerStore.hasNext) return null
+  if (!playerStore.hasNext) {
+    if (playerStore.replayMode === 'playlist' && playerStore.queue.length > 0) {
+      return playerStore.queue[0]
+    }
+    return null
+  }
   return playerStore.queue[playerStore.currentIndex + 1]
 })
 
