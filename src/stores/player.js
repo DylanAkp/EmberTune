@@ -281,16 +281,16 @@ export const usePlayerStore = defineStore('player', {
       return artists.map((artist) => artist.name).join(', ')
     },
 
-    async playPlaylist(songs) {
+    async playPlaylist(songs, startIndex = 0) {
       if (!songs || songs.length === 0) return
 
-      // Clear the current queue and reset index
       this.queue = []
       this.currentIndex = -1
 
       this.queue = songs
+      this.currentIndex = startIndex - 1
 
-      await this.play(this.queue[0])
+      await this.next()
     },
 
     toggleReplayMode() {

@@ -180,7 +180,12 @@ function removeSong(songId) {
 }
 
 function playSong(song) {
-  playerStore.play(song.id)
+  if (playlist.value.id === 'history') {
+    playerStore.play(song.id)
+  } else {
+    const songIndex = playlist.value.songs.findIndex((s) => s.id === song.id)
+    playerStore.playPlaylist(playlist.value.songs, songIndex)
+  }
 }
 
 function playPlaylist() {
