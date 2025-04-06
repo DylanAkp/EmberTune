@@ -1,5 +1,5 @@
 <script setup>
-import StyledButton from '../components/StyledButton.vue'
+import StyledButton from '../StyledButton.vue'
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 

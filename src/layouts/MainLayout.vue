@@ -25,10 +25,10 @@
 </template>
 
 <script setup>
-import MainSidebar from 'src/widgets/MainSidebar.vue'
-import SearchBar from 'src/widgets/SearchBar.vue'
-import PlayBar from 'src/components/PlayBar.vue'
-import TitleBar from 'src/components/TitleBar.vue'
+import MainSidebar from 'src/components/layout/MainSidebar.vue'
+import SearchBar from 'src/components/layout/SearchBar.vue'
+import PlayBar from 'src/components/layout/PlayBar.vue'
+import TitleBar from 'src/components/layout/TitleBar.vue'
 </script>
 
 <style lang="scss" scoped>

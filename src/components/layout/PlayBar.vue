@@ -1,10 +1,10 @@
 <script setup>
-import { usePlayerStore } from '../stores/player'
+import { usePlayerStore } from '../../stores/player'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import AddToPlaylistDialog from './AddToPlaylistDialog.vue'
-import { usePlaylistStore } from '../stores/playlist'
-import { getOptimalThumbnail } from '../utils/thumbnail'
+import AddToPlaylistDialog from '../AddToPlaylistDialog.vue'
+import { usePlaylistStore } from '../../stores/playlist'
+import { getOptimalThumbnail } from '../../utils/thumbnail'
 
 const player = usePlayerStore()
 const volume = ref(player.volume * 100)
