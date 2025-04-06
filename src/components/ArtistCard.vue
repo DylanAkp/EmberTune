@@ -10,9 +10,9 @@
       />
     </div>
     <div class="artist-card-title">
-      <div v-if="skeleton" class="skeleton-text"></div>
+      <TextSkeleton v-if="skeleton" :width="180" :height="14" />
       <h3 v-else>{{ artist }}</h3>
-      <div v-if="skeleton" class="skeleton-text"></div>
+      <TextSkeleton v-if="skeleton" :width="140" :height="14" />
       <p v-else-if="followers">{{ formatFollowers }} {{ $t('artistCard.followers') }}</p>
     </div>
   </div>
@@ -23,6 +23,7 @@ import { ref, computed } from 'vue'
 import { getOptimalThumbnail } from '../utils/thumbnail'
 import { useRouter } from 'vue-router'
 import ImageSkeleton from './ImageSkeleton.vue'
+import TextSkeleton from './TextSkeleton.vue'
 
 const router = useRouter()
 const loading = ref(true)
@@ -90,23 +91,6 @@ const formatFollowers = computed(() => {
     text-align: left;
     box-sizing: border-box;
     min-width: 0;
-
-    .skeleton-text {
-      height: 14px;
-      background: linear-gradient(
-        90deg,
-        var(--primary-bg) 25%,
-        var(--secondary-bg) 50%,
-        var(--tertiary-bg) 75%
-      );
-      background-size: 200% 100%;
-      animation: loading 1s infinite;
-      border-radius: 20px;
-
-      &:last-child {
-        width: 70%;
-      }
-    }
 
     h3 {
       font-size: 15px;

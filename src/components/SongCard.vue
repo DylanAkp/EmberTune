@@ -16,9 +16,9 @@
       </div>
     </div>
     <div class="song-card-title">
-      <div v-if="skeleton" class="skeleton-text"></div>
+      <TextSkeleton v-if="skeleton" :width="140" :height="16" />
       <h3 v-else>{{ title }}</h3>
-      <div v-if="skeleton" class="skeleton-text"></div>
+      <TextSkeleton v-if="skeleton" :width="100" :height="16" />
       <p v-else>{{ artist }}</p>
     </div>
     <AddToPlaylistDialog v-model="showPlaylistDialog" :song="songData" />
@@ -31,6 +31,7 @@ import { usePlayerStore } from '../stores/player'
 import AddToPlaylistDialog from './AddToPlaylistDialog.vue'
 import { getOptimalThumbnail } from '../utils/thumbnail'
 import ImageSkeleton from './ImageSkeleton.vue'
+import TextSkeleton from './TextSkeleton.vue'
 
 const loading = ref(true)
 const player = usePlayerStore()
@@ -98,24 +99,6 @@ const handleClick = () => {
     width: 100%;
     text-align: center;
     box-sizing: border-box;
-
-    .skeleton-text {
-      height: 16px;
-      background: linear-gradient(
-        90deg,
-        var(--primary-bg) 25%,
-        var(--secondary-bg) 50%,
-        var(--tertiary-bg) 75%
-      );
-      background-size: 200% 100%;
-      animation: loading 1s infinite;
-      border-radius: 20px;
-
-      &:last-child {
-        width: 70%;
-        margin: 0 auto;
-      }
-    }
 
     h3 {
       font-size: 16px;

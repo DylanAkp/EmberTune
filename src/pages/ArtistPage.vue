@@ -2,10 +2,10 @@
   <div class="artist-page">
     <div v-if="loading" class="artist-container">
       <div class="skeleton-artist-card">
-        <ImageSkeleton :size="200" :border-radius="50" />
+        <ImageSkeleton :size="200" :border-radius="100" />
         <div class="artist-info">
-          <div class="skeleton-text"></div>
-          <div class="skeleton-text"></div>
+          <TextSkeleton :width="200" :height="24" />
+          <TextSkeleton :width="150" :height="24" />
         </div>
       </div>
     </div>
@@ -67,6 +67,7 @@ import { getOptimalThumbnail } from '../utils/thumbnail'
 import SongCard from 'src/components/SongCard.vue'
 import AlbumCard from 'src/components/AlbumCard.vue'
 import ImageSkeleton from '../components/ImageSkeleton.vue'
+import TextSkeleton from '../components/TextSkeleton.vue'
 
 const route = useRoute()
 const loading = ref(true)
@@ -114,24 +115,6 @@ onMounted(() => {
       display: flex;
       flex-direction: column;
       gap: 10px;
-
-      .skeleton-text {
-        height: 24px;
-        width: 200px;
-        background: linear-gradient(
-          90deg,
-          var(--primary-bg) 25%,
-          var(--secondary-bg) 50%,
-          var(--tertiary-bg) 75%
-        );
-        background-size: 200% 100%;
-        animation: loading 1s infinite;
-        border-radius: 4px;
-
-        &:last-child {
-          width: 150px;
-        }
-      }
     }
   }
 
@@ -201,15 +184,6 @@ onMounted(() => {
       flex-wrap: wrap;
       gap: 15px;
     }
-  }
-}
-
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
   }
 }
 </style>
