@@ -2,7 +2,7 @@
   <div class="artist-page">
     <div v-if="loading" class="artist-container">
       <div class="skeleton-artist-card">
-        <div class="artwork-loader"></div>
+        <ImageSkeleton :size="200" :border-radius="50" />
         <div class="artist-info">
           <div class="skeleton-text"></div>
           <div class="skeleton-text"></div>
@@ -66,6 +66,7 @@ import { useRoute } from 'vue-router'
 import { getOptimalThumbnail } from '../utils/thumbnail'
 import SongCard from 'src/components/SongCard.vue'
 import AlbumCard from 'src/components/AlbumCard.vue'
+import ImageSkeleton from '../components/ImageSkeleton.vue'
 
 const route = useRoute()
 const loading = ref(true)
@@ -108,20 +109,6 @@ onMounted(() => {
     display: flex;
     gap: 20px;
     align-items: center;
-
-    .artwork-loader {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: linear-gradient(
-        90deg,
-        var(--primary-bg) 25%,
-        var(--secondary-bg) 50%,
-        var(--tertiary-bg) 75%
-      );
-      background-size: 200% 100%;
-      animation: loading 1s infinite;
-    }
 
     .artist-info {
       display: flex;

@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import AddToPlaylistDialog from '../AddToPlaylistDialog.vue'
 import { usePlaylistStore } from '../../stores/playlist'
 import { getOptimalThumbnail } from '../../utils/thumbnail'
+import ImageSkeleton from '../ImageSkeleton.vue'
 
 const player = usePlayerStore()
 const volume = ref(player.volume * 100)
@@ -86,7 +87,7 @@ const replayModeIcon = computed(() => {
       <!-- Left section with song info -->
       <div class="song-info">
         <div class="album-art-container">
-          <div v-if="imageLoading" class="artwork-loader"></div>
+          <ImageSkeleton v-if="imageLoading" :size="60" :border-radius="15" />
           <img
             v-show="!imageLoading"
             :src="getOptimalThumbnail(player.currentTrack.thumbnails, 60)"
@@ -258,15 +259,6 @@ const replayModeIcon = computed(() => {
     width: 60px;
     height: 60px;
     flex-shrink: 0;
-
-    .artwork-loader {
-      width: 100%;
-      height: 100%;
-      border-radius: 15px;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: loading 1s infinite;
-    }
   }
 
   .album-art {
@@ -431,14 +423,5 @@ const replayModeIcon = computed(() => {
 
 .text-accent {
   color: var(--accent-color);
-}
-
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
 }
 </style>

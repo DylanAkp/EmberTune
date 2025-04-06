@@ -1,7 +1,7 @@
 <template>
   <div class="album-card no-select">
     <div class="artwork-container">
-      <div v-if="skeleton || loading" class="artwork-loader"></div>
+      <ImageSkeleton v-if="skeleton || loading" :size="140" :border-radius="8" />
       <img
         v-show="!loading && !skeleton && thumbnail.length > 0"
         :src="getOptimalThumbnail(thumbnail, 140)"
@@ -24,6 +24,7 @@
 <script setup>
 import { ref } from 'vue'
 import { getOptimalThumbnail } from '../utils/thumbnail'
+import ImageSkeleton from './ImageSkeleton.vue'
 
 const loading = ref(true)
 
@@ -114,20 +115,6 @@ defineProps({
     position: relative;
     width: 140px;
     height: 140px;
-
-    .artwork-loader {
-      width: 140px;
-      height: 140px;
-      border-radius: 5px;
-      background: linear-gradient(
-        90deg,
-        var(--primary-bg) 25%,
-        var(--secondary-bg) 50%,
-        var(--tertiary-bg) 75%
-      );
-      background-size: 200% 100%;
-      animation: loading 1s infinite;
-    }
 
     img {
       width: 140px;

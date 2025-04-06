@@ -1,7 +1,7 @@
 <template>
   <div class="artist-card no-select" @click="navigateToArtist">
     <div class="artwork-container">
-      <div v-if="skeleton || loading" class="artwork-loader"></div>
+      <ImageSkeleton v-if="skeleton || loading" :size="64" :border-radius="50" />
       <img
         v-show="!loading && !skeleton && thumbnail.length > 0"
         :src="getOptimalThumbnail(thumbnail, 64)"
@@ -22,6 +22,7 @@
 import { ref, computed } from 'vue'
 import { getOptimalThumbnail } from '../utils/thumbnail'
 import { useRouter } from 'vue-router'
+import ImageSkeleton from './ImageSkeleton.vue'
 
 const router = useRouter()
 const loading = ref(true)
@@ -134,35 +135,12 @@ const formatFollowers = computed(() => {
     width: 64px;
     height: 64px;
 
-    .artwork-loader {
-      width: 64px;
-      height: 64px;
-      border-radius: 5px;
-      background: linear-gradient(
-        90deg,
-        var(--primary-bg) 25%,
-        var(--secondary-bg) 50%,
-        var(--tertiary-bg) 75%
-      );
-      background-size: 200% 100%;
-      animation: loading 1s infinite;
-    }
-
     img {
       width: 64px;
       height: 64px;
       object-fit: cover;
       border-radius: 50px;
     }
-  }
-}
-
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
   }
 }
 </style>
