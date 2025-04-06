@@ -8,7 +8,7 @@ import { getOptimalThumbnail } from '../../utils/thumbnail'
 import ImageSkeleton from '../ImageSkeleton.vue'
 
 const player = usePlayerStore()
-const volume = ref(player.volume * 100)
+const volume = ref(50)
 const copyStatus = ref('initial')
 const showVolumeSlider = ref(false)
 const showAddToPlaylistDialog = ref(false)
@@ -30,8 +30,14 @@ const goToArtist = () => {
   router.push(`/artist/${player.currentTrack.artists[0].id}`)
 }
 
+const linearToLog = (value) => {
+  const decimal = value / 100
+  return Math.pow(10, decimal * 2 - 2)
+}
+
 const updateVolume = () => {
-  player.updateVolume(volume.value / 100)
+  const logVolume = linearToLog(volume.value)
+  player.updateVolume(logVolume)
 }
 
 const copyLink = () => {

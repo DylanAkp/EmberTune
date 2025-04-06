@@ -12,7 +12,7 @@ export const usePlayerStore = defineStore('player', {
       currentIndex: -1,
       audio: new Audio(),
       currentTime: ref(0),
-      volume: 1,
+      volume: 0.5,
       replayMode: 'disabled',
       isShuffled: false,
     }
