@@ -17,10 +17,12 @@
           class="artist-image"
         />
         <div class="artist-info">
-          <h1>{{ artist.name }}</h1>
-          <p v-if="artist.subscribers">
-            {{ formatFollowers(artist.subscribers) }} {{ $t('artistCard.followers') }}
-          </p>
+          <div class="artist-info-header">
+            <h1>{{ artist.name }}</h1>
+            <p v-if="artist.followers">
+              {{ formatFollowers(artist.followers) }} {{ $t('artistCard.followers') }}
+            </p>
+          </div>
           <p v-if="artist.description">
             {{ artist.description }}
           </p>
@@ -85,6 +87,7 @@ const fetchArtistDetails = async () => {
     artist.value = result.artist
     artist.value.albums = result.albums
     artist.value.songs = result.songs
+    console.log(artist.value)
   } catch (error) {
     console.error('Error fetching artist details:', error)
   } finally {
@@ -160,9 +163,22 @@ onMounted(() => {
       }
 
       .artist-info {
+        width: 100%;
         h1 {
           font-size: 32px;
           margin: 0 0 10px 0;
+        }
+
+        &-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          p {
+            background-color: var(--secondary-bg);
+            padding: 10px;
+            border-radius: 10px;
+          }
         }
 
         p {
