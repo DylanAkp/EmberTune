@@ -77,6 +77,11 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  showLikedSongs: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -85,7 +90,11 @@ const showCreateDialog = ref(false)
 
 const playlists = computed(() => {
   return playlistStore.playlists
-    .filter((playlist) => !playlist.isDefault)
+    .filter((playlist) => {
+      if (playlist.id === 'history') return false
+      if (playlist.id === 'liked-songs') return props.showLikedSongs
+      return !playlist.isDefault
+    })
     .map((playlist) => ({
       ...playlist,
       hasSong: playlist.songs.some((s) => s.id === props.song.id),

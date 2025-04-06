@@ -21,7 +21,7 @@
       <TextSkeleton v-if="skeleton" :width="100" :height="16" />
       <p v-else>{{ artist }}</p>
     </div>
-    <AddToPlaylistDialog v-model="showPlaylistDialog" :song="songData" />
+    <AddToPlaylistDialog v-model="showPlaylistDialog" :song="songData" :show-liked-songs="true" />
   </div>
 </template>
 
