@@ -25,6 +25,10 @@ const handleSeek = () => {
   player.seekTo(player.currentTime)
 }
 
+const goToArtist = () => {
+  router.push(`/artist/${player.currentTrack.artists[0].id}`)
+}
+
 const updateVolume = () => {
   player.updateVolume(volume.value / 100)
 }
@@ -94,7 +98,7 @@ const replayModeIcon = computed(() => {
         </div>
         <div class="track-details">
           <div class="title">{{ player.currentTrack.title }}</div>
-          <div class="artist">{{ player.currentTrack.artist }}</div>
+          <div class="artist" @click="goToArtist">{{ player.currentTrack.artist }}</div>
         </div>
       </div>
 
@@ -293,6 +297,7 @@ const replayModeIcon = computed(() => {
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
+      cursor: pointer;
     }
   }
 }
