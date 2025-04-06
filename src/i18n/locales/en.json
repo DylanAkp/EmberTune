@@ -14,7 +14,11 @@
     "cancel": "Cancel",
     "create": "Create",
     "close": "Close",
-    "later": "Maybe Later"
+    "later": "Maybe Later",
+    "nextSong": {
+      "repeating": "Repeating:",
+      "nextUp": "Next up:"
+    }
   },
   "artist": {
     "albums": "Albums",

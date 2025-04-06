@@ -2,6 +2,7 @@
 import StyledButton from '../StyledButton.vue'
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
+import NextSong from './NextSong.vue'
 
 const { t } = useI18n()
 
@@ -26,6 +27,7 @@ const routes = computed(() => [
         @click="$router.push(route.path)"
       />
     </div>
+    <NextSong />
   </div>
 </template>
 
