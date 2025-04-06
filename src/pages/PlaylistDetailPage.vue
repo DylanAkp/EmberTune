@@ -32,24 +32,21 @@
           <div class="playlist-stats">{{ playlist.songs.length }} {{ t('common.songs') }}</div>
         </div>
       </div>
-      <div class="actions">
-        <q-btn flat round color="orange" icon="mdi-play" @click="playPlaylist" />
-        <q-btn
-          v-if="!playlist.isDefault"
-          flat
-          round
-          color="negative"
-          icon="mdi-delete"
-          @click="confirmDelete = true"
-        />
-        <q-btn
-          v-if="playlist.id === 'history'"
-          flat
-          round
-          color="grey"
-          icon="mdi-delete-sweep"
-          @click="clearHistory"
-        />
+      <div class="header-actions">
+        <StyledButton icon="mdi-play" variant="accent" @click="playPlaylist" />
+        <div v-if="!playlist.isDefault || playlist.id === 'history'" class="menu-container">
+          <q-btn flat round icon="mdi-dots-vertical" size="md" @click="showMenu = !showMenu" />
+          <div v-if="showMenu" class="menu-dropdown">
+            <div v-if="playlist.id === 'history'" class="menu-item" @click="clearHistory">
+              <q-icon name="mdi-delete-sweep" color="negative" />
+              <span>{{ t('playlists.clearHistory') }}</span>
+            </div>
+            <div v-if="!playlist.isDefault" class="menu-item" @click="confirmDelete = true">
+              <q-icon name="mdi-delete" color="negative" />
+              <span>{{ t('common.delete') }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -83,7 +80,7 @@
             :class="{ 'is-dragging': draggedIndex === index }"
           >
             <div class="index">{{ index + 1 }}</div>
-            <div class="title">
+            <div class="song-title">
               <img
                 v-if="song.thumbnails && song.thumbnails.length > 0"
                 :src="getOptimalThumbnail(song.thumbnails, 40)"
@@ -93,7 +90,7 @@
               <span class="text">{{ song.title }}</span>
             </div>
             <div class="artist">{{ formatArtists(song) }}</div>
-            <div class="actions">
+            <div class="song-actions">
               <q-btn flat round icon="mdi-play" size="sm" @click="playSong(song)" />
               <q-btn
                 v-if="!playlist.isDefault"
@@ -125,6 +122,7 @@ import { usePlaylistStore } from '../stores/playlist'
 import { usePlayerStore } from '../stores/player'
 import { useI18n } from 'vue-i18n'
 import DeletePlaylistDialog from '../components/DeletePlaylistDialog.vue'
+import StyledButton from '../components/StyledButton.vue'
 import { getOptimalThumbnail } from '../utils/thumbnail'
 
 const route = useRoute()
@@ -134,6 +132,7 @@ const playerStore = usePlayerStore()
 const nameElement = ref(null)
 const confirmDelete = ref(false)
 const draggedIndex = ref(-1)
+const showMenu = ref(false)
 const { t } = useI18n()
 
 const playlist = computed(() => {
@@ -144,6 +143,13 @@ onMounted(() => {
   if (!playlist.value) {
     router.push('/playlists')
   }
+
+  document.addEventListener('click', (e) => {
+    const menuContainer = document.querySelector('.menu-container')
+    if (menuContainer && !menuContainer.contains(e.target)) {
+      showMenu.value = false
+    }
+  })
 })
 
 function updateName(event) {
@@ -278,6 +284,61 @@ function clearHistory() {
         }
       }
     }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .menu-container {
+        position: relative;
+
+        .q-btn {
+          color: var(--text-color);
+          opacity: 0.7;
+          transition: opacity 0.2s ease;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        .menu-dropdown {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          margin-top: 8px;
+          background: var(--secondary-bg);
+          border: 1px solid var(--border-color);
+          border-radius: 6px;
+          min-width: 160px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+
+          .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+              background: var(--tertiary-bg);
+            }
+
+            .q-icon {
+              font-size: 20px;
+            }
+
+            span {
+              color: var(--text-color);
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
   }
 
   .content {
@@ -331,7 +392,6 @@ function clearHistory() {
           &.is-dragging {
             opacity: 0.5;
             background: var(--tertiary-bg);
-            opacity: 0.5;
           }
 
           .index {
@@ -339,7 +399,7 @@ function clearHistory() {
             opacity: 0.7;
           }
 
-          .title {
+          .song-title {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -368,14 +428,14 @@ function clearHistory() {
             text-overflow: ellipsis;
           }
 
-          .actions {
+          .song-actions {
             display: flex;
             gap: 5px;
             opacity: 0;
             transition: opacity 0.2s ease;
           }
 
-          &:hover .actions {
+          &:hover .song-actions {
             opacity: 1;
           }
         }
