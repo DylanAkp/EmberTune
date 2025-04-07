@@ -7,7 +7,7 @@
 EmberTune is a desktop music player with a focus on design and functionality, EmberTune aims to be a solid alternative to your streaming services without any ads.
 
 <div align="center">
-    <a href="https://github.com/DylanAkp/EmberTune/releases/latest">
+    <a href="https://embertune.dylanakp.dev/">
         <img src="res/download.png" alt="Download Button" width="200">
     </a>
 </div>
