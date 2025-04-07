@@ -55,7 +55,7 @@ function closeDialog() {
 }
 
 function openDownloadPage() {
-  window.shell.openExternal('https://github.com/DylanAkp/EmberTune/releases/latest')
+  window.shell.openExternal('https://embertune.dylanakp.dev/')
   closeDialog()
 }
 </script>
