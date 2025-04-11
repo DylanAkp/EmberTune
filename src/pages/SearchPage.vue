@@ -25,7 +25,9 @@
         </div>
       </template>
       <template v-else>
-        <div v-if="searchStore.results.artists?.length" class="section">
+        <!-- TODO: This is not ready yet, we need to wait until youtube module is ready to handle this fully -->
+
+        <!-- <div v-if="searchStore.results.artists?.length" class="section">
           <h3>
             {{ $t('search.artists') }}
           </h3>
@@ -54,7 +56,7 @@
               :id="result.id"
             />
           </div>
-        </div>
+        </div> -->
         <div v-if="searchStore.results.songs?.length" class="section">
           <h3>
             {{ $t('search.songs') }}
@@ -80,8 +82,8 @@ import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSearchStore } from 'src/stores/search'
 import SongCard from 'src/components/SongCard.vue'
-import ArtistCard from 'src/components/ArtistCard.vue'
-import AlbumCard from 'src/components/AlbumCard.vue'
+// import ArtistCard from 'src/components/ArtistCard.vue'
+// import AlbumCard from 'src/components/AlbumCard.vue'
 import { useSettingsStore } from 'src/stores/settings'
 
 const route = useRoute()

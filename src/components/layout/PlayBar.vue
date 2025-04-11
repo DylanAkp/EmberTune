@@ -27,7 +27,8 @@ const handleSeek = () => {
 }
 
 const goToArtist = () => {
-  router.push(`/artist/${player.currentTrack.artists[0].id}`)
+  // router.push(`/artist/${player.currentTrack.artists[0].id}`)
+  console.log('Not ready yet !')
 }
 
 const linearToLog = (value) => {
@@ -295,7 +296,6 @@ const replayModeIcon = computed(() => {
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
-      cursor: pointer;
     }
   }
 }
