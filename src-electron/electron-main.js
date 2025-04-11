@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell, globalShortcut } from 'electron'
 import path from 'node:path'
 import os from 'node:os'
 import './ipc/youtube'
@@ -14,6 +14,8 @@ const platform = process.platform || os.platform()
 const currentDir = fileURLToPath(new URL('.', import.meta.url))
 
 let mainWindow
+let overlayWindow
+let overlayShortcutEnabled = false
 
 async function createWindow() {
   mainWindow = new BrowserWindow({
@@ -56,6 +58,39 @@ async function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+}
+
+async function createOverlayWindow() {
+  overlayWindow = new BrowserWindow({
+    width: 400,
+    height: 70,
+    transparent: true,
+    frame: false,
+    resizable: false,
+    alwaysOnTop: true,
+    roundedCorners: false,
+    x: 10,
+    y: 10,
+    webPreferences: {
+      contextIsolation: true,
+      backgroundThrottling: false,
+      preload: path.resolve(
+        currentDir,
+        path.join(
+          process.env.QUASAR_ELECTRON_PRELOAD_FOLDER,
+          'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION,
+        ),
+      ),
+    },
+  })
+
+  if (process.env.DEV) {
+    await overlayWindow.loadURL(`${process.env.APP_URL}/#/overlay`)
+  } else {
+    await overlayWindow.loadFile('index.html', { hash: 'overlay' })
+  }
+
+  overlayWindow.hide()
 }
 
 // Register the embertune:// protocol
@@ -119,10 +154,12 @@ function handleDeepLink(url) {
   }
 }
 
-// Check for deeplink on startup
 app.whenReady().then(async () => {
   await createWindow()
+  await createOverlayWindow()
   await initializeDiscordRPC()
+
+  registerOverlayShortcut()
 
   const deepLinkArg = process.argv.find(
     (arg) => arg.includes('embertune://') || arg.includes('embertune:/'),
@@ -134,6 +171,22 @@ app.whenReady().then(async () => {
     }, 500)
   }
 })
+
+function registerOverlayShortcut() {
+  globalShortcut.unregister('Alt+E')
+
+  if (overlayShortcutEnabled) {
+    globalShortcut.register('Alt+E', () => {
+      if (overlayWindow) {
+        if (overlayWindow.isVisible()) {
+          overlayWindow.hide()
+        } else {
+          overlayWindow.show()
+        }
+      }
+    })
+  }
+}
 
 // Set up IPC handlers for Discord Rich Presence
 ipcMain.handle('discord:update-presence', async (event, activity) => {
@@ -166,7 +219,12 @@ ipcMain.handle('window:restore', () => {
 })
 
 ipcMain.handle('window:close', () => {
-  if (mainWindow) mainWindow.close()
+  if (mainWindow) {
+    if (overlayWindow) {
+      overlayWindow.close()
+    }
+    mainWindow.close()
+  }
   return true
 })
 
@@ -174,7 +232,20 @@ ipcMain.handle('window:isMaximized', () => {
   return mainWindow ? mainWindow.isMaximized() : false
 })
 
+ipcMain.handle('overlay:update-song', async (event, songInfo) => {
+  if (overlayWindow && overlayWindow.isVisible()) {
+    overlayWindow.webContents.send('song:update', songInfo)
+  }
+})
+
+ipcMain.handle('overlay:set-shortcut-enabled', async (event, enabled) => {
+  overlayShortcutEnabled = enabled
+  registerOverlayShortcut()
+  return true
+})
+
 app.on('window-all-closed', () => {
+  globalShortcut.unregisterAll()
   if (platform !== 'darwin') {
     app.quit()
   }

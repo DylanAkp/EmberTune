@@ -135,6 +135,9 @@ const Settings = {
     discordRich: {
       type: 'boolean',
     },
+    overlayShortcut: {
+      type: 'boolean',
+    },
     version: {
       type: 'button',
       buttonText: 'settings.checkUpdates',
@@ -143,11 +146,20 @@ const Settings = {
   },
 }
 
-// Initialize language from settings on load
 watch(
   () => settingsStore.language,
   (newValue) => {
     i18n.global.locale.value = newValue
+  },
+  { immediate: true },
+)
+
+watch(
+  () => settingsStore.overlayShortcut,
+  (newValue) => {
+    if (window.overlay) {
+      window.overlay.setShortcutEnabled(newValue)
+    }
   },
   { immediate: true },
 )

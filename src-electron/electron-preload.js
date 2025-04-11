@@ -48,6 +48,29 @@ contextBridge.exposeInMainWorld('shell', {
   openExternal: (url) => ipcRenderer.invoke('shell:open-external', url),
 })
 
+contextBridge.exposeInMainWorld('overlay', {
+  updateSong: (songInfo) => ipcRenderer.invoke('overlay:update-song', songInfo),
+  onSongUpdate: (callback) => {
+    ipcRenderer.removeAllListeners('song:update')
+    ipcRenderer.on('song:update', (_, songInfo) => callback(songInfo))
+  },
+  removeSongUpdateListener: (callback) => {
+    ipcRenderer.removeListener('song:update', callback)
+  },
+  setShortcutEnabled: (enabled) => ipcRenderer.invoke('overlay:set-shortcut-enabled', enabled),
+})
+
+contextBridge.exposeInMainWorld('electron', {
+  ipcRenderer: {
+    on: (channel, callback) => {
+      ipcRenderer.on(channel, (event, ...args) => callback(event, ...args))
+    },
+    removeListener: (channel, callback) => {
+      ipcRenderer.removeListener(channel, callback)
+    },
+  },
+})
+
 // Expose deeplink functionality
 contextBridge.exposeInMainWorld('deeplink', {
   onPlayRequest: (callback) => {

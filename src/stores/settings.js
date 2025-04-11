@@ -9,6 +9,7 @@ export const useSettingsStore = defineStore(
     const language = ref('en')
     const darkMode = ref(true)
     const contentLanguage = ref('ZZ')
+    const overlayShortcut = ref(false)
 
     function toggleDiscordRich() {
       discordRich.value = !discordRich.value
@@ -36,6 +37,10 @@ export const useSettingsStore = defineStore(
       applyTheme()
     }
 
+    function toggleOverlayShortcut() {
+      overlayShortcut.value = !overlayShortcut.value
+    }
+
     function applyTheme() {
       if (darkMode.value) {
         document.body.classList.remove('light-mode')
@@ -57,6 +62,8 @@ export const useSettingsStore = defineStore(
       applyTheme,
       contentLanguage,
       setContentLanguage,
+      overlayShortcut,
+      toggleOverlayShortcut,
     }
   },
   {

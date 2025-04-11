@@ -32,8 +32,10 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('src/pages/LyricsPage.vue') }],
   },
-  // Always leave this as last one,
-  // but you can also remove it
+  {
+    path: '/overlay',
+    component: () => import('src/pages/Overlay.vue'),
+  },
   {
     path: '/:catchAll(.*)*',
     component: () => import('layouts/MainLayout.vue'),

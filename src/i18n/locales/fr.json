@@ -59,6 +59,10 @@
         "label": "Activer Discord Rich Presence",
         "description": "Affiche la chanson en cours de lecture dans votre statut Discord."
       },
+      "overlayShortcut": {
+        "label": "Activer le Raccourci de l'Overlay",
+        "description": "Activer ou désactiver le raccourci Alt+E pour afficher/masquer la fenêtre d'overlay."
+      },
       "version": {
         "label": "EmberTune",
         "description": "Vérifier les mises à jour d'EmberTune"

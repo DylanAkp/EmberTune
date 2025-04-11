@@ -59,6 +59,10 @@
         "label": "Enable Discord Rich Presence",
         "description": "This will show the current song playing in your Discord status."
       },
+      "overlayShortcut": {
+        "label": "Enable Overlay Shortcut",
+        "description": "Enable or disable the Alt+E shortcut to toggle the overlay window."
+      },
       "version": {
         "label": "EmberTune",
         "description": "Check for a new EmberTune update"

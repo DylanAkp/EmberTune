@@ -28,6 +28,15 @@ export const usePlayerStore = defineStore('player', {
   },
 
   actions: {
+    updateOverlay() {
+      if (this.currentTrack) {
+        window.overlay.updateSong({
+          title: this.currentTrack.title,
+          artist: this.currentTrack.artist,
+        })
+      }
+    },
+
     metadata() {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: this.currentTrack.title || 'Unknown',
@@ -55,6 +64,7 @@ export const usePlayerStore = defineStore('player', {
     },
     updateDiscordPresence() {
       this.metadata()
+      this.updateOverlay()
       const settings = useSettingsStore()
       if (!settings.discordRich || !this.currentTrack) return
 
@@ -114,6 +124,7 @@ export const usePlayerStore = defineStore('player', {
         }
 
         this.currentTrack = track
+        this.updateOverlay()
 
         const playlistStore = usePlaylistStore()
         playlistStore.addSongToHistory(track)
@@ -188,6 +199,7 @@ export const usePlayerStore = defineStore('player', {
         this.audio.pause()
       }
       this.isPlaying = false
+      this.updateOverlay()
       await this.updateDiscordPresence()
     },
 
