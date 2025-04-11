@@ -26,11 +26,6 @@ const handleSeek = () => {
   player.seekTo(player.currentTime)
 }
 
-const goToArtist = () => {
-  // router.push(`/artist/${player.currentTrack.artists[0].id}`)
-  console.log('Not ready yet !')
-}
-
 const linearToLog = (value) => {
   const decimal = value / 100
   return Math.pow(10, decimal * 2 - 2)
@@ -106,7 +101,7 @@ const replayModeIcon = computed(() => {
         </div>
         <div class="track-details">
           <div class="title">{{ player.currentTrack.title }}</div>
-          <div class="artist" @click="goToArtist">{{ player.currentTrack.artist }}</div>
+          <div class="artist">{{ player.currentTrack.artist }}</div>
         </div>
       </div>
 
