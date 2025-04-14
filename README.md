@@ -30,7 +30,7 @@ Make sure to check [Quasar Documentation](https://quasar.dev/start/quick-start/)
 Let Quasar launch the development app
 
 ```bash
-yarn quasar dev -m electron
+yarn dev
 ```
 
 # 🤝 Contributing
