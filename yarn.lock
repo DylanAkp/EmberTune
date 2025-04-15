@@ -5388,10 +5388,10 @@ yoctocolors-cjs@^2.1.2:
   resolved "https://registry.yarnpkg.com/yoctocolors-cjs/-/yoctocolors-cjs-2.1.2.tgz#f4b905a840a37506813a7acaa28febe97767a242"
   integrity sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==
 
-ytmusic_api_unofficial@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/ytmusic_api_unofficial/-/ytmusic_api_unofficial-2.1.0.tgz#cfeb7217cc4f32328337debb6d1b423ea93fb1dd"
-  integrity sha512-bg3/GclK1lLemwKCkUgsB1hzeRZFEPskyUrOEgF5tOohSmhSKLYzfxEdwkR9b7fJDJ1ZIOLRav+Eb6c9k9liPw==
+ytmusic_api_unofficial@2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/ytmusic_api_unofficial/-/ytmusic_api_unofficial-2.1.5.tgz#b70097096bfb9a9ccf9a01880c630f075bbd0f94"
+  integrity sha512-5E2igMfEdhzFQTqR6T4Ixy1XQybwNuMUTrYzeZwfUsqyNv6vMpH9dOP/ibGf+Ldt9xj0+2x+hoPpLFpdrdeCxQ==
 
 zip-stream@^6.0.1:
   version "6.0.1"
