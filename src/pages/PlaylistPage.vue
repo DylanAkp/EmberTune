@@ -125,6 +125,9 @@ function openPlaylist(playlist) {
         font-weight: 500;
         font-size: 1.1em;
         margin-bottom: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .playlist-details {
