@@ -21,14 +21,9 @@
           class="artist-image"
         />
         <div class="artist-info">
-          <div class="artist-info-header">
-            <h1>{{ artist.name }}</h1>
-            <p v-if="artist.followers">
-              {{ artist.followers.followersText }} {{ $t('artistCard.followers') }}
-            </p>
-          </div>
-          <p v-if="artist.description">
-            {{ artist.description }}
+          <h1>{{ artist.name }}</h1>
+          <p v-if="artist.followers">
+            {{ artist.followers.followersText }} {{ $t('artistCard.followers') }}
           </p>
         </div>
       </div>
@@ -155,22 +150,11 @@ onMounted(() => {
           margin: 0 0 10px 0;
         }
 
-        &-header {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          p {
-            background-color: var(--secondary-bg);
-            padding: 10px;
-            border-radius: 10px;
-          }
-        }
-
         p {
-          font-size: 16px;
-          margin: 0;
-          color: var(--text-secondary);
+          background-color: var(--secondary-bg);
+          width: fit-content;
+          padding: 10px;
+          border-radius: 10px;
         }
       }
     }
