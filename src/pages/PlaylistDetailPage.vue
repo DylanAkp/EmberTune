@@ -227,12 +227,16 @@ function clearHistory() {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 40px;
+    gap: 20px;
 
     .playlist-info {
       display: flex;
       gap: 20px;
+      flex: 1;
+      min-width: 0;
 
       .thumbnail {
+        flex-shrink: 0;
         width: 200px;
         height: 200px;
         background: var(--tertiary-bg);
@@ -259,6 +263,7 @@ function clearHistory() {
         flex-direction: column;
         justify-content: flex-end;
         padding-bottom: 10px;
+        min-width: 0;
 
         .playlist-type {
           font-size: 0.9em;
@@ -274,6 +279,10 @@ function clearHistory() {
           font-weight: 600;
           margin-bottom: 10px;
           outline: none;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
 
           &[contenteditable='true']:hover {
             background: var(--tertiary-bg);
