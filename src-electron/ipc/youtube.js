@@ -25,7 +25,8 @@ ipcMain.handle('getArtistDetails', async (event, id) => {
     const artist = await get(id)
     artistdetails.artist = artist
     artistdetails.albums = await artist.getAlbums()
-    artistdetails.songs = await artist.getSongs()
+    const artistSongsObject = await artist.getSongs()
+    artistdetails.songs = artistSongsObject.musics
     return JSON.parse(JSON.stringify(artistdetails))
   } catch (error) {
     console.error('Get Artist Details Error:', error)
