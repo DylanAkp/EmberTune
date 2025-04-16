@@ -182,12 +182,16 @@ function formatDuration(seconds) {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 40px;
+    gap: 20px;
 
     .album-info {
       display: flex;
       gap: 20px;
+      flex: 1;
+      min-width: 0;
 
       .thumbnail {
+        flex-shrink: 0;
         width: 200px;
         height: 200px;
         background: var(--tertiary-bg);
@@ -214,6 +218,7 @@ function formatDuration(seconds) {
         flex-direction: column;
         justify-content: flex-end;
         padding-bottom: 10px;
+        min-width: 0;
 
         .album-type {
           font-size: 0.9em;
@@ -228,6 +233,10 @@ function formatDuration(seconds) {
           font-size: 3em;
           font-weight: 600;
           margin-bottom: 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
         }
 
         .album-artist {
