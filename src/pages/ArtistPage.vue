@@ -20,7 +20,7 @@
           <div class="artist-info-header">
             <h1>{{ artist.name }}</h1>
             <p v-if="artist.followers">
-              {{ formatFollowers(artist.followers) }} {{ $t('artistCard.followers') }}
+              {{ artist.followers.followersText }} {{ $t('artistCard.followers') }}
             </p>
           </div>
           <p v-if="artist.description">
@@ -73,15 +73,6 @@ const route = useRoute()
 const loading = ref(true)
 const artist = ref(null)
 
-const formatFollowers = (followers) => {
-  if (followers >= 1000000) {
-    return `${(followers / 1000000).toFixed(1)}M`
-  } else if (followers >= 1000) {
-    return `${(followers / 1000).toFixed(1)}K`
-  }
-  return `${followers}`
-}
-
 const fetchArtistDetails = async () => {
   try {
     loading.value = true
@@ -89,7 +80,6 @@ const fetchArtistDetails = async () => {
     artist.value = result.artist
     artist.value.albums = result.albums
     artist.value.songs = result.songs
-    console.log(artist.value)
   } catch (error) {
     console.error('Error fetching artist details:', error)
   } finally {
