@@ -8,6 +8,10 @@
           <TextSkeleton :width="150" :height="24" />
         </div>
       </div>
+      <div class="loading-message">{{ $t('artist.loading') }}</div>
+    </div>
+    <div v-else-if="error" class="error-message">
+      {{ $t('artist.error') }}
     </div>
     <div v-else-if="artist" class="artist-container">
       <div class="artist-header">
@@ -26,6 +30,9 @@
           <p v-if="artist.description">
             {{ artist.description }}
           </p>
+          <p v-else class="no-description">
+            {{ $t('artist.noDescription') }}
+          </p>
         </div>
       </div>
 
@@ -34,13 +41,17 @@
         <div class="cards-row">
           <AlbumCard
             v-for="album in artist.albums"
-            :key="album.id"
-            :title="album.name"
-            :thumbnail="album.thumbnails"
-            :artist="album.artists[0].name"
-            :id="album.id"
+            :key="album?.id"
+            :title="album?.name || ''"
+            :thumbnail="album?.thumbnails || []"
+            :artist="album?.artists?.[0]?.name || ''"
+            :id="album?.id || ''"
           />
         </div>
+      </div>
+      <div v-else class="section albums-section">
+        <h3>{{ $t('artist.albums') }}</h3>
+        <div class="no-content">{{ $t('artist.noAlbums') }}</div>
       </div>
 
       <div v-if="artist.songs?.length" class="section">
@@ -48,13 +59,17 @@
         <div class="cards-row">
           <SongCard
             v-for="song in artist.songs"
-            :key="song.id"
-            :title="song.title"
-            :thumbnail="song.thumbnails"
-            :artist="song.artists[0].name"
-            :id="song.id"
+            :key="song?.id"
+            :title="song?.title || ''"
+            :thumbnail="song?.thumbnails || []"
+            :artist="song?.artists?.[0]?.name || ''"
+            :id="song?.id || ''"
           />
         </div>
+      </div>
+      <div v-else class="section">
+        <h3>{{ $t('artist.songs') }}</h3>
+        <div class="no-content">{{ $t('artist.noSongs') }}</div>
       </div>
     </div>
   </div>
@@ -95,6 +110,20 @@ onMounted(() => {
 <style lang="scss" scoped>
 .artist-page {
   padding: 20px;
+
+  .loading-message,
+  .error-message,
+  .no-content {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-color);
+    opacity: 0.7;
+  }
+
+  .no-description {
+    font-style: italic;
+    opacity: 0.7;
+  }
 
   .skeleton-artist-card {
     display: flex;
