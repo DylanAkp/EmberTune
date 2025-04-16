@@ -1,5 +1,5 @@
 <template>
-  <div class="album-card no-select">
+  <div class="album-card no-select" @click="navigateToAlbum">
     <div class="artwork-container">
       <ImageSkeleton v-if="skeleton || loading" :size="140" :border-radius="8" />
       <img
@@ -23,13 +23,15 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { getOptimalThumbnail } from '../utils/thumbnail'
 import ImageSkeleton from './ImageSkeleton.vue'
 import TextSkeleton from './TextSkeleton.vue'
 
 const loading = ref(true)
+const router = useRouter()
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     required: true,
@@ -51,6 +53,12 @@ defineProps({
     default: false,
   },
 })
+
+function navigateToAlbum() {
+  if (!props.skeleton) {
+    router.push(`/album/${props.id}`)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -66,6 +74,7 @@ defineProps({
   padding: 10px;
   box-sizing: border-box;
   position: relative;
+  cursor: pointer;
 
   .album-card-title {
     display: flex;
