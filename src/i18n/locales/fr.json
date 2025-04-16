@@ -18,11 +18,22 @@
     "nextSong": {
       "repeating": "En boucle :",
       "nextUp": "Prochain titre :"
-    }
+    },
+    "addToPlaylist": "Ajouter à la playlist"
   },
   "artist": {
     "albums": "Albums",
-    "songs": "Titres"
+    "songs": "Titres",
+    "loading": "Chargement de l'artiste...",
+    "error": "Échec du chargement des détails de l'artiste",
+    "noDescription": "Aucune description disponible",
+    "noAlbums": "Aucun album disponible",
+    "noSongs": "Aucun titre disponible"
+  },
+  "albums": {
+    "album": "Album",
+    "empty": "Aucun titre dans cet album",
+    "emptySuggestion": "Essayez de rechercher un autre album"
   },
   "sidebar": {
     "home": "Accueil",

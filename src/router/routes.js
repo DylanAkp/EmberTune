@@ -10,6 +10,11 @@ const routes = [
     children: [{ path: '', component: () => import('src/pages/ArtistPage.vue') }],
   },
   {
+    path: '/album/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('src/pages/AlbumPage.vue') }],
+  },
+  {
     path: '/playlists',
     component: () => import('layouts/MainLayout.vue'),
     children: [

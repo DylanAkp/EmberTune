@@ -18,11 +18,22 @@
     "nextSong": {
       "repeating": "Repeating:",
       "nextUp": "Next up:"
-    }
+    },
+    "addToPlaylist": "Add to Playlist"
   },
   "artist": {
     "albums": "Albums",
-    "songs": "Songs"
+    "songs": "Songs",
+    "loading": "Loading artist...",
+    "error": "Failed to load artist details",
+    "noDescription": "No description available",
+    "noAlbums": "No albums available",
+    "noSongs": "No songs available"
+  },
+  "albums": {
+    "album": "Album",
+    "empty": "No songs in this album",
+    "emptySuggestion": "Try searching for another album"
   },
   "sidebar": {
     "home": "Home",
