@@ -12,14 +12,12 @@
     <div class="artist-card-title">
       <TextSkeleton v-if="skeleton" :width="180" :height="14" />
       <h3 v-else>{{ artist }}</h3>
-      <TextSkeleton v-if="skeleton" :width="140" :height="14" />
-      <p v-else-if="followers">{{ formatFollowers }} {{ $t('artistCard.followers') }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { getOptimalThumbnail } from '../utils/thumbnail'
 import { useRouter } from 'vue-router'
 import ImageSkeleton from './ImageSkeleton.vue'
@@ -37,10 +35,6 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  followers: {
-    type: Number,
-    required: true,
-  },
   skeleton: {
     type: Boolean,
     default: false,
@@ -56,15 +50,6 @@ const navigateToArtist = () => {
     router.push(`/artist/${props.id}`)
   }
 }
-
-const formatFollowers = computed(() => {
-  if (props.followers >= 1000000) {
-    return `${(props.followers / 1000000).toFixed(1)}M`
-  } else if (props.followers >= 1000) {
-    return `${(props.followers / 1000).toFixed(1)}K`
-  }
-  return `${props.followers}`
-})
 </script>
 
 <style lang="scss" scoped>
@@ -101,16 +86,6 @@ const formatFollowers = computed(() => {
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 180px;
-    }
-
-    p {
-      font-size: 13px;
-      margin: 0;
-      line-height: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 140px;
     }
   }
 

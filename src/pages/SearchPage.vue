@@ -36,7 +36,6 @@
               :id="result.id"
               :artist="result.name"
               :thumbnail="result.thumbnails"
-              :followers="result.followers"
             />
           </div>
         </div>
