@@ -27,7 +27,7 @@
     "vue": "^3.4.18",
     "vue-i18n": "^9.14.4",
     "vue-router": "^4.0.0",
-    "ytmusic_api_unofficial": "2.1.5"
+    "ytmusic_api_unofficial": "^2.1.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
@@ -48,5 +48,6 @@
     "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
