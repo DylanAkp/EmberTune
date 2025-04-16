@@ -34,6 +34,17 @@ ipcMain.handle('getArtistDetails', async (event, id) => {
   }
 })
 
+ipcMain.handle('getAlbumSongs', async (event, id) => {
+  try {
+    const album = await get(id)
+    const albumsSongs = await album.getSongs()
+    return JSON.parse(JSON.stringify(albumsSongs))
+  } catch (error) {
+    console.error('Get Album Songs Error:', error)
+    throw error
+  }
+})
+
 ipcMain.handle('search', async (event, query, country) => {
   const results = {
     songs: [],
