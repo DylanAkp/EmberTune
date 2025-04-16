@@ -30,9 +30,6 @@
           <p v-if="artist.description">
             {{ artist.description }}
           </p>
-          <p v-else class="no-description">
-            {{ $t('artist.noDescription') }}
-          </p>
         </div>
       </div>
 
