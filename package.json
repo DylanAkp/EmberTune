@@ -16,6 +16,7 @@
     "build:electron": "quasar build -m electron --publish never"
   },
   "dependencies": {
+    "@distube/ytdl-core": "^4.16.10",
     "@quasar/extras": "^1.16.4",
     "axios": "^1.8.4",
     "discord-rpc": "^4.0.1",
