@@ -98,30 +98,24 @@ ipcMain.handle('search', async (event, query, country) => {
 
 ipcMain.handle('download', async (event, id) => {
   try {
-    try {
-      const song = await get(id)
-      return JSON.parse(JSON.stringify(await song.download('webm')))
-    } catch (primaryError) {
-      console.warn(primaryError)
-      const videoUrl = `https://music.youtube.com/watch?v=${id}`
-      const info = await ytdl.getInfo(videoUrl, {
-        requestOptions: {
-          headers: {
-            'User-Agent':
-              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          },
+    const videoUrl = `https://music.youtube.com/watch?v=${id}`
+    const info = await ytdl.getInfo(videoUrl, {
+      requestOptions: {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         },
-      })
-      const format = ytdl.chooseFormat(info.formats, {
-        quality: 'highestaudio',
-        filter: 'audioonly',
-      })
-      return {
-        urlDecoded: format.url,
-        mimeType: format.mimeType,
-        bitrate: format.bitrate,
-        contentLength: format.contentLength,
-      }
+      },
+    })
+    const format = ytdl.chooseFormat(info.formats, {
+      quality: 'highestaudio',
+      filter: 'audioonly',
+    })
+    return {
+      urlDecoded: format.url,
+      mimeType: format.mimeType,
+      bitrate: format.bitrate,
+      contentLength: format.contentLength,
     }
   } catch (error) {
     console.error('Download Error:', error)
