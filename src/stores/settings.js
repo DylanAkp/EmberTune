@@ -53,10 +53,12 @@ export const useSettingsStore = defineStore(
       } else {
         document.body.classList.add('light-mode')
       }
+      applyColorAccent()
     }
 
     function applyColorAccent() {
       const root = document.documentElement
+      const body = document.body
       let accentColor = '#eb8400'
 
       switch (colorAccent.value) {
@@ -76,6 +78,7 @@ export const useSettingsStore = defineStore(
       }
 
       root.style.setProperty('--accent-color', accentColor)
+      body.style.setProperty('--accent-color', accentColor)
     }
 
     return {
