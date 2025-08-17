@@ -1,6 +1,10 @@
 <template>
   <div class="song-card no-select">
-    <div class="artwork-container" @click="handleClick">
+    <div
+      class="artwork-container"
+      :class="{ playing: !skeleton && player.currentTrack?.id === id && player.isPlaying }"
+      @click="handleClick"
+    >
       <ImageSkeleton v-if="skeleton || loading" :size="140" :border-radius="8" />
       <img
         v-show="!loading && !skeleton && thumbnail.length > 0"
@@ -14,8 +18,22 @@
       >
         <ImageSkeleton :size="140" :border-radius="8" />
       </div>
+      <!-- Playing state overlay -->
+      <div
+        v-if="!skeleton && player.currentTrack?.id === id && player.isPlaying"
+        class="playing-overlay"
+      >
+        <div class="playing-indicator">
+          <div class="bar bar1"></div>
+          <div class="bar bar2"></div>
+          <div class="bar bar3"></div>
+        </div>
+      </div>
       <div v-if="!skeleton" class="play-overlay">
-        <q-icon name="mdi-play" size="48px" />
+        <q-icon
+          :name="player.currentTrack?.id === id && player.isPlaying ? 'mdi-pause' : 'mdi-play'"
+          size="48px"
+        />
       </div>
       <div v-if="!skeleton" class="add-to-playlist" @click.stop="showPlaylistDialog = true">
         <q-icon name="mdi-playlist-plus" size="20px" />
@@ -79,7 +97,11 @@ const handlePlay = async () => {
 
 const handleClick = () => {
   if (!props.skeleton) {
-    handlePlay()
+    if (player.currentTrack?.id === props.id) {
+      player.togglePlayPause()
+    } else {
+      handlePlay()
+    }
   }
 }
 </script>
@@ -140,6 +162,10 @@ const handleClick = () => {
         opacity: 1;
       }
 
+      .playing-overlay {
+        opacity: 0;
+      }
+
       img {
         filter: brightness(0.7);
       }
@@ -193,11 +219,68 @@ const handleClick = () => {
       pointer-events: none;
     }
 
+    .playing-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 6;
+      border-radius: 8px;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .playing-indicator {
+      display: flex;
+      gap: 4px;
+    }
+
+    .bar {
+      width: 8px;
+      height: 30px;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+      animation: barAnimation 2.4s ease-in-out infinite;
+    }
+
+    .bar1 {
+      animation-delay: 0s;
+    }
+    .bar2 {
+      animation-delay: 0.4s;
+    }
+    .bar3 {
+      animation-delay: 0.8s;
+    }
+
+    @keyframes barAnimation {
+      0%,
+      100% {
+        transform: scaleY(0.3);
+        opacity: 0.5;
+        border-radius: 0.6px;
+      }
+      50% {
+        transform: scaleY(1);
+        opacity: 1;
+        border-radius: 2px;
+      }
+    }
+
     img {
       width: 140px;
       height: 140px;
       object-fit: cover;
       border-radius: 8px;
+      transition: filter 0.2s ease;
+    }
+
+    &.playing img {
+      opacity: 0.6;
     }
   }
 }
