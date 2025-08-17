@@ -8,6 +8,7 @@ export const usePlayerStore = defineStore('player', {
     const player = {
       currentTrack: null,
       isPlaying: false,
+      isLoading: false,
       queue: [],
       currentIndex: -1,
       audio: new Audio(),
@@ -93,6 +94,7 @@ export const usePlayerStore = defineStore('player', {
     },
     async play(music, newPlay = false) {
       try {
+        this.isLoading = true
         if (newPlay) {
           this.queue = []
           this.currentIndex = -1
@@ -165,6 +167,8 @@ export const usePlayerStore = defineStore('player', {
       } catch (error) {
         console.error('Error playing track:', error)
         this.isPlaying = false
+      } finally {
+        this.isLoading = false
       }
     },
 
@@ -232,8 +236,13 @@ export const usePlayerStore = defineStore('player', {
         this.currentIndex++
       }
       const nextTrack = this.queue[this.currentIndex]
-      await this.play(nextTrack)
-      await this.updateDiscordPresence()
+      this.isLoading = true
+      try {
+        await this.play(nextTrack)
+        await this.updateDiscordPresence()
+      } finally {
+        this.isLoading = false
+      }
     },
 
     async previous() {
@@ -253,7 +262,12 @@ export const usePlayerStore = defineStore('player', {
 
       this.currentIndex--
       const prevTrack = this.queue[this.currentIndex]
-      await this.play(prevTrack)
+      this.isLoading = true
+      try {
+        await this.play(prevTrack)
+      } finally {
+        this.isLoading = false
+      }
     },
 
     async togglePlayPause() {
