@@ -8,6 +8,12 @@
         @error="loading = true"
         @load="loading = false"
       />
+      <div
+        v-if="!skeleton && player.isLoading && player.loadingTrackId === id"
+        class="loading-overlay"
+      >
+        <ImageSkeleton :size="140" :border-radius="8" />
+      </div>
       <div v-if="!skeleton" class="play-overlay">
         <q-icon name="mdi-play" size="48px" />
       </div>
@@ -170,6 +176,21 @@ const handleClick = () => {
       opacity: 0;
       transition: opacity 0.2s ease;
       border-radius: 8px;
+    }
+
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.7;
+      z-index: 5;
+      border-radius: 8px;
+      pointer-events: none;
     }
 
     img {
