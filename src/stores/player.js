@@ -9,6 +9,7 @@ export const usePlayerStore = defineStore('player', {
       currentTrack: null,
       isPlaying: false,
       isLoading: false,
+      loadingTrackId: null,
       queue: [],
       currentIndex: -1,
       audio: new Audio(),
@@ -95,6 +96,7 @@ export const usePlayerStore = defineStore('player', {
     async play(music, newPlay = false) {
       try {
         this.isLoading = true
+        this.loadingTrackId = typeof music === 'object' ? music.id : music
         if (newPlay) {
           this.queue = []
           this.currentIndex = -1
@@ -169,6 +171,7 @@ export const usePlayerStore = defineStore('player', {
         this.isPlaying = false
       } finally {
         this.isLoading = false
+        this.loadingTrackId = null
       }
     },
 
