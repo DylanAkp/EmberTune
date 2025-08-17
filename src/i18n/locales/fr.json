@@ -66,6 +66,10 @@
         "label": "Mode Sombre",
         "description": "Basculer entre les thèmes sombre et clair de l'application."
       },
+      "colorAccent": {
+        "label": "Couleur d'Accent",
+        "description": "Choisissez votre couleur d'accent préférée pour l'interface de l'application."
+      },
       "discordRich": {
         "label": "Activer Discord Rich Presence",
         "description": "Affiche la chanson en cours de lecture dans votre statut Discord."

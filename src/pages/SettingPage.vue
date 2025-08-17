@@ -73,6 +73,8 @@ const handleSelectChange = (key, value) => {
     i18n.global.locale.value = value
   } else if (key === 'contentLanguage') {
     settingsStore.setContentLanguage(value)
+  } else if (key === 'colorAccent') {
+    settingsStore.setColorAccent(value)
   }
 }
 
@@ -129,6 +131,15 @@ const Settings = {
     },
     darkMode: {
       type: 'boolean',
+    },
+    colorAccent: {
+      type: 'select',
+      options: [
+        { value: 'embertune', label: 'EmberTune' },
+        { value: 'spotagreen', label: 'Spot A Green' },
+        { value: 'youred', label: 'You-Red' },
+        { value: 'googlish', label: 'GooBlue' },
+      ],
     },
   },
   Advanced: {
@@ -235,7 +246,7 @@ watch(
 
 .select-input {
   height: 36px;
-  min-width: 120px;
+  min-width: 140px;
   padding: 0 12px;
   border-radius: 6px;
   border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));

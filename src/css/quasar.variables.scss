@@ -12,7 +12,7 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$accent: #eb8400;
+$accent: var(--accent-color, #eb8400);
 
 $grey-6: #818182;
 

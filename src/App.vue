@@ -39,6 +39,14 @@ watch(
   { immediate: true },
 )
 
+watch(
+  () => settings.colorAccent,
+  () => {
+    settings.applyColorAccent()
+  },
+  { immediate: true },
+)
+
 const setupDiscordPresence = async () => {
   if (!settings.discordRich) {
     window.discord.clearPresence()
@@ -115,8 +123,8 @@ onMounted(() => {
   handleUpdateCheck()
   settings.applyTheme()
   document.addEventListener('keydown', (e) => {
-    if(e.code ==='Space'){
-      if(e.target.tagName !== 'INPUT') {
+    if (e.code === 'Space') {
+      if (e.target.tagName !== 'INPUT') {
         e.preventDefault()
         player.togglePlayPause()
       }

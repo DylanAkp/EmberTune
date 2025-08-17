@@ -66,6 +66,10 @@
         "label": "Dark Mode",
         "description": "Toggle between dark and light app themes."
       },
+      "colorAccent": {
+        "label": "Color Accent",
+        "description": "Choose your preferred accent color for the application interface."
+      },
       "discordRich": {
         "label": "Enable Discord Rich Presence",
         "description": "This will show the current song playing in your Discord status."
