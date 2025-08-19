@@ -12,6 +12,8 @@ EmberTune is a desktop music player with a focus on design and functionality, Em
     </a>
 </div>
 
+<div align="center"><a href="https://discord.gg/rQBba7a3Sv">Discord Server</a></div>
+
 ---
 
 # 🚀 Getting Started
