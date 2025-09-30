@@ -1,3 +1,8 @@
+## ⚠️ Warning
+
+_This project is a proof of concept and depends on YouTube Music Unofficial API, it may not work in the future due to Google changes._\
+_Current state : 🔴 **Playing not working (YouTube changes)**_
+
 # <img src="res/icon.png" alt="EmberTune Icon" width="35" height="35" style="vertical-align: middle;"> EmberTune
 
 <div align="center">
@@ -44,7 +49,6 @@ We welcome contributions to EmberTune! When submitting changes, please follow th
 Each commit message should follow this format:
 
 1. **Headline**: A one-line summary of the change (50 characters maximum)
-
    - Use prefixes to describe the area changed (e.g., UI, API, Settings)
    - Example: `UI: Adjust PlayBar position`
 
